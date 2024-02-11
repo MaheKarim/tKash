@@ -16,10 +16,10 @@ class RedirectIfNotAgent
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $guard = 'agent')
+    public function handle($request, Closure $next, $guard = 'agents')
     {
         if (!Auth::guard($guard)->check()) {
-            return to_route('agent.login');
+        return to_route('agent.login');
         }
 
         return $next($request);

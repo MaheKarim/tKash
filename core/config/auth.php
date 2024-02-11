@@ -86,7 +86,7 @@ return [
 
         'agents' => [
             'driver' => 'eloquent',
-            'table' => App\Models\Agent::class,
+            'model' => App\Models\Agent::class,
         ],
     ],
 

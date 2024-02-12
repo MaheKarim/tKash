@@ -2,3 +2,5 @@ core/vendor
 .vscode
 test.js
 test.css
+.idea
+/.idea

@@ -3,7 +3,7 @@
 <section>
 	<div class="container">
         <div class="document-header d-flex flex-wrap justify-content-between align-items-center mb-2">
-            <div class="logo"><a href="{{ route('home') }}"><img src="{{ siteLogo() }}" alt=""></a></div>
+            <div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('{{ siteLogo() }}" alt=""></a></div>
             <nav class="navbar navbar-expand-lg navbar-light">
                   <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto">

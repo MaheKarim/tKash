@@ -2,7 +2,8 @@
     <button class="res-sidebar-close-btn"><i class="las la-times"></i></button>
     <div class="sidebar__inner">
         <div class="sidebar__logo">
-            <a href="{{route('admin.dashboard')}}" class="sidebar__main-logo"><img src="{{siteLogo()}}" alt="@lang('image')"></a>
+            <a href="{{route('admin.dashboard')}}" class="sidebar__main-logo"><img src="{{siteLogo()}}"
+                                                                                   alt="@lang('image')"></a>
         </div>
 
         <div class="sidebar__menu-wrapper" id="sidebar__menuWrapper">
@@ -49,7 +50,8 @@
                                     <span class="menu-title">@lang('Email Unverified')</span>
 
                                     @if($emailUnverifiedUsersCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{$emailUnverifiedUsersCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$emailUnverifiedUsersCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -70,7 +72,8 @@
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('KYC Unverified')</span>
                                     @if($kycUnverifiedUsersCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{$kycUnverifiedUsersCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$kycUnverifiedUsersCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -80,7 +83,8 @@
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('KYC Pending')</span>
                                     @if($kycPendingUsersCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{$kycPendingUsersCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$kycPendingUsersCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -154,7 +158,8 @@
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('Pending Deposits')</span>
                                     @if($pendingDepositsCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{$pendingDepositsCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$pendingDepositsCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -226,7 +231,8 @@
                                     <span class="menu-title">@lang('Pending Withdrawals')</span>
 
                                     @if($pendingWithdrawCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{$pendingWithdrawCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$pendingWithdrawCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -274,8 +280,8 @@
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('Pending Ticket')</span>
                                     @if($pendingTicketCount)
-                                    <span
-                                    class="menu-badge pill bg--danger ms-auto">{{$pendingTicketCount}}</span>
+                                        <span
+                                            class="menu-badge pill bg--danger ms-auto">{{$pendingTicketCount}}</span>
                                     @endif
                                 </a>
                             </li>
@@ -463,7 +469,7 @@
                     <div class="sidebar-submenu {{menuActive('admin.frontend.sections*',2)}} ">
                         <ul>
                             @php
-                               $lastSegment =  collect(request()->segments())->last();
+                                $lastSegment =  collect(request()->segments())->last();
                             @endphp
                             @foreach(getPageSections(true) as $k => $secs)
                                 @if($secs['builder'])
@@ -556,10 +562,10 @@
 
 @push('script')
     <script>
-        if($('li').hasClass('active')){
+        if ($('li').hasClass('active')) {
             $('#sidebar__menuWrapper').animate({
                 scrollTop: eval($(".active").offset().top - 320)
-            },500);
+            }, 500);
         }
     </script>
 @endpush

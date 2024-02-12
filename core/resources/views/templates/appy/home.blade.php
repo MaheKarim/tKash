@@ -1,0 +1,2 @@
+@extends($activeTemplate.'layouts.frontend')
+

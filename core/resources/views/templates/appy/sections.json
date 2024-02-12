@@ -48,10 +48,12 @@
     },
     "testimonial": {
         "builder": true,
+        "no_selection": true,
         "name": "Testimonial Section",
         "content": {
-            "heading": "text",
-            "subheading": "text"
+            "for": "text",
+            "author_name": "text",
+            "testimonial": "text"
         }
     }
 }

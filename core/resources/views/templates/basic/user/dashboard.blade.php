@@ -17,7 +17,7 @@
                   </div>
                 @endif
                 <div class="card custom--card">
-                    <div class="card-header">
+                    <div class="card-header bg-info">
                         <h5 class="card-title">{{ __($pageTitle) }}</h5>
                     </div>
                     <div class="card-body">

@@ -11,6 +11,8 @@ Route::namespace('Auth')->group(function () {
     });
 });
 
-Route::controller('AgentController')->group(function(){
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+Route::middleware('agents')->group(function () {
+    Route::controller('AgentController')->group(function(){
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
 });

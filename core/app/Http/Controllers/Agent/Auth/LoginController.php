@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Laramin\Utility\Onumoti;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
+        // parent::__construct();
         $this->middleware('agent')->except('logout');
     }
 
@@ -35,7 +36,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('agent.auth.login');
+         echo "Agent Portal Will Be Last";
     }
 
     public function login(Request $request)

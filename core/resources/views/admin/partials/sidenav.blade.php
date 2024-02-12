@@ -14,6 +14,12 @@
                         <span class="menu-title">@lang('Dashboard')</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item">
+                    <a href="{{ url('/')}}" class="nav-link" target="_blank">
+                        <i class="menu-icon las la-home"></i>
+                        <span class="menu-title">@lang('FrontEnd')</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.users*',3)}}">

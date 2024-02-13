@@ -1,434 +1,274 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}" itemscope itemtype="http://schema.org/WebPage">
+@extends($activeTemplate.'layouts.app')
+@section('contents')
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> {{ $general->siteName(__($pageTitle)) }}</title>
+        <div class="row">
+            <div class="col-xl-6 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Sales</h5>
+                                        </div>
 
-    @include('partials.seo')
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="truck"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">2.382</h1>
+                                    <div class="mb-0">
+                                                                <span class="text-danger"> <i
+                                                                        class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Visitors</h5>
+                                        </div>
 
-
-    <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <link href="{{asset('assets/global/css/all.min.css')}}" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}"/>
-
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/custom.css') }}">
-    @stack('style-lib')
-
-    @stack('style')
-
-
-    <style>
-
-        :root {
-            --main: 115, 103, 240;
-        }
-
-        body {
-            background-color: #f6f6f6;
-        }
-
-        .page-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-flow: column;
-            background-color: #f6f6f6;
-            min-height: 100vh;
-        }
-
-        .page-wrapper > div, .page-wrapper > section {
-            width: 100%;
-        }
-
-        .navbar {
-            width: 100%;
-        }
-
-        .custom--card {
-            box-shadow: 0 3px 35px rgba(0, 0, 0, .1);
-            border: 0;
-        }
-
-        .custom--card .card-header {
-            padding: 13px 25px;
-            text-align: center;
-            background-color: rgb(var(--main));
-            border: 0;
-        }
-
-        .custom--card .card-footer {
-            background: #fff
-        }
-
-        .custom--card .card-header .title {
-            margin-bottom: 0;
-            color: #fff
-        }
-
-        .custom--card .card-body {
-            padding: 25px;
-            border: 0;
-        }
-
-        .pagination {
-            margin-bottom: 0px;
-        }
-
-        .custom--card .card-footer p {
-            margin-bottom: 0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            font-size: 15px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form--control {
-            border-width: 2px;
-            border-color: #dce1e6;
-        }
-
-        input.form--control, select.form--control {
-            height: 45px;
-        }
-
-        .form--control:focus {
-            border-color: rgb(var(--main));
-            box-shadow: 0 0 25px rgba(var(--main), 0.071);
-            outline: 0;
-        }
-
-        .forgot-pass {
-            font-size: 14px;
-        }
-
-        .btn--base {
-            color: #fff;
-            background-color: rgb(var(--main));
-        }
-
-        .btn--base:hover {
-            color: #fff;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            font-weight: 500;
-        }
-
-        /* table Css */
-        .custom--table {
-            background-color: #fff;
-        }
-
-        .custom--table thead {
-            background-color: rgb(var(--main))
-        }
-
-        .custom--table thead tr th {
-            color: #fff
-        }
-
-        .custom--table tbody tr td,
-        .custom--table thead tr th {
-            vertical-align: middle;
-            padding: 10px 20px
-        }
-
-        .custom--table tbody tr td:last-child {
-            text-align: right
-        }
-
-        .custom--table thead tr th:last-child {
-            text-align: right
-        }
-
-        .custom--table tbody tr:last-child {
-            border-bottom: none;
-            border-bottom: 1px solid rgb(255, 255, 255);
-        }
-
-        .btn-sm {
-            padding: 0.25rem 0.5rem !important;
-        }
-
-        .navbar-brand img {
-            max-width: 220px;
-        }
-
-        label.required:after {
-            content: '*';
-            color: #DC3545 !important;
-            margin-left: 2px;
-        }
-
-
-        .badge--pending,
-        .badge--warning,
-        .badge--success,
-        .badge--primary,
-        .badge--danger,
-        .badge--dark {
-            border-radius: 999px;
-            padding: 2px 15px;
-            position: relative;
-            border-radius: 999px;
-            -webkit-border-radius: 999px;
-            -moz-border-radius: 999px;
-            -ms-border-radius: 999px;
-            -o-border-radius: 999px;
-        }
-
-        .badge--warning {
-            background-color: rgba(255, 159, 67, 0.1);
-            border: 1px solid #ff9f43;
-            color: #ff9f43;
-        }
-
-        .badge--success {
-            background-color: rgba(40, 199, 111, 0.1);
-            border: 1px solid #28c76f;
-            color: #28c76f;
-        }
-
-        .badge--danger {
-            background-color: rgba(234, 84, 85, 0.1);
-            border: 1px solid #ea5455;
-            color: #ea5455;
-        }
-
-        .badge--primary {
-            background-color: rgba(115, 103, 240, 0.1);
-            border: 1px solid #4634ff;
-            color: #4634ff;
-        }
-
-        .badge--dark {
-            background-color: rgba(0, 0, 0, 0.1);
-            border: 1px solid #000000;
-            color: #000000;
-        }
-
-    </style>
-
-    <link rel="stylesheet"
-          href="{{ asset($activeTemplateTrue.'css/color.php') }}?color={{ $general->base_color }}&secondColor={{ $general->secondary_color }}">
-</head>
-
-<body>
-
-
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ siteLogo() }}" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="@lang('Toggle navigation')">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-
-                @if($general->multi_language)
-                    @php
-                        $language = App\Models\Language::all();
-                    @endphp
-                    <select class="langSel form-control">
-                        @foreach($language as $item)
-                            <option value="{{ $item->code }}"
-                                    @if(session('lang')==$item->code) selected @endif>{{ __($item->name) }}</option>
-                        @endforeach
-                    </select>
-                @endif
-
-
-
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact') }}">@lang('contact')</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.login') }}">@lang('login')</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="{{ route('user.register') }}">@lang('register')</a>
-                    </li>
-                @endguest
-                @auth
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="{{ route('user.home') }}">@lang('Dashboard')</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @lang('Support Ticket')
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"
-                               href="{{ route('ticket.open') }}">@lang('Create New')</a>
-                            <a class="dropdown-item" href="{{ route('ticket.index') }}">@lang('My
-                                    Ticket')</a>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="users"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">14.212</h1>
+                                    <div class="mb-0">
+                                                                <span class="text-success"> <i
+                                                                        class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </li>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Earnings</h5>
+                                        </div>
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @lang('Deposit')
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"
-                               href="{{ route('user.deposit.index') }}">@lang('Deposit Money')</a>
-                            <a class="dropdown-item"
-                               href="{{ route('user.deposit.history') }}">@lang('Deposit
-                                    Log')</a>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="dollar-sign"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">$21.300</h1>
+                                    <div class="mb-0">
+                                                                <span class="text-success"> <i
+                                                                        class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Orders</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="shopping-cart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">64</h1>
+                                    <div class="mb-0">
+                                                                <span class="text-danger"> <i
+                                                                        class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </li>
+                    </div>
+                </div>
+            </div>
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @lang('Withdraw')
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"
-                               href="{{ route('user.withdraw') }}">@lang('Withdraw Money')</a>
-                            <a class="dropdown-item"
-                               href="{{ route('user.withdraw.history') }}">@lang('Withdraw
-                                    Log')</a>
+            <div class="col-xl-6 col-xxl-7">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Recent Movement</h5>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="chart chart-sm">
+                            <canvas id="chartjs-dashboard-line"></canvas>
                         </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.transactions') }}">@lang('Transactions')</a>
-                    </li>
-
-
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ auth()->user()->fullname }} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('user.change.password') }}">
-                                @lang('Change Password')
-                            </a>
-                            <a class="dropdown-item" href="{{ route('user.profile.setting') }}">
-                                @lang('Profile Setting')
-                            </a>
-                            <a class="dropdown-item" href="{{ route('user.twofactor') }}">
-                                @lang('2FA Security')
-                            </a>
-
-
-                            <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                @lang('Logout')
-                            </a>
-
-                        </div>
-                    </li>
-                @endauth
-
-            </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Browser Usage</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                        <div class="align-self-center w-100">
+                            <div class="py-3">
+                                <div class="chart chart-xs">
+                                    <canvas id="chartjs-dashboard-pie"></canvas>
+                                </div>
+                            </div>
+
+                            <table class="table mb-0">
+                                <tbody>
+                                <tr>
+                                    <td>Chrome</td>
+                                    <td class="text-end">4306</td>
+                                </tr>
+                                <tr>
+                                    <td>Firefox</td>
+                                    <td class="text-end">3801</td>
+                                </tr>
+                                <tr>
+                                    <td>IE</td>
+                                    <td class="text-end">1689</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Real-Time</h5>
+                    </div>
+                    <div class="card-body px-4">
+                        <div id="world_map" style="height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+                <div class="card flex-fill">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Calendar</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                        <div class="align-self-center w-100">
+                            <div class="chart">
+                                <div id="datetimepicker-dashboard"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Latest Projects</h5>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="d-none d-xl-table-cell">Start Date</th>
+                            <th class="d-none d-xl-table-cell">End Date</th>
+                            <th>Status</th>
+                            <th class="d-none d-md-table-cell">Assignee</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Project Apollo</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-success">Done</span></td>
+                            <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                        </tr>
+                        <tr>
+                            <td>Project Fireball</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-danger">Cancelled</span></td>
+                            <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                        <tr>
+                            <td>Project Hades</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-success">Done</span></td>
+                            <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                        </tr>
+                        <tr>
+                            <td>Project Nitro</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-warning">In progress</span></td>
+                            <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                        </tr>
+                        <tr>
+                            <td>Project Phoenix</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-success">Done</span></td>
+                            <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                        <tr>
+                            <td>Project X</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-success">Done</span></td>
+                            <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                        </tr>
+                        <tr>
+                            <td>Project Romeo</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-success">Done</span></td>
+                            <td class="d-none d-md-table-cell">Christina Mason</td>
+                        </tr>
+                        <tr>
+                            <td>Project Wombat</td>
+                            <td class="d-none d-xl-table-cell">01/01/2023</td>
+                            <td class="d-none d-xl-table-cell">31/06/2023</td>
+                            <td><span class="badge bg-warning">In progress</span></td>
+                            <td class="d-none d-md-table-cell">William Harris</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Monthly Sales</h5>
+                    </div>
+                    <div class="card-body d-flex w-100">
+                        <div class="align-self-center chart chart-lg">
+                            <canvas id="chartjs-dashboard-bar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</nav>
-
-<div class="page-wrapper">
-    @yield('content')
-</div>
-
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
-<script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
-
-
-<script src="{{ asset($activeTemplateTrue.'js/jquery.validate.js') }}"></script>
-
-@stack('script-lib')
-
-@include('partials.notify')
-
-@include('partials.plugins')
-
-
-@stack('script')
-
-
-<script>
-    (function ($) {
-        "use strict";
-        $(".langSel").on("change", function () {
-            window.location.href = "{{ route('home') }}/change/" + $(this).val();
-        });
-
-    })(jQuery);
-
-</script>
-
-
-<script>
-    (function ($) {
-        "use strict";
-
-        $('form').on('submit', function () {
-            if ($(this).valid()) {
-                $(':submit', this).attr('disabled', 'disabled');
-            }
-        });
-
-        var inputElements = $('[type=text],[type=password],select,textarea');
-        $.each(inputElements, function (index, element) {
-            element = $(element);
-            element.closest('.form-group').find('label').attr('for', element.attr('name'));
-            element.attr('id', element.attr('name'))
-        });
-
-        $.each($('input, select, textarea'), function (i, element) {
-
-            if (element.hasAttribute('required')) {
-                $(element).closest('.form-group').find('label').addClass('required');
-            }
-
-        });
-
-
-        $('.showFilterBtn').on('click', function () {
-            $('.responsive-filter-card').slideToggle();
-        });
-
-
-        Array.from(document.querySelectorAll('table')).forEach(table => {
-            let heading = table.querySelectorAll('thead tr th');
-            Array.from(table.querySelectorAll('tbody tr')).forEach((row) => {
-                Array.from(row.querySelectorAll('td')).forEach((colum, i) => {
-                    colum.setAttribute('data-label', heading[i].innerText)
-                });
-            });
-        });
-
-    })(jQuery);
-
-</script>
-
-</body>
-
-</html>
+@endsection

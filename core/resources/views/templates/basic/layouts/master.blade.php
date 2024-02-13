@@ -10,12 +10,11 @@
     @include('partials.seo')
 
 
-
     <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{asset('assets/global/css/all.min.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}"/>
 
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/custom.css') }}">
     @stack('style-lib')
@@ -25,7 +24,7 @@
 
     <style>
 
-        :root{
+        :root {
             --main: 115, 103, 240;
         }
 
@@ -41,7 +40,8 @@
             background-color: #f6f6f6;
             min-height: 100vh;
         }
-        .page-wrapper > div,.page-wrapper > section {
+
+        .page-wrapper > div, .page-wrapper > section {
             width: 100%;
         }
 
@@ -54,14 +54,14 @@
             border: 0;
         }
 
-        .custom--card .card-header{
+        .custom--card .card-header {
             padding: 13px 25px;
             text-align: center;
             background-color: rgb(var(--main));
             border: 0;
         }
 
-        .custom--card .card-footer{
+        .custom--card .card-footer {
             background: #fff
         }
 
@@ -75,11 +75,11 @@
             border: 0;
         }
 
-        .pagination{
+        .pagination {
             margin-bottom: 0px;
         }
 
-        .custom--card .card-footer p{
+        .custom--card .card-footer p {
             margin-bottom: 0;
         }
 
@@ -162,270 +162,272 @@
             padding: 0.25rem 0.5rem !important;
         }
 
-        .navbar-brand img{
+        .navbar-brand img {
             max-width: 220px;
         }
 
-        label.required:after{
+        label.required:after {
             content: '*';
-            color: #DC3545!important;
+            color: #DC3545 !important;
             margin-left: 2px;
         }
 
 
         .badge--pending,
-.badge--warning,
-.badge--success,
-.badge--primary,
-.badge--danger,
-.badge--dark {
-    border-radius: 999px;
-    padding: 2px 15px;
-    position: relative;
-    border-radius: 999px;
-    -webkit-border-radius: 999px;
-    -moz-border-radius: 999px;
-    -ms-border-radius: 999px;
-    -o-border-radius: 999px;
-}
+        .badge--warning,
+        .badge--success,
+        .badge--primary,
+        .badge--danger,
+        .badge--dark {
+            border-radius: 999px;
+            padding: 2px 15px;
+            position: relative;
+            border-radius: 999px;
+            -webkit-border-radius: 999px;
+            -moz-border-radius: 999px;
+            -ms-border-radius: 999px;
+            -o-border-radius: 999px;
+        }
 
-.badge--warning {
-    background-color: rgba(255, 159, 67, 0.1);
-    border: 1px solid #ff9f43;
-    color: #ff9f43;
-}
+        .badge--warning {
+            background-color: rgba(255, 159, 67, 0.1);
+            border: 1px solid #ff9f43;
+            color: #ff9f43;
+        }
 
-.badge--success {
-    background-color: rgba(40, 199, 111, 0.1);
-    border: 1px solid #28c76f;
-    color: #28c76f;
-}
+        .badge--success {
+            background-color: rgba(40, 199, 111, 0.1);
+            border: 1px solid #28c76f;
+            color: #28c76f;
+        }
 
-.badge--danger {
-    background-color: rgba(234, 84, 85, 0.1);
-    border: 1px solid #ea5455;
-    color: #ea5455;
-}
+        .badge--danger {
+            background-color: rgba(234, 84, 85, 0.1);
+            border: 1px solid #ea5455;
+            color: #ea5455;
+        }
 
-.badge--primary {
-    background-color: rgba(115, 103, 240, 0.1);
-    border: 1px solid #4634ff;
-    color: #4634ff;
-}
+        .badge--primary {
+            background-color: rgba(115, 103, 240, 0.1);
+            border: 1px solid #4634ff;
+            color: #4634ff;
+        }
 
-.badge--dark {
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px solid #000000;
-    color: #000000;
-}
+        .badge--dark {
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 1px solid #000000;
+            color: #000000;
+        }
 
     </style>
 
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/color.php') }}?color={{ $general->base_color }}&secondColor={{ $general->secondary_color }}">
+    <link rel="stylesheet"
+          href="{{ asset($activeTemplateTrue.'css/color.php') }}?color={{ $general->base_color }}&secondColor={{ $general->secondary_color }}">
 </head>
 
 <body>
 
 
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('{{ siteLogo() }}" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="{{ route('home') }}">
+            <img src="{{ siteLogo() }}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="@lang('Toggle navigation')">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ms-auto">
 
-                    @if($general->multi_language)
-                        @php
-                            $language = App\Models\Language::all();
-                        @endphp
-                        <select class="langSel form-control">
-                            @foreach($language as $item)
-                                <option value="{{ $item->code }}" @if(session('lang')==$item->code) selected @endif>{{ __($item->name) }}</option>
-                            @endforeach
-                        </select>
-                    @endif
+                @if($general->multi_language)
+                    @php
+                        $language = App\Models\Language::all();
+                    @endphp
+                    <select class="langSel form-control">
+                        @foreach($language as $item)
+                            <option value="{{ $item->code }}"
+                                    @if(session('lang')==$item->code) selected @endif>{{ __($item->name) }}</option>
+                        @endforeach
+                    </select>
+                @endif
 
 
 
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact') }}">@lang('contact')</a>
-                        </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact') }}">@lang('contact')</a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.login') }}">@lang('login')</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.login') }}">@lang('login')</a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                                href="{{ route('user.register') }}">@lang('register')</a>
-                        </li>
-                        @endguest
-                        @auth
-                        <li class="nav-item">
-                            <a class="nav-link"
-                            href="{{ route('user.home') }}">@lang('Dashboard')</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ route('user.register') }}">@lang('register')</a>
+                    </li>
+                @endguest
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ route('user.home') }}">@lang('Dashboard')</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @lang('Support Ticket')
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                            href="{{ route('ticket.open') }}">@lang('Create New')</a>
+                               href="{{ route('ticket.open') }}">@lang('Create New')</a>
                             <a class="dropdown-item" href="{{ route('ticket.index') }}">@lang('My
                                     Ticket')</a>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @lang('Deposit')
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                            href="{{ route('user.deposit.index') }}">@lang('Deposit Money')</a>
+                               href="{{ route('user.deposit.index') }}">@lang('Deposit Money')</a>
                             <a class="dropdown-item"
-                            href="{{ route('user.deposit.history') }}">@lang('Deposit
+                               href="{{ route('user.deposit.history') }}">@lang('Deposit
                                     Log')</a>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @lang('Withdraw')
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item"
-                                    href="{{ route('user.withdraw') }}">@lang('Withdraw Money')</a>
-                                <a class="dropdown-item"
-                                    href="{{ route('user.withdraw.history') }}">@lang('Withdraw
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @lang('Withdraw')
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                               href="{{ route('user.withdraw') }}">@lang('Withdraw Money')</a>
+                            <a class="dropdown-item"
+                               href="{{ route('user.withdraw.history') }}">@lang('Withdraw
                                     Log')</a>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.transactions') }}">@lang('Transactions')</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.transactions') }}">@lang('Transactions')</a>
+                    </li>
 
 
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ auth()->user()->fullname }} <span class="caret"></span>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ auth()->user()->fullname }} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('user.change.password') }}">
+                                @lang('Change Password')
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('user.change.password') }}">
-                                    @lang('Change Password')
-                                </a>
-                                <a class="dropdown-item" href="{{ route('user.profile.setting') }}">
-                                    @lang('Profile Setting')
-                                </a>
-                                <a class="dropdown-item" href="{{ route('user.twofactor') }}">
-                                    @lang('2FA Security')
-                                </a>
+                            <a class="dropdown-item" href="{{ route('user.profile.setting') }}">
+                                @lang('Profile Setting')
+                            </a>
+                            <a class="dropdown-item" href="{{ route('user.twofactor') }}">
+                                @lang('2FA Security')
+                            </a>
 
 
-                                <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                    @lang('Logout')
-                                </a>
+                            <a class="dropdown-item" href="{{ route('user.logout') }}">
+                                @lang('Logout')
+                            </a>
 
-                            </div>
-                        </li>
-                    @endauth
+                        </div>
+                    </li>
+                @endauth
 
-                </ul>
-            </div>
+            </ul>
         </div>
-    </nav>
-
-    <div class="page-wrapper">
-        @yield('content')
     </div>
+</nav>
+
+<div class="page-wrapper">
+    @yield('content')
+</div>
 
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
-    <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
+<script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
 
-    <script src="{{ asset($activeTemplateTrue.'js/jquery.validate.js') }}"></script>
+<script src="{{ asset($activeTemplateTrue.'js/jquery.validate.js') }}"></script>
 
-    @stack('script-lib')
+@stack('script-lib')
 
-    @include('partials.notify')
+@include('partials.notify')
 
-    @include('partials.plugins')
-
-
-    @stack('script')
+@include('partials.plugins')
 
 
-    <script>
-        (function ($) {
-            "use strict";
-            $(".langSel").on("change", function () {
-                window.location.href = "{{ route('home') }}/change/" + $(this).val();
-            });
-
-        })(jQuery);
-
-    </script>
+@stack('script')
 
 
-    <script>
-        (function ($) {
-            "use strict";
+<script>
+    (function ($) {
+        "use strict";
+        $(".langSel").on("change", function () {
+            window.location.href = "{{ route('home') }}/change/" + $(this).val();
+        });
 
-            $('form').on('submit', function () {
-                if ($(this).valid()) {
-                    $(':submit', this).attr('disabled', 'disabled');
-                }
-            });
+    })(jQuery);
 
-            var inputElements = $('[type=text],[type=password],select,textarea');
-            $.each(inputElements, function (index, element) {
-                element = $(element);
-                element.closest('.form-group').find('label').attr('for',element.attr('name'));
-                element.attr('id',element.attr('name'))
-            });
-
-            $.each($('input, select, textarea'), function (i, element) {
-
-                if (element.hasAttribute('required')) {
-                    $(element).closest('.form-group').find('label').addClass('required');
-                }
-
-            });
+</script>
 
 
-            $('.showFilterBtn').on('click',function(){
-                $('.responsive-filter-card').slideToggle();
-            });
+<script>
+    (function ($) {
+        "use strict";
+
+        $('form').on('submit', function () {
+            if ($(this).valid()) {
+                $(':submit', this).attr('disabled', 'disabled');
+            }
+        });
+
+        var inputElements = $('[type=text],[type=password],select,textarea');
+        $.each(inputElements, function (index, element) {
+            element = $(element);
+            element.closest('.form-group').find('label').attr('for', element.attr('name'));
+            element.attr('id', element.attr('name'))
+        });
+
+        $.each($('input, select, textarea'), function (i, element) {
+
+            if (element.hasAttribute('required')) {
+                $(element).closest('.form-group').find('label').addClass('required');
+            }
+
+        });
 
 
-            Array.from(document.querySelectorAll('table')).forEach(table => {
-                let heading = table.querySelectorAll('thead tr th');
-                Array.from(table.querySelectorAll('tbody tr')).forEach((row) => {
-                    Array.from(row.querySelectorAll('td')).forEach((colum, i) => {
-                        colum.setAttribute('data-label', heading[i].innerText)
-                    });
+        $('.showFilterBtn').on('click', function () {
+            $('.responsive-filter-card').slideToggle();
+        });
+
+
+        Array.from(document.querySelectorAll('table')).forEach(table => {
+            let heading = table.querySelectorAll('thead tr th');
+            Array.from(table.querySelectorAll('tbody tr')).forEach((row) => {
+                Array.from(row.querySelectorAll('td')).forEach((colum, i) => {
+                    colum.setAttribute('data-label', heading[i].innerText)
                 });
             });
+        });
 
-        })(jQuery);
+    })(jQuery);
 
-    </script>
+</script>
 
 </body>
 

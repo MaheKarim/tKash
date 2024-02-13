@@ -17,7 +17,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link {{ menuActive('') }}" href="#">
+                <a class="sidebar-link {{ menuActive('user.send.money') }}" href="{{ route('user.send.money') }}">
                     <i class="align-middle" data-feather="navigation"></i> <span
                         class="align-middle">Send Money</span>
                 </a>

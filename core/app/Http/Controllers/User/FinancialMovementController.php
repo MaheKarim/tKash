@@ -35,9 +35,11 @@ class FinancialMovementController extends Controller
          */
 
         /* 1. Check Username  */
-        $receiver = User::where('username', $request->username)->first();
+        $receiver = User::where('username', $request->username)
+            ->where('username', '!=', auth()->user()->username)
+            ->first();
         if (!$receiver) {
-            $notify[] = ['error', 'User not found'];
+            $notify[] = ['error', 'Receiver not found'];
             return back()->withNotify($notify);
         }
 
@@ -56,7 +58,6 @@ class FinancialMovementController extends Controller
             $notify[] = ['error', 'Insufficient balance'];
             return back()->withNotify($notify);
         }
-
         /* 5. Check Final Amount  */
 
 
@@ -79,7 +80,7 @@ class FinancialMovementController extends Controller
             $user->save();
         }
 
-        $notify[] = ['success', 'Money sent successfully'];
+        $notify[] = ['success', 'Sent money to ' . $receiver->username . ' successfully'];
         return to_route('user.send.history')->withNotify($notify);
     }
 

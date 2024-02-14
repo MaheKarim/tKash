@@ -31,6 +31,7 @@
             @yield('contents')
 
         </main>
+        @include('partials.notify')
 
         @include($activeTemplate.'partials.footer')
     </div>

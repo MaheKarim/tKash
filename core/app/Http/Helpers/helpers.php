@@ -5,6 +5,7 @@ use App\Lib\GoogleAuthenticator;
 use App\Models\Extension;
 use App\Models\Frontend;
 use App\Models\GeneralSetting;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Lib\Captcha;
 use App\Lib\ClientInfo;
@@ -31,8 +32,8 @@ function verificationCode($length)
 {
     if ($length == 0) return 0;
     $min = pow(10, $length - 1);
-    $max = (int) ($min - 1).'9';
-    return random_int($min,$max);
+    $max = (int)($min - 1) . '9';
+    return random_int($min, $max);
 }
 
 function getNumber($length = 8)
@@ -47,25 +48,30 @@ function getNumber($length = 8)
 }
 
 
-function activeTemplate($asset = false) {
+function activeTemplate($asset = false)
+{
     $general = gs();
     $template = session('template') ?? $general->active_template;
     if ($asset) return 'assets/templates/' . $template . '/';
     return 'templates.' . $template . '.';
 }
 
-function activeTemplateName() {
+function activeTemplateName()
+{
     $general = gs();
     $template = session('template') ?? $general->active_template;
     return $template;
 }
 
-function siteLogo($type = null) {
+function siteLogo($type = null)
+{
     $name = $type ? "/logo_$type.png')}}" : '/logo.png';
     return getImage(getFilePath('logoIcon') . $name);
 }
-function siteFavicon() {
-    return getImage(getFilePath('logoIcon'). '/favicon.png');
+
+function siteFavicon()
+{
+    return getImage(getFilePath('logoIcon') . '/favicon.png');
 }
 
 function loadReCaptcha()
@@ -217,7 +223,7 @@ function notify($user, $templateName, $shortCodes = null, $sendVia = null, $crea
     ];
 
     if (gettype($user) == 'array') {
-        $user = (object) $user;
+        $user = (object)$user;
     }
 
     $shortCodes = array_merge($shortCodes ?? [], $globalShortCodes);
@@ -263,7 +269,7 @@ function menuActive($routeName, $type = null, $param = null)
 }
 
 
-function fileUploader($file, $location, $size = null, $old = null, $thumb = null,$filename = null)
+function fileUploader($file, $location, $size = null, $old = null, $thumb = null, $filename = null)
 {
     $fileManager = new FileManager($file);
     $fileManager->path = $location;
@@ -311,7 +317,8 @@ function showDateTime($date, $format = 'Y-m-d h:i A')
 }
 
 
-function getContent($dataKeys, $singleQuery = false, $limit = null, $orderById = false) {
+function getContent($dataKeys, $singleQuery = false, $limit = null, $orderById = false)
+{
 
     $templateName = activeTemplateName();
     if ($singleQuery) {
@@ -441,7 +448,8 @@ function gs($key = null)
     return $general;
 }
 
-function isImage($string){
+function isImage($string)
+{
     $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
     $fileExtension = pathinfo($string, PATHINFO_EXTENSION);
     if (in_array($fileExtension, $allowedExtensions)) {
@@ -458,4 +466,19 @@ function isHtml($string)
     } else {
         return false;
     }
+}
+
+function dailyLimitCheck(User $user, $amount): bool
+{
+    $today = Carbon::today()->format('Y-m-d');
+    $totalSendMoney = $user->financial_movements()->where('created_at', $today)->sum('final_amount');
+
+    $remainLimit = $user->daily_trx_limit - $totalSendMoney;
+//    dd($totalSendMoney, $remainLimit);
+
+    if ($remainLimit > $amount) {
+
+        return true;
+    }
+    return false;
 }

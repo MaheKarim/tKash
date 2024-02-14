@@ -86,10 +86,10 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
 
             // Send Money
-            Route::controller('FinancialMovementController')->prefix('sendMoney')->name('send.')->group(function () {
+            Route::controller('FinancialMovementController')->name('send.')->prefix('sendMoney')->group(function () {
                 Route::get('/', 'sendMoney')->name('money');
                 Route::post('/', 'sendMoneyStore')->name('store');
-                // Route::get('preview', 'sendMoneyPreview')->name('preview');
+                Route::get('history', 'history')->name('history');
                 // Route::post('preview', 'sendMoneySubmit')->name('submit');
             });
         });

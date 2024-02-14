@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','ver_code','balance','kyc_data'
+        'password', 'remember_token', 'ver_code', 'balance', 'kyc_data'
     ];
 
     /**
@@ -42,17 +42,17 @@ class User extends Authenticatable
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class)->orderBy('id','desc');
+        return $this->hasMany(Transaction::class)->orderBy('id', 'desc');
     }
 
     public function deposits()
     {
-        return $this->hasMany(Deposit::class)->where('status','!=',Status::PAYMENT_INITIATE);
+        return $this->hasMany(Deposit::class)->where('status', '!=', Status::PAYMENT_INITIATE);
     }
 
     public function withdrawals()
     {
-        return $this->hasMany(Withdrawal::class)->where('status','!=',Status::PAYMENT_INITIATE);
+        return $this->hasMany(Withdrawal::class)->where('status', '!=', Status::PAYMENT_INITIATE);
     }
 
     public function tickets()
@@ -63,14 +63,14 @@ class User extends Authenticatable
     public function fullname(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->firstname . ' ' . $this->lastname,
+            get: fn() => $this->firstname . ' ' . $this->lastname,
         );
     }
 
     // SCOPES
     public function scopeActive($query)
     {
-        return $query->where('status', Status::USER_ACTIVE)->where('ev',Status::VERIFIED)->where('sv',Status::VERIFIED);
+        return $query->where('status', Status::USER_ACTIVE)->where('ev', Status::VERIFIED)->where('sv', Status::VERIFIED);
     }
 
     public function scopeBanned($query)
@@ -110,7 +110,12 @@ class User extends Authenticatable
 
     public function scopeWithBalance($query)
     {
-        return $query->where('balance','>', 0);
+        return $query->where('balance', '>', 0);
+    }
+
+    public function financial_movements()
+    {
+        return $this->hasMany(FinancialMovement::class);
     }
 
 }

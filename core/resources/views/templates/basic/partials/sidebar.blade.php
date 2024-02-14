@@ -22,6 +22,13 @@
                         class="align-middle">Send Money</span>
                 </a>
             </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link {{ menuActive('user.send.history') }}" href="{{ route('user.send.history') }}">
+                    <i class="align-middle" data-feather="list"></i> <span
+                        class="align-middle">Send History</span>
+                </a>
+            </li>
         </ul>
 
     </div>

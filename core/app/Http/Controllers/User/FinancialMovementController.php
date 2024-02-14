@@ -47,9 +47,15 @@ class FinancialMovementController extends Controller
         $user = auth()->user();
         $amount = $request->amount;
 
-        /* 2. Check Limit  */
+        /* 2. Check Limit Monthly */
         if (!dailyLimitCheck($user, $amount)) {
             $notify[] = ['error', 'You have exceeded your daily transaction limit'];
+            return back()->withNotify($notify);
+        }
+
+        /* 3. Check Limit Monthly */
+        if (!monthlyLimitCheck($user, $amount)) {
+            $notify[] = ['error', 'You have exceeded your monthly transaction limit'];
             return back()->withNotify($notify);
         }
 

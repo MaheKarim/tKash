@@ -91,6 +91,14 @@ class FinancialMovementController extends Controller
             $user->save();
         }
 
+        /* 7. Send Email  */
+        notify($user, 'SEND_MONEY', [
+            'amount' => showAmount($amount),
+            'final_amount' => showAmount($request->final_amount),
+            'receiver' => $receiver->username,
+            'trx' => $financialTransaction->trx,
+        ]);
+
         $notify[] = ['success', 'Sent money to ' . $receiver->username . ' successfully'];
         return to_route('user.send.history')->withNotify($notify);
     }

@@ -16,15 +16,15 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link {{ menuActive('user.send.money') }}" href="{{ route('user.send.money') }}">
+            <li class="sidebar-item {{ menuActive('user.send.money') }}">
+                <a class="sidebar-link" href="{{ route('user.send.money') }}">
                     <i class="align-middle" data-feather="navigation"></i> <span
                         class="align-middle">Send Money</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link {{ menuActive('user.send.history') }}" href="{{ route('user.send.history') }}">
+            <li class="sidebar-item {{ menuActive('user.send.history') }}">
+                <a class="sidebar-link" href="{{ route('user.send.history') }}">
                     <i class="align-middle" data-feather="list"></i> <span
                         class="align-middle">Send History</span>
                 </a>

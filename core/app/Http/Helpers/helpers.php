@@ -494,3 +494,19 @@ function monthlyLimitCheck(User $user, $amount): bool
     }
     return false;
 }
+
+function validateAmount($amount): bool
+{
+    if (!is_numeric($amount)) {
+        return false;
+    }
+    $general = gs(); // Retrieve GeneralSetting
+
+    if ($amount < $general->min_trx_limit) {
+        return "Transaction amount is less than the minimum allowed amount.";
+    } elseif ($amount > $general->max_trx_limit) {
+        return "Transaction amount exceeds the maximum allowed amount.";
+    }
+
+    return true;
+}

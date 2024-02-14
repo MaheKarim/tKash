@@ -65,7 +65,12 @@ class FinancialMovementController extends Controller
             return back()->withNotify($notify);
         }
         /* 5. Check Final Amount  */
+        $validationResult = validateAmount($request->final_amount);
 
+        if ($validationResult !== true) {
+            $notify[] = ['error', 'Min/Max Limit'];
+            return back()->withNotify($notify);
+        }
 
         /* 6. Update Balance  */
         $user->balance -= $request->amount;

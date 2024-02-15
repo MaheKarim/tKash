@@ -86,7 +86,7 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
 
             // Send Money
-            Route::controller('FinancialMovementController')->name('send.')->prefix('sendMoney')->group(function () {
+            Route::controller('SendMoneyController')->name('send.')->prefix('sendMoney')->group(function () {
                 Route::get('/', 'sendMoney')->name('money');
                 Route::post('/', 'sendMoneyStore')->name('store');
                 Route::get('history', 'history')->name('history');

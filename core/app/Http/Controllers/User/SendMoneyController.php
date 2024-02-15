@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class FinancialMovementController extends Controller
+class SendMoneyController extends Controller
 {
 
     public function sendMoney(): View
@@ -34,10 +34,19 @@ class FinancialMovementController extends Controller
          * 10. Save Transaction
          */
 
+        $request->validate([
+            'username' => 'required',
+            'amount' => 'required|numeric',
+            'remark' => 'nullable',
+        ]);
+        // Check User First
+        $checkUser = User::where('username', '=', auth()->user()->username)->first();
+        if ($checkUser) {
+            $notify[] = ['error', 'You can not send money to yourself'];
+            return back()->withNotify($notify);
+        }
         /* 1. Check Username  */
-        $receiver = User::where('username', $request->username)
-            ->where('username', '!=', auth()->user()->username)
-            ->first();
+        $receiver = User::where('username', $request->username)->first();
         if (!$receiver) {
             $notify[] = ['error', 'Receiver not found'];
             return back()->withNotify($notify);

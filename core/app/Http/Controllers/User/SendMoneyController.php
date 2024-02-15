@@ -91,26 +91,28 @@ class SendMoneyController extends Controller
         $user->save();
         $receiver->save();
 
-        /* Transaction Model */
-        $sendMoney = new SendMoney();
+        // Transaction Save For Sender
+        $sendMoney = new Transaction();
         $sendMoney->user_id = $user->id;
         $sendMoney->amount = $amount;
-        $sendMoney->final_amount = $amount;
-        $sendMoney->receiver_id = $receiverId;
-        $sendMoney->status = Status::PAYMENT_SUCCESS;
-        $sendMoney->remark = $request->remark;
+        $sendMoney->charge = 0;
+        $sendMoney->post_balance = getAmount($user->balance);
+        $sendMoney->trx_type = '-';
+        $sendMoney->details = 'Send money to ' . $receiver->username;
         $sendMoney->trx = getTrx();
+        $sendMoney->remark = 'send_money';
         $sendMoney->save();
 
-        // Transaction Save For Sender
+        // Transaction Save For Receiver
         $transaction = new Transaction();
-        $transaction->user_id = $user->id;
+        $transaction->user_id = $receiverId;
         $transaction->amount = $amount;
-        $transaction->post_balance = getAmount($user->balance);
-        $transaction->trx_type = '-';
-        $transaction->details = 'Send money to ' . $receiver->username;
+        $transaction->charge = 0;
+        $transaction->post_balance = getAmount($receiver->balance);
+        $transaction->trx_type = '+';
+        $transaction->details = 'Received money from ' . $user->username;
         $transaction->trx = $sendMoney->trx;
-        $transaction->remark = 'send_money';
+        $transaction->remark = 'received_money';
         $transaction->save();
 
 
@@ -129,10 +131,9 @@ class SendMoneyController extends Controller
     public function history(): View
     {
         $pageTitle = 'Send Money History';
-        $dispatchHistory = SendMoney::where('user_id', auth()->id())
-            ->with('receiver')
-            ->where('status', Status::PAYMENT_SUCCESS)
-            ->orderBy('id', 'desc')->paginate(getPaginate());
+        $dispatchHistory =
+            Transaction::where('user_id', auth()->id())
+                ->orderBy('id', 'desc')->paginate(getPaginate());
 
         return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'dispatchHistory'));
     }

@@ -4,7 +4,6 @@
         <div class="col-12 col-lg-12 col-xxl-12 d-flex">
             <div class="card flex-fill">
                 <div class="card-header">
-
                     <h5 class="card-title mb-0">Latest Transaction</h5>
                 </div>
                 <table class="table table-hover my-0">

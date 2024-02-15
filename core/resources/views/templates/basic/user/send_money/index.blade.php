@@ -11,8 +11,6 @@
                 <input type="text" class="form-control mt-1" name="username" placeholder="Enter Username">
                 <label> Amount </label>
                 <input type="number" class="form-control mt-1" name="amount" placeholder="Enter Amount">
-                <label> Remark </label>
-                <input type="text" class="form-control mt-1" name="remark" placeholder="Remark">
 
                 <button class="btn btn-primary btn-sm mt-3" type="submit">Submit</button>
             </form>

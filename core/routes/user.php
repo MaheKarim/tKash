@@ -92,6 +92,13 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('history', 'history')->name('history');
                 // Route::post('preview', 'sendMoneySubmit')->name('submit');
             });
+
+            // Add Money
+            Route::controller('AddMoneyController')->name('add.')->prefix('addMoney')->group(function () {
+                Route::get('/', 'addMoney')->name('money');
+                Route::post('/', 'addMoneyStore')->name('store');
+                // Route::post('preview', 'addMoneySubmit')->name('submit');
+            });
         });
 
         // Payment

@@ -23,6 +23,17 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ menuActive('user.add.money') }}">
+                <a class="sidebar-link" href="{{ route('user.add.money') }}">
+                    <i class="align-middle" data-feather="corner-down-left"></i> <span
+                        class="align-middle">Add Money</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Transactions Log
+            </li>
+
             <li class="sidebar-item {{ menuActive('user.send.history') }}">
                 <a class="sidebar-link" href="{{ route('user.send.history') }}">
                     <i class="align-middle" data-feather="list"></i> <span

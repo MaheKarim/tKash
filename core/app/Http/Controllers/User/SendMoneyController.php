@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Models\SendMoney;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,7 @@ class SendMoneyController extends Controller
         ]);
         // Check User First
         $checkUser = User::where('username', '=', auth()->user()->username)->first();
-        if ($checkUser) {
+        if ($request->username == $checkUser->username) {
             $notify[] = ['error', 'You can not send money to yourself'];
             return back()->withNotify($notify);
         }
@@ -74,13 +75,12 @@ class SendMoneyController extends Controller
             return back()->withNotify($notify);
         }
         /* 5. Check Final Amount  */
-
-        if ($request->final_amount < gs()->min_trx_amount) {
+        if ($amount < gs()->min_trx_amount) {
             $notify[] = ['error', 'Your requested amount is smaller than minimum amount.'];
             return back()->withNotify($notify);
         }
 
-        if ($request->amount > gs()->max_trx_amount) {
+        if ($amount > gs()->max_trx_amount) {
             $notify[] = ['error', 'Your requested amount is larger than maximum amount.'];
             return back()->withNotify($notify);
         }
@@ -88,6 +88,8 @@ class SendMoneyController extends Controller
         /* 6. Update Balance  */
         $user->balance -= $request->amount;
         $receiver->balance += $amount;
+        $user->save();
+        $receiver->save();
 
         /* Transaction Model */
         $sendMoney = new SendMoney();
@@ -99,6 +101,17 @@ class SendMoneyController extends Controller
         $sendMoney->remark = $request->remark;
         $sendMoney->trx = getTrx();
         $sendMoney->save();
+
+        // Transaction Save For Sender
+        $transaction = new Transaction();
+        $transaction->user_id = $user->id;
+        $transaction->amount = $amount;
+        $transaction->post_balance = getAmount($user->balance);
+        $transaction->trx_type = '-';
+        $transaction->details = 'Send money to ' . $receiver->username;
+        $transaction->trx = $sendMoney->trx;
+        $transaction->remark = 'send_money';
+        $transaction->save();
 
 
         /* 7. Send Email  */

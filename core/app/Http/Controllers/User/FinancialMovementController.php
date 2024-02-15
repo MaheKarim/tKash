@@ -65,10 +65,14 @@ class FinancialMovementController extends Controller
             return back()->withNotify($notify);
         }
         /* 5. Check Final Amount  */
-        $validationResult = validateAmount($request->final_amount);
 
-        if ($validationResult != true) {
-            $notify[] = ['error', 'Min/Max Limit'];
+        if ($request->final_amount < gs()->min_trx_amount) {
+            $notify[] = ['error', 'Your requested amount is smaller than minimum amount.'];
+            return back()->withNotify($notify);
+        }
+
+        if ($request->amount > gs()->max_trx_amount) {
+            $notify[] = ['error', 'Your requested amount is larger than maximum amount.'];
             return back()->withNotify($notify);
         }
 

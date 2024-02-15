@@ -12,6 +12,7 @@
                     <tr>
                         <th>@lang('Receiver')</th>
                         <th class="d-none d-md-table-cell">@lang('Amount')</th>
+                        <th class="d-none d-md-table-cell">@lang('Charge')</th>
                         <th class="d-none d-md-table-cell">@lang('TRX')</th>
                         <th class="d-none d-xl-table-cell">@lang('Start Date')</th>
                         <th class="d-none d-xl-table-cell">@lang('End Date')</th>
@@ -21,7 +22,8 @@
                     @foreach($dispatchHistory as $history)
                         <tr>
                             <td>{{ data_get($history, 'details') }}</td>
-                            <td class="d-none d-md-table-cell">{{ __(getAmount(data_get($history, 'amount'))) }}</td>
+                            <td class="d-none d-md-table-cell">{{ __(showAmount(data_get($history, 'amount'))) }}</td>
+                            <td class="d-none d-md-table-cell">{{ __(showAmount(data_get($history, 'charge'))) }}</td>
                             <td class="d-none d-md-table-cell">{{ __(data_get($history, 'trx')) }}</td>
                             <td class="d-none d-xl-table-cell">{{ __(diffForHumans(data_get($history, 'created_at'))) }}</td>
                             <td class="d-none d-xl-table-cell">{{ __(diffForHumans(data_get($history, 'updated_at'))) }}</td>

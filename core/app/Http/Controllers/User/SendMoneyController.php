@@ -84,18 +84,23 @@ class SendMoneyController extends Controller
             $notify[] = ['error', 'Your requested amount is larger than maximum amount.'];
             return back()->withNotify($notify);
         }
+        // Charge
+        $charge = gs()->send_money_fixed_charge + ($request->amount * gs()->send_money_percent_charge / 100);
+        $finalAmount = $amount - $charge;
+
+//        dd($charge, $finalAmount);
 
         /* 6. Update Balance  */
-        $user->balance -= $request->amount;
-        $receiver->balance += $amount;
+        $user->balance -= $amount;
         $user->save();
+        $receiver->balance += $finalAmount;
         $receiver->save();
 
         // Transaction Save For Sender
         $sendMoney = new Transaction();
         $sendMoney->user_id = $user->id;
-        $sendMoney->amount = $amount;
-        $sendMoney->charge = 0;
+        $sendMoney->amount = $finalAmount;
+        $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($user->balance);
         $sendMoney->trx_type = '-';
         $sendMoney->details = 'Send money to ' . $receiver->username;
@@ -106,7 +111,7 @@ class SendMoneyController extends Controller
         // Transaction Save For Receiver
         $transaction = new Transaction();
         $transaction->user_id = $receiverId;
-        $transaction->amount = $amount;
+        $transaction->amount = $finalAmount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
         $transaction->trx_type = '+';

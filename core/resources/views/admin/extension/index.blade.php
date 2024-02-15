@@ -19,7 +19,7 @@
                                 <tr>
                                     <td>
                                         <div class="user">
-                                            <div class="thumb"><img src="{{ asset('{{ getImage(getFilePath('extensions') .'/'. $extension->image,getFileSize('extensions')) }}" alt="{{ __($extension->name) }}" class="plugin_bg"></div>
+                                            <div class="thumb"><img src="{{ getImage(getFilePath('extensions') .'/'. $extension->image,getFileSize('extensions')) }}" alt="{{ __($extension->name) }}" class="plugin_bg"></div>
                                             <span class="name">{{ __($extension->name) }}</span>
                                         </div>
                                     </td>

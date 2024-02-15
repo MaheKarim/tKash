@@ -14,6 +14,8 @@ class SendMoney extends Model
 
     protected $guarded = ['id'];
 
+    protected $table = 'send_moneys';
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

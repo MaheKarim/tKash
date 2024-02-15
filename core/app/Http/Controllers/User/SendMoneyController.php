@@ -90,26 +90,23 @@ class SendMoneyController extends Controller
         $receiver->balance += $amount;
 
         /* Transaction Model */
-        $financialTransaction = new SendMoney();
-        $financialTransaction->user_id = $user->id;
-        $financialTransaction->amount = $amount;
-        $financialTransaction->final_amount = $amount;
-        $financialTransaction->receiver_id = $receiverId;
-        $financialTransaction->status = Status::PAYMENT_SUCCESS;
-        $financialTransaction->remark = $request->remark;
-        $financialTransaction->trx = getTrx();
+        $sendMoney = new SendMoney();
+        $sendMoney->user_id = $user->id;
+        $sendMoney->amount = $amount;
+        $sendMoney->final_amount = $amount;
+        $sendMoney->receiver_id = $receiverId;
+        $sendMoney->status = Status::PAYMENT_SUCCESS;
+        $sendMoney->remark = $request->remark;
+        $sendMoney->trx = getTrx();
+        $sendMoney->save();
 
-        if ($financialTransaction->save()) {
-            $receiver->save();
-            $user->save();
-        }
 
         /* 7. Send Email  */
         notify($user, 'SEND_MONEY', [
             'amount' => showAmount($amount),
             'final_amount' => showAmount($request->final_amount),
             'receiver' => $receiver->username,
-            'trx' => $financialTransaction->trx,
+            'trx' => $sendMoney->trx,
         ]);
 
         $notify[] = ['success', 'Sent money to ' . $receiver->username . ' successfully'];

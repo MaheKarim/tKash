@@ -115,7 +115,7 @@ class User extends Authenticatable
 
     public function financial_movements()
     {
-        return $this->hasMany(FinancialMovement::class);
+        return $this->hasMany(SendMoney::class);
     }
 
 }

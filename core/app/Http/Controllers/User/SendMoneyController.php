@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use App\Models\FinancialMovement;
+use App\Models\SendMoney;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -90,7 +90,7 @@ class SendMoneyController extends Controller
         $receiver->balance += $amount;
 
         /* Transaction Model */
-        $financialTransaction = new FinancialMovement();
+        $financialTransaction = new SendMoney();
         $financialTransaction->user_id = $user->id;
         $financialTransaction->amount = $amount;
         $financialTransaction->final_amount = $amount;
@@ -119,7 +119,7 @@ class SendMoneyController extends Controller
     public function history(): View
     {
         $pageTitle = 'Send Money History';
-        $dispatchHistory = FinancialMovement::where('user_id', auth()->id())
+        $dispatchHistory = SendMoney::where('user_id', auth()->id())
             ->with('receiver')
             ->where('status', Status::PAYMENT_SUCCESS)
             ->orderBy('id', 'desc')->paginate(getPaginate());

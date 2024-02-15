@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class FinancialMovement extends Model
+class SendMoney extends Model
 {
     use HasFactory, Searchable;
 

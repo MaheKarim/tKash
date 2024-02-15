@@ -18,5 +18,13 @@
             </form>
         </div>
     </div>
-    {{--    <x-notification/>--}}
 @endsection
+
+@push('script')
+    <script type="text/javascript">
+        (function ($) {
+            "use strict";
+            console.log('hi');
+        })(jQuery);
+    </script>
+@endpush

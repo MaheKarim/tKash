@@ -12,14 +12,12 @@ class AddMoneyController extends Controller
 {
     public function addMoney()
     {
-//        return "Hello";
         $pageTitle = 'Add Money';
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', Status::ENABLE);
         })->with('method')->orderby('method_code')->get();
-        //        dd($gatewayCurrency);
-//        dd(gs()->cur_text);
-        return view($this->activeTemplate . 'user.payment.add_money', compact('pageTitle', 'gatewayCurrency'));
+
+        return view($this->activeTemplate . 'user.add_money.add_money', compact('pageTitle', 'gatewayCurrency'));
     }
 
     public function addMoneyStore(Request $request)
@@ -60,6 +58,6 @@ class AddMoneyController extends Controller
         $data->trx = getTrx();
         $data->save();
         session()->put('Track', $data->trx);
-        return redirect()->route('user.send.money');
+        return redirect()->route('user.send.history');
     }
 }

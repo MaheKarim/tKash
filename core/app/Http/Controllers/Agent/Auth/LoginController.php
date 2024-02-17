@@ -5,38 +5,55 @@ namespace App\Http\Controllers\Agent\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Laramin\Utility\Onumoti;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
     use AuthenticatesUsers;
 
+    /**
+     * Where to redirect users after login / registration.
+     *
+     * @var string
+     */
+    public $redirectTo = 'agent';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
-        // parent::__construct();
+        parent::__construct();
         $this->middleware('agent')->except('logout');
     }
 
-    protected function redirectTo()
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
     {
-        return route('agent.login');
-    }
-
-    protected function guard()
-    {
-        return auth()->guard('agents');
+        $pageTitle = "Agent Login";
+        return view($this->activeTemplate . 'agent.auth.login', compact('pageTitle'));
     }
 
     public function username()
     {
         return 'username';
-    }
-
-    public function showLoginForm()
-    {
-         echo "Agent Portal Will Be Last";
     }
 
     public function login(Request $request)
@@ -55,7 +72,8 @@ class LoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
@@ -77,5 +95,10 @@ class LoginController extends Controller
         $this->guard('agents')->logout();
         $request->session()->invalidate();
         return $this->loggedOut($request) ?: redirect($this->redirectTo);
+    }
+
+    protected function guard()
+    {
+        return auth()->guard('agents');
     }
 }

@@ -36,6 +36,8 @@
         @include($activeTemplate.'partials.footer')
     </div>
 </div>
+<script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
+
 <script src="{{ asset($activeTemplateTrue.'js/jquery.validate.js') }}"></script>
 @stack('script-lib')
 @include('partials.plugins')

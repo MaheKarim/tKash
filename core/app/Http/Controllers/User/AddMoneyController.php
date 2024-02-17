@@ -17,7 +17,8 @@ class AddMoneyController extends Controller
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', Status::ENABLE);
         })->with('method')->orderby('method_code')->get();
-
+        //        dd($gatewayCurrency);
+//        dd(gs()->cur_text);
         return view($this->activeTemplate . 'user.payment.add_money', compact('pageTitle', 'gatewayCurrency'));
     }
 
@@ -25,9 +26,8 @@ class AddMoneyController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric|gt:0',
-//            'gateway' => 'required',
+            'gateway' => 'required',
         ]);
-
 
         $user = auth()->user();
         $gate = GatewayCurrency::whereHas('method', function ($gate) {

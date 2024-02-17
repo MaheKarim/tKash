@@ -3,9 +3,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <form action="{{route('user.deposit.insert')}}" method="post">
+                <form action="{{route('user.add.store')}}" method="post">
                     @csrf
                     <input type="hidden" name="currency">
+
                     <div class="card custom--card">
                         <div class="card-header">
                             <h5 class="card-title">@lang('Deposit')</h5>
@@ -73,10 +74,13 @@
                     $('.preview-details').addClass('d-none');
                     return false;
                 }
+
+
                 var resource = $('select[name=gateway] option:selected').data('gateway');
                 var fixed_charge = parseFloat(resource.fixed_charge);
                 var percent_charge = parseFloat(resource.percent_charge);
                 var rate = parseFloat(resource.rate)
+
                 if (resource.method.crypto == 1) {
                     var toFixedDigit = 8;
                     $('.crypto_currency').removeClass('d-none');

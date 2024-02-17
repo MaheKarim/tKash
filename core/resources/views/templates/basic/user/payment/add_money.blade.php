@@ -1,60 +1,4 @@
 @extends($activeTemplate.'layouts.app')
-
-{{--@section('contents')--}}
-{{--    <div class="card">--}}
-{{--        <div class="card-header">--}}
-{{--            <h5 class="card-title mb-0">@lang('Selects Payments Method')</h5>--}}
-{{--        </div>--}}
-{{--        <form action="{{ route('user.add.store') }}" method="post">--}}
-{{--            @csrf--}}
-{{--            <input type="hidden" name="currency">--}}
-
-{{--            <div class="card-body">--}}
-{{--                <label>@lang('Select Payment Method')</label>--}}
-{{--                <select class="form-select mb-3" name="gateway" required>--}}
-{{--                    @foreach($gatewayCurrency as $data )--}}
-{{--                        <option value="{{ $data->method_code }}"--}}
-{{--                                @selected(old('gateway') == $data->method_code) data-gateway="{{ $data }}">{{ __($data->name) }}</option>--}}
-{{--                    @endforeach--}}
-{{--                </select>--}}
-{{--                <label>@lang('Enter Amount')</label>--}}
-{{--                <input type="number" class="form-control mb-3" name="amount" value="{{ old('amount') }}"--}}
-{{--                       autocomplete="off"--}}
-{{--                       required>--}}
-{{--                --}}{{--            <span class="input-group-text">{{ $general->cur_text }}</span>--}}
-{{--                <div class="mt-3 preview-details d-none">--}}
-{{--                    <ul class="list-group">--}}
-{{--                        <li class="list-group-item d-flex justify-content-between">--}}
-{{--                            <span>@lang('Limit')</span>--}}
-{{--                            <span><span class="min fw-bold">0</span> {{__($general->cur_text)}} - <span--}}
-{{--                                    class="max fw-bold">0</span> {{__($general->cur_text)}}</span>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-group-item d-flex justify-content-between">--}}
-{{--                            <span>@lang('Charge')</span>--}}
-{{--                            <span><span class="charge fw-bold">0</span> {{__($general->cur_text)}}</span>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-group-item d-flex justify-content-between">--}}
-{{--                            <span>@lang('Payable')</span> <span><span class="payable fw-bold"> 0</span> {{__($general->cur_text)}}</span>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-group-item justify-content-between d-none rate-element">--}}
-
-{{--                        </li>--}}
-{{--                        <li class="list-group-item justify-content-between d-none in-site-cur">--}}
-{{--                            <span>@lang('In') <span class="method_currency"></span></span>--}}
-{{--                            <span class="final_amount fw-bold">0</span>--}}
-{{--                        </li>--}}
-{{--                        <li class="list-group-item justify-content-center crypto_currency d-none">--}}
-{{--                            <span>@lang('Conversion with') <span class="method_currency"></span> @lang('and final value will Show on next step')</span>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <button class="btn btn-primary w-100" type="submit">@lang('Add Money')</button>--}}
-{{--            </div>--}}
-
-{{--        </form>--}}
-{{--    </div>--}}
-{{--@endsection--}}
-
 @section('contents')
     <div class="container">
         <div class="row justify-content-center">
@@ -119,6 +63,7 @@
         </div>
     </div>
 @endsection
+
 @push('script')
     <script>
         (function ($) {

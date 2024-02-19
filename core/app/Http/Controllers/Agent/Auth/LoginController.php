@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public $redirectTo = 'agent';
+    public $redirectTo = 'agent/dashboard';
 
     /**
      * Create a new controller instance.
@@ -92,13 +92,13 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $this->guard('agents')->logout();
+        $this->guard('agent')->logout();
         $request->session()->invalidate();
         return $this->loggedOut($request) ?: redirect($this->redirectTo);
     }
 
     protected function guard()
     {
-        return auth()->guard('agents');
+        return auth()->guard('agent');
     }
 }

@@ -124,37 +124,6 @@ img/avatars/avatar-2.jpg') }}"
                                 </div>
                             </div>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="{{ asset('assets/adminkit/img/avatars/avatar-4.jpg') }}"
-                                         class="avatar img-fluid rounded-circle"
-                                         alt="Christina Mason">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">Christina Mason</div>
-                                    <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.
-                                    </div>
-                                    <div class="text-muted small mt-1">4h ago</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="{{ asset('assets/adminkit/img/avatars/avatar-3.jpg') }}"
-                                         class="avatar img-fluid rounded-circle"
-                                         alt="Sharon Lessman">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">Sharon Lessman</div>
-                                    <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-                                        posuere ac, mattis non.
-                                    </div>
-                                    <div class="text-muted small mt-1">5h ago</div>
-                                </div>
-                            </div>
-                        </a>
                     </div>
                     <div class="dropdown-menu-footer">
                         <a href="#" class="text-muted">Show all messages</a>
@@ -173,16 +142,14 @@ img/avatars/avatar-2.jpg') }}"
                          class="avatar img-fluid rounded me-1"
                          alt="Charles Hall"/>
                     <span class="text-dark">
-                        {{ Auth::user()->fullName }}
+{{--                        {{ Auth::user()->fullName }}--}}
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
                                                                           data-feather="user"></i>
                         Profile</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                                         data-feather="pie-chart"></i>
-                        Analytics</a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1"
                                                                   data-feather="settings"></i> Settings &
@@ -190,7 +157,14 @@ img/avatars/avatar-2.jpg') }}"
                     <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                                          data-feather="help-circle"></i> Help Center</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a>
+
+                    @if(auth()->guard('agent')->check())
+                        <a class="dropdown-item" href="{{ route('agent.logout') }}">Log out</a>
+                    @else
+                        <a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a>
+                    @endif
+
+
                 </div>
             </li>
         </ul>

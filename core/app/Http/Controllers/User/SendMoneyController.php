@@ -22,22 +22,10 @@ class SendMoneyController extends Controller
 
     public function sendMoneyStore(Request $request)
     {
-        /** Total Steps
-         * 1. Check Username
-         * 2. Check Minimum
-         * 3. Check Maximum
-         * 4. Check Balance
-         * 5. Check Final Amount
-         * 6. Update Balance
-         * 7. Send Email
-         * 8. Send Notification
-         * 9. Save History
-         * 10. Save Transaction
-         */
 
         $request->validate([
             'username' => 'required',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|gt:0',
             'remark' => 'nullable',
         ]);
         // Check User First
@@ -87,8 +75,6 @@ class SendMoneyController extends Controller
         // Charge
         $charge = gs()->send_money_fixed_charge + ($request->amount * gs()->send_money_percent_charge / 100);
         $finalAmount = $amount - $charge;
-
-//        dd($charge, $finalAmount);
 
         /* 6. Update Balance  */
         $user->balance -= $amount;

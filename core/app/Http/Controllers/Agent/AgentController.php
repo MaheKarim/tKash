@@ -9,7 +9,8 @@ class AgentController extends Controller
 {
     public function dashboard()
     {
-        return 'Hello Dashboard';
-        return view($this->activeTemplate . "agent.dashboard");
+        $pageTitle = "Dashboard";
+//        return dd(auth()->guard('agent')->check());
+        return view($this->activeTemplate . "agent.dashboard", compact('pageTitle'));
     }
 }

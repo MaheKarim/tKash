@@ -17,7 +17,7 @@ class ManageAgentController extends Controller
 {
     public function index()
     {
-        $pageTitle = 'Agent Creation';
+        $pageTitle = 'Manage Agent';
         $agents = $this->agentData();
 
         return view('admin.agent.index', compact('agents', 'pageTitle'));
@@ -221,6 +221,13 @@ class ManageAgentController extends Controller
             ->dateFilter()->orderBy('id', 'desc')->with('agent')->paginate(getPaginate());
 
         return view('admin.reports.agent_transactions', compact('pageTitle', 'transactions', 'remarks'));
+    }
+
+    public function create()
+    {
+        $pageTitle = "Agent Create";
+
+        return view('admin.agent.create', compact('pageTitle'));
     }
 
 

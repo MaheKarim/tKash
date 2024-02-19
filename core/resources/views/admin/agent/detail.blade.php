@@ -14,7 +14,7 @@
                             <h3 class="text-white">{{ $general->cur_sym }}{{ showAmount($agent->balance) }}</h3>
                             <p class="text-white">@lang('Balance')</p>
                         </div>
-                        <a href="{{ route('admin.report.transaction') }}?search={{ $agent->username }}"
+                        <a href="{{ route('admin.agents.transaction') }}?search={{ $agent->username }}"
                            class="widget-two__btn">@lang('View All')</a>
                     </div>
                 </div>
@@ -274,8 +274,6 @@
 
         </div>
     </div>
-
-
 
     {{-- Add Sub Balance MODAL --}}
     <div id="addSubModal" class="modal fade" tabindex="-1" role="dialog">

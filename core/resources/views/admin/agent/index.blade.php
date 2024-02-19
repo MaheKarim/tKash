@@ -91,4 +91,5 @@
 
 @push('breadcrumb-plugins')
     <x-search-form placeholder="Username / Email"/>
+    <a href="{{ route('admin.agents.create') }}" class="btn btn--primary btn-sm">@lang('Add Agent')</a>"
 @endpush

@@ -60,7 +60,7 @@
                             <h3 class="text-white">{{ $totalTransaction }}</h3>
                             <p class="text-white">@lang('Transactions')</p>
                         </div>
-                        <a href="{{ route('admin.report.transaction') }}?search={{ $agent->username }}"
+                        <a href="{{ route('admin.agents.transaction') }}?search={{ $agent->username }}"
                            class="widget-two__btn">@lang('View All')</a>
                     </div>
                 </div>
@@ -85,21 +85,21 @@
                 </div>
 
                 <div class="flex-fill">
-                    <a href="{{route('admin.report.login.history')}}?search={{ $agent->username }}"
+                    <a href="{{route('admin.agents.login.history')}}?search={{ $agent->username }}"
                        class="btn btn--primary btn--shadow w-100 btn-lg">
                         <i class="las la-list-alt"></i>@lang('Logins')
                     </a>
                 </div>
 
                 <div class="flex-fill">
-                    <a href="{{ route('admin.users.notification.log',$agent->id) }}"
+                    <a href="{{ route('admin.agents.notification.log',$agent->id) }}"
                        class="btn btn--secondary btn--shadow w-100 btn-lg">
                         <i class="las la-bell"></i>@lang('Notifications')
                     </a>
                 </div>
 
                 <div class="flex-fill">
-                    <a href="{{route('admin.users.login',$agent->id)}}" target="_blank"
+                    <a href="{{route('admin.agents.login',$agent->id)}}" target="_blank"
                        class="btn btn--primary btn--gradi btn--shadow w-100 btn-lg">
                         <i class="las la-sign-in-alt"></i>@lang('Login as Agent')
                     </a>
@@ -107,7 +107,7 @@
 
                 @if($agent->kyc_data)
                     <div class="flex-fill">
-                        <a href="{{ route('admin.users.kyc.details', $agent->id) }}" target="_blank"
+                        <a href="{{ route('admin.agents.kyc.details', $agent->id) }}" target="_blank"
                            class="btn btn--dark btn--shadow w-100 btn-lg">
                             <i class="las la-user-check"></i>@lang('KYC Data')
                         </a>
@@ -329,7 +329,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{route('admin.users.status',$agent->id)}}" method="POST">
+                <form action="{{route('admin.agents.status',$agent->id)}}" method="POST">
                     @csrf
                     <div class="modal-body">
                         @if($agent->status == Status::USER_ACTIVE)

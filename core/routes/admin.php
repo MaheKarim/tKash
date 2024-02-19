@@ -306,7 +306,13 @@ Route::middleware('admin')->group(function () {
         Route::get('/detail/{id}', 'detail')->name('detail');
         Route::post('update/{id}', 'update')->name('update');
         Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
-
+        Route::get('login/history', 'loginHistory')->name('login.history');
+        Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
+        Route::get('notification-log/{id}', 'notificationLog')->name('notification.log');
+        Route::get('login/{id}', 'login')->name('login');
+        Route::get('kyc-data/{id}', 'kycDetails')->name('kyc.details');
+        Route::post('status/{id}', 'status')->name('status');
+        Route::get('transaction', 'transaction')->name('transaction');
 
     });
 });

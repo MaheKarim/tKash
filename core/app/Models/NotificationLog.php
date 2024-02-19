@@ -9,7 +9,13 @@ class NotificationLog extends Model
 {
     use Searchable;
 
-    public function user(){
-    	return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class, 'agent_id', 'id');
     }
 }

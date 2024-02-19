@@ -24,6 +24,11 @@ class Withdrawal extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
     public function method()
     {
         return $this->belongsTo(WithdrawMethod::class, 'method_id');
@@ -31,14 +36,14 @@ class Withdrawal extends Model
 
     public function statusBadge(): Attribute
     {
-        return new Attribute(function(){
+        return new Attribute(function () {
             $html = '';
-            if($this->status == Status::PAYMENT_PENDING){
-                $html = '<span class="badge badge--warning">'.trans('Pending').'</span>';
-            }elseif($this->status == Status::PAYMENT_SUCCESS){
-                $html = '<span><span class="badge badge--success">'.trans('Approved').'</span><br>'.diffForHumans($this->updated_at).'</span>';
-            }elseif($this->status == Status::PAYMENT_REJECT){
-                $html = '<span><span class="badge badge--danger">'.trans('Rejected').'</span><br>'.diffForHumans($this->updated_at).'</span>';
+            if ($this->status == Status::PAYMENT_PENDING) {
+                $html = '<span class="badge badge--warning">' . trans('Pending') . '</span>';
+            } elseif ($this->status == Status::PAYMENT_SUCCESS) {
+                $html = '<span><span class="badge badge--success">' . trans('Approved') . '</span><br>' . diffForHumans($this->updated_at) . '</span>';
+            } elseif ($this->status == Status::PAYMENT_REJECT) {
+                $html = '<span><span class="badge badge--danger">' . trans('Rejected') . '</span><br>' . diffForHumans($this->updated_at) . '</span>';
             }
             return $html;
         });

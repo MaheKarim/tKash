@@ -21,6 +21,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-menu-item {{ menuActive('admin.agents.index') }}">
+                    <a href="{{ route('admin.agents.index')}}" class="nav-link">
+                        <i class="menu-icon lab la-atlassian"></i>
+                        <span class="menu-title">@lang('Manage Agents')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.users*',3)}}">
                         <i class="menu-icon las la-users"></i>

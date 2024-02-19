@@ -10,7 +10,7 @@ Route::namespace('Agent\Auth')->name('agent.')->group(function () {
         Route::get('logout', 'logout')->name('logout');
     });
 });
-//Route::controller('AgentController')->namespace('Agent')->name('agent.')->group(function () {
+//Route::controller('ManageAgentController')->namespace('Agent')->name('agent.')->group(function () {
 //    Route::get('/dashboard', 'dashboard')->name('dashboard');
 //});
 Route::middleware(['agentCheckStatus'])->group(function () {

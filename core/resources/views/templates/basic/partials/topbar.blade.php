@@ -142,7 +142,11 @@ img/avatars/avatar-2.jpg') }}"
                          class="avatar img-fluid rounded me-1"
                          alt="Charles Hall"/>
                     <span class="text-dark">
-{{--                        {{ Auth::user()->fullName }}--}}
+                        @if(auth()->guard('agent')->check())
+                            {{ auth()->guard('agent')->user()->fullName }}
+                        @else
+                            {{ Auth::user()->fullName }}
+                        @endif
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -159,11 +163,10 @@ img/avatars/avatar-2.jpg') }}"
                     <div class="dropdown-divider"></div>
 
                     @if(auth()->guard('agent')->check())
-                        <a class="dropdown-item" href="{{ route('agent.logout') }}">Log out</a>
+                        <a class="dropdown-item" href="{{ route('agent.logout') }}">Log out Agent</a>
                     @else
                         <a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a>
                     @endif
-
 
                 </div>
             </li>

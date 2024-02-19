@@ -5,11 +5,12 @@
         </a>
 
         <ul class="sidebar-nav">
-            <li class="sidebar-header">
-                Menu - Features
-            </li>
 
             @if(!auth()->guard('agent')->check())
+                <li class="sidebar-header">
+                    Menu - Features
+                </li>
+
                 <li class="sidebar-item {{ menuActive('user.home') }}">
                     <a class="sidebar-link" href="{{ route('user.home') }}">
                         <i class="align-middle" data-feather="sliders"></i> <span
@@ -45,6 +46,13 @@
             @elseif(!auth()->guard('web')->check())
                 <li class="sidebar-header">
                     Agent Dashboard
+                </li>
+
+                <li class="sidebar-item {{ menuActive('agent.dashboard') }}">
+                    <a class="sidebar-link" href="{{ route('agent.dashboard') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span
+                            class="align-middle">Dashboard</span>
+                    </a>
                 </li>
             @endif
         </ul>

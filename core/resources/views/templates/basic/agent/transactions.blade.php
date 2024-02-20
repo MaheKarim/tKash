@@ -39,7 +39,7 @@
                                        autocomplete="off" value="{{ request()->date }}">
                             </div>
                             <div class="flex-grow-1 align-self-end">
-                                <button class="btn btn--primary w-100 h-45"><i
+                                <button class="btn btn--primary w-100 h-45 text-white"><i
                                         class="fas fa-filter"></i> @lang('Filter')</button>
                             </div>
                         </div>

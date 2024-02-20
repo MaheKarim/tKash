@@ -5,7 +5,7 @@
 
         <div class="col-lg-12">
             <div class="show-filter mb-3 text-end">
-                <button type="button" class="btn btn-outline--primary showFilterBtn btn-sm"><i
+                <button type="button" class="btn btn-outline--primary showFilterBtn btn-sm text-white"><i
                         class="las la-filter"></i> @lang('Filter')</button>
             </div>
             <div class="card responsive-filter-card mb-4">

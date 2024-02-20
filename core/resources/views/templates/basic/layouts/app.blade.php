@@ -21,7 +21,7 @@
     @stack('style-lib')
 
     <link rel="stylesheet" href="{{asset('assets/admin/css/vendor/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/admin/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/css/_app.css')}}">
 
 
     @stack('style')

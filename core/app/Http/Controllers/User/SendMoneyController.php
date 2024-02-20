@@ -121,11 +121,13 @@ class SendMoneyController extends Controller
 
     public function history(): View
     {
-        $pageTitle = 'Send Money History';
-        $dispatchHistory =
-            Transaction::where('user_id', auth()->id())
+        $pageTitle = 'Transactions';
+        $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
+
+        $transactions =
+            Transaction::where('user_id', auth()->id())->filter(['trx_type', 'remark'])->dateFilter()->with('user')
                 ->orderBy('id', 'desc')->paginate(getPaginate());
 
-        return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'dispatchHistory'));
+        return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'transactions', 'remarks'));
     }
 }

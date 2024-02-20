@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\SendMoneyController;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('User\Auth')->name('user.')->group(function () {
@@ -89,9 +90,10 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::controller('SendMoneyController')->name('send.')->prefix('sendMoney')->group(function () {
                 Route::get('/', 'sendMoney')->name('money');
                 Route::post('/', 'sendMoneyStore')->name('store');
-                Route::get('history', 'history')->name('history');
                 // Route::post('preview', 'sendMoneySubmit')->name('submit');
             });
+            Route::get('transactions', [SendMoneyController::class, 'history'])->name('transactions');
+
 
             // Add Money
             Route::controller('AddMoneyController')->name('add.')->prefix('addMoney')->group(function () {

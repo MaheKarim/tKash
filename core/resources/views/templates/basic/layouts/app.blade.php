@@ -5,20 +5,28 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords"
-          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
+    <link rel="shortcut icon" type="image/png" href="{{getImage(getFilePath('logoIcon') .'/favicon.png')}}">
 
-    <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
 
-    <title> {{ $general->siteName(__($pageTitle)) }}</title>
+    <title> {{ $general->siteName(__($pageTitle ?? '')) }}</title>
 
-    <link href="{{ asset('assets/adminkit/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/admin/css/vendor/bootstrap-toggle.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}">
+
+    @stack('style-lib')
+
+    <link rel="stylesheet" href="{{asset('assets/admin/css/vendor/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/css/app.css')}}">
+
+
+    @stack('style')
+    <link href="{{ asset('assets/adminkit/css/app.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -37,6 +45,11 @@
     </div>
 </div>
 <script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
+<script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/admin/js/vendor/bootstrap-toggle.min.js')}}"></script>
+<script src="{{asset('assets/admin/js/vendor/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('assets/admin/js/vendor/select2.min.js')}}"></script>
+<script src="{{asset('assets/admin/js/app.js')}}"></script>
 
 <script src="{{ asset($activeTemplateTrue.'js/jquery.validate.js') }}"></script>
 @stack('script-lib')

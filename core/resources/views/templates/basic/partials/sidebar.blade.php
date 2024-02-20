@@ -39,7 +39,7 @@
                 <li class="sidebar-item {{ menuActive('user.send.history') }}">
                     <a class="sidebar-link" href="{{ route('user.send.history') }}">
                         <i class="align-middle" data-feather="list"></i> <span
-                            class="align-middle">History</span>
+                            class="align-middle">Transactions</span>
                     </a>
                 </li>
 
@@ -52,6 +52,13 @@
                     <a class="sidebar-link" href="{{ route('agent.dashboard') }}">
                         <i class="align-middle" data-feather="sliders"></i> <span
                             class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ menuActive('agent.transactions') }}">
+                    <a class="sidebar-link" href="{{ route('agent.transactions') }}">
+                        <i class="align-middle" data-feather="list"></i> <span
+                            class="align-middle">Transactions</span>
                     </a>
                 </li>
             @endif

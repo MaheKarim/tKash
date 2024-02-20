@@ -1,6 +1,6 @@
-@extends('admin.layouts.app')
+@extends($activeTemplate . 'layouts.app')
 
-@section('panel')
+@section('contents')
     <div class="row">
 
         <div class="col-lg-12">
@@ -114,7 +114,6 @@
         </div>
     </div>
 @endsection
-
 @push('style-lib')
     <link rel="stylesheet" href="{{asset('assets/admin/css/vendor/datepicker.min.css')}}">
 @endpush

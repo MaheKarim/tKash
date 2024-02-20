@@ -163,9 +163,9 @@ img/avatars/avatar-2.jpg') }}"
                     <div class="dropdown-divider"></div>
 
                     @if(auth()->guard('agent')->check())
-                        <a class="dropdown-item" href="{{ route('agent.logout') }}">Log out Agent</a>
+                        <a class="dropdown-item" href="{{ route('agent.logout') }}">@lang('Log out')</a>
                     @else
-                        <a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a>
+                        <a class="dropdown-item" href="{{ route('user.logout') }}">@lang('Log out')</a>
                     @endif
 
                 </div>

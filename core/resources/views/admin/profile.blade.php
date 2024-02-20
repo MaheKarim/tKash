@@ -8,7 +8,9 @@
                 <div class="card-body p-0">
                     <div class="d-flex p-3 bg--primary align-items-center">
                         <div class="avatar avatar--lg">
-                            <img src="{{ asset('{{ getImage(getFilePath('adminProfile').'/'. $admin->image,getFileSize('adminProfile'))}}" alt="@lang('Image')">
+                            <img
+                                src="{{ getImage(getFilePath('adminProfile').'/'. $admin->image,getFileSize('adminProfile'))}}"
+                                alt="@lang('Image')">
                         </div>
                         <div class="ps-3">
                             <h4 class="text--white">{{__($admin->name)}}</h4>
@@ -22,12 +24,12 @@
 
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             @lang('Username')
-                            <span  class="fw-bold">{{__($admin->username)}}</span>
+                            <span class="fw-bold">{{__($admin->username)}}</span>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             @lang('Email')
-                            <span  class="fw-bold">{{$admin->email}}</span>
+                            <span class="fw-bold">{{$admin->email}}</span>
                         </li>
 
                     </ul>
@@ -46,17 +48,20 @@
                             <div class="col-xxl-4 col-lg-6">
                                 <div class="form-group">
                                     <label>@lang('Image')</label>
-                                    <x-image-uploader image="{{ $admin->image }}" class="w-100" type="adminProfile" :required=false />
+                                    <x-image-uploader image="{{ $admin->image }}" class="w-100" type="adminProfile"
+                                                      :required=false/>
                                 </div>
                             </div>
                             <div class="col-xxl-8 col-lg-6">
                                 <div class="form-group ">
                                     <label>@lang('Name')</label>
-                                    <input class="form-control" type="text" name="name" value="{{ $admin->name }}" required>
+                                    <input class="form-control" type="text" name="name" value="{{ $admin->name }}"
+                                           required>
                                 </div>
                                 <div class="form-group">
                                     <label>@lang('Email')</label>
-                                    <input class="form-control" type="email" name="email" value="{{ $admin->email }}" required>
+                                    <input class="form-control" type="email" name="email" value="{{ $admin->email }}"
+                                           required>
                                 </div>
                             </div>
                         </div>
@@ -69,5 +74,6 @@
 @endsection
 
 @push('breadcrumb-plugins')
-    <a href="{{route('admin.password')}}" class="btn btn-sm btn-outline--primary"><i class="las la-key"></i>@lang('Password Setting')</a>
+    <a href="{{route('admin.password')}}" class="btn btn-sm btn-outline--primary"><i
+            class="las la-key"></i>@lang('Password Setting')</a>
 @endpush

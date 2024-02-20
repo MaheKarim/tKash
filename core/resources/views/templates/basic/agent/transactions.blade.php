@@ -12,10 +12,7 @@
                 <div class="card-body">
                     <form action="">
                         <div class="d-flex flex-wrap gap-4">
-                            <div class="flex-grow-1">
-                                <label>@lang('TRX/Username')</label>
-                                <input type="text" name="search" value="{{ request()->search }}" class="form-control">
-                            </div>
+
                             <div class="flex-grow-1">
                                 <label>@lang('Type')</label>
                                 <select name="trx_type" class="form-control">

@@ -20,8 +20,7 @@ class AgentController extends Controller
         $pageTitle = 'Transaction Logs';
 
         $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
-
-        $transactions = Transaction::searchable(['trx', 'agent:username'])->filter(['trx_type', 'remark'])
+        $transactions = Transaction::where('agent_id', auth()->guard('agent')->id())->filter(['trx_type', 'remark'])
             ->dateFilter()->orderBy('id', 'desc')->with('agent')->paginate(getPaginate());
 
         return view($this->activeTemplate . "agent.transactions", compact('pageTitle', 'transactions', 'remarks'));

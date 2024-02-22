@@ -313,8 +313,8 @@ Route::middleware('admin')->group(function () {
         Route::get('kyc-data/{id}', 'kycDetails')->name('kyc.details');
         Route::post('status/{id}', 'status')->name('status');
         Route::get('transaction', 'transaction')->name('transaction');
-        Route::get('create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
+        Route::get('create', 'showRegisterForm')->name('create');
+        Route::post('/register', 'register')->name('register');
     });
 
     // Tkash Methods Controller

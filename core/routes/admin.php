@@ -322,6 +322,10 @@ Route::middleware('admin')->group(function () {
     Route::controller('TkashMethodController')->prefix('tkash-methods')->name('tkash-methods.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('status/{id}', 'status')->name('status');
+        Route::get('create', 'create')->name('create');
+        Route::post('create', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('edit/{id}', 'update')->name('update');
     });
 
 

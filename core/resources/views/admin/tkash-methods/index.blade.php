@@ -43,7 +43,7 @@
                                                     <i class="la la-eye"></i> @lang('Enable')
                                                 </button>
                                             @endif
-                                            <a href="{{ route('admin.agents.detail', $method->id) }}"
+                                            <a href="{{ route('admin.tkash-methods.edit', $method->id) }}"
                                                class="btn btn-sm btn-outline--primary">
                                                 <i class="las la-desktop"></i> @lang('Edit')
                                             </a>
@@ -73,6 +73,5 @@
 @endsection
 
 @push('breadcrumb-plugins')
-    <x-search-form placeholder="Methods"/>
-    <a href="{{ route('admin.agents.create') }}" class="btn btn--primary btn-sm">@lang('Add Method')</a>
+    <a href="{{ route('admin.tkash-methods.create') }}" class="btn btn--primary btn-sm">@lang('Add Method')</a>
 @endpush

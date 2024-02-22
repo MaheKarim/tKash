@@ -9,11 +9,10 @@
                     <div class="card-body">
                         <div class="payment-method-item">
                             <div class="payment-method-body">
-
-
                                 <div class="form-group">
                                     <label>@lang('Name')</label>
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" required/>
+                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}"
+                                           required/>
                                 </div>
 
                                 <div class="row mt-4">
@@ -21,7 +20,8 @@
                                         <div class="form-group">
                                             <label>@lang('Currency')</label>
                                             <div class="input-group">
-                                                <input type="text" name="currency" class="form-control border-radius-5" value="{{ old('currency') }}" required/>
+                                                <input type="text" name="currency" class="form-control border-radius-5"
+                                                       value="{{ old('currency') }}" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -30,7 +30,8 @@
                                             <label>@lang('Rate')</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">1 {{ __($general->cur_text) }} =</div>
-                                                <input type="number" step="any" class="form-control" name="rate" value="{{ old('rate') }}" required/>
+                                                <input type="number" step="any" class="form-control" name="rate"
+                                                       value="{{ old('rate') }}" required/>
                                                 <div class="input-group-text">
                                                     <span class="currency_symbol"></span>
                                                 </div>
@@ -48,15 +49,21 @@
                                                 <div class="form-group">
                                                     <label>@lang('Minimum Amount')</label>
                                                     <div class="input-group">
-                                                        <input type="number" step="any" class="form-control" name="min_limit" value="{{ old('min_limit') }}" required/>
-                                                        <div class="input-group-text"> {{ __($general->cur_text) }} </div>
+                                                        <input type="number" step="any" class="form-control"
+                                                               name="min_limit" value="{{ old('min_limit') }}"
+                                                               required/>
+                                                        <div
+                                                            class="input-group-text"> {{ __($general->cur_text) }} </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>@lang('Maximum Amount')</label>
                                                     <div class="input-group">
-                                                        <input type="number" step="any" class="form-control" name="max_limit" value="{{ old('max_limit') }}" required/>
-                                                        <div class="input-group-text"> {{ __($general->cur_text) }} </div>
+                                                        <input type="number" step="any" class="form-control"
+                                                               name="max_limit" value="{{ old('max_limit') }}"
+                                                               required/>
+                                                        <div
+                                                            class="input-group-text"> {{ __($general->cur_text) }} </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -69,14 +76,19 @@
                                                 <div class="form-group">
                                                     <label>@lang('Fixed Charge')</label>
                                                     <div class="input-group">
-                                                        <input type="number" step="any" class="form-control" name="fixed_charge" value="{{ old('fixed_charge') }}" required/>
-                                                        <div class="input-group-text"> {{ __($general->cur_text) }} </div>
+                                                        <input type="number" step="any" class="form-control"
+                                                               name="fixed_charge" value="{{ old('fixed_charge') }}"
+                                                               required/>
+                                                        <div
+                                                            class="input-group-text"> {{ __($general->cur_text) }} </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>@lang('Percent Charge')</label>
                                                     <div class="input-group">
-                                                        <input type="number" step="any" class="form-control" name="percent_charge" value="{{ old('percent_charge') }}" required>
+                                                        <input type="number" step="any" class="form-control"
+                                                               name="percent_charge" value="{{ old('percent_charge') }}"
+                                                               required>
                                                         <div class="input-group-text">%</div>
                                                     </div>
                                                 </div>
@@ -90,7 +102,8 @@
                                             <h5 class="card-header bg--primary">@lang('Withdraw Instruction') </h5>
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <textarea rows="5" class="form-control border-radius-5 nicEdit" name="instruction">{{ old('instruction') }}</textarea>
+                                                    <textarea rows="5" class="form-control border-radius-5 nicEdit"
+                                                              name="instruction">{{ old('instruction') }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +113,9 @@
                                         <div class="card border--primary mt-3">
                                             <div class="card-header bg--primary d-flex justify-content-between">
                                                 <h5 class="text-white">@lang('User Data')</h5>
-                                                <button type="button" class="btn btn-sm btn-outline-light float-end form-generate-btn"> <i class="la la-fw la-plus"></i>@lang('Add New')</button>
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-light float-end form-generate-btn">
+                                                    <i class="la la-fw la-plus"></i>@lang('Add New')</button>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row addedField">
@@ -123,21 +138,21 @@
         </div>
     </div>
 
-<x-form-generator />
+    <x-form-generator/>
 @endsection
 
 @push('script')
-<script>
-    "use strict"
-    var formGenerator = new FormGenerator();
-</script>
+    <script>
+        "use strict"
+        var formGenerator = new FormGenerator();
+    </script>
 
-<script src="{{ asset('assets/global/js/form_actions.js') }}"></script>
+    <script src="{{ asset('assets/global/js/form_actions.js') }}"></script>
 @endpush
 
 
 @push('breadcrumb-plugins')
-    <x-back route="{{ route('admin.withdraw.method.index') }}" />
+    <x-back route="{{ route('admin.withdraw.method.index') }}"/>
 @endpush
 
 @push('script')

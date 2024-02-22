@@ -30,7 +30,7 @@ class ManageAgentController extends Controller
         } else {
             $agents = Agent::query();
         }
-        return $agents->searchable(['$agentname', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+        return $agents->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
     public function detail($id)

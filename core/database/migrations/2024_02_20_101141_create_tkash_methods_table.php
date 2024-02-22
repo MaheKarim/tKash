@@ -21,7 +21,10 @@ return new class extends Migration {
             $table->decimal('percent_charge', 28, 8);
             $table->decimal('rate', 28, 8);
             $table->char('currency', 40);
-            $table->text('description');
+            $table->decimal('user_daily_trx_limit', 28, 8);
+            $table->decimal('user_monthly_trx_limit', 28, 8);
+            $table->decimal('agent_daily_trx_limit', 28, 8);
+            $table->decimal('agent_monthly_trx_limit', 28, 8);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

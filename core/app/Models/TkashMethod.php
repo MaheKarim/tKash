@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Traits\GlobalStatus;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TkashMethod extends Model
 {
-    use HasFactory;
-
-    use GlobalStatus;
+    use HasFactory, GlobalStatus, Searchable;
 
     protected $casts = [
         'user_data' => 'object',

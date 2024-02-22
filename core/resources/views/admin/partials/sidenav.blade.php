@@ -28,6 +28,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-menu-item {{ menuActive('admin.tkash-methods.index') }}">
+                    <a href="{{ route('admin.tkash-methods.index')}}" class="nav-link">
+                        <i class="menu-icon lab la-medium"></i>
+                        <span class="menu-title">@lang('Tkash Methods')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.users*',3)}}">
                         <i class="menu-icon las la-users"></i>

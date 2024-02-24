@@ -37,13 +37,13 @@
                                 <span><span class="charge fw-bold">0</span> {{__($general->cur_text)}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>@lang('Payable')</span> <span><span class="payable fw-bold"> 0</span> {{__($general->cur_text)}}</span>
+                                <span>@lang('Receivable')</span> <span><span class="payable fw-bold"> 0</span> {{__($general->cur_text)}}</span>
                             </li>
                             <li class="list-group-item justify-content-between d-none rate-element">
 
                             </li>
                             <li class="list-group-item justify-content-between d-none in-site-cur">
-                                <span>@lang('In') <span class="method_currency"></span></span>
+                                <span>@lang('Final Amount') <span class="final_amount"></span></span>
                                 <span class="final_amount fw-bold">0</span>
                             </li>
                             <li class="list-group-item justify-content-center crypto_currency d-none">
@@ -109,7 +109,7 @@
                     $('.in-site-cur').removeClass('d-flex');
                 }
                 var receivable = parseFloat((parseFloat(amount) - parseFloat(charge))).toFixed(2);
-                $('.receivable').text(receivable);
+                $('.payable').text(receivable);
                 var final_amount = parseFloat(parseFloat(receivable) * rate).toFixed(toFixedDigit);
                 $('.final_amount').text(final_amount);
                 $('.base-currency').text(resource.currency);

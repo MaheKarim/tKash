@@ -66,7 +66,8 @@
                                             class="fw-bold">{{ data_get($trx->user, 'fullName') ?? data_get($trx->user, 'fullName') }}</span>
                                         <br>
                                         <span class="small"> <a
-                                                href="{{ appendQuery('search', data_get($trx->user, 'username')) }}"><span>@</span>{{ data_get($trx->user, 'username') }}</a> </span>
+                                                href="{{ appendQuery('search', data_get($trx->user, 'username')) }}"><span>@</span>{{ data_get($trx->user, 'username') }}</a>
+                                        </span>
                                     </td>
 
                                     <td>
@@ -80,8 +81,11 @@
                                     <td class="budget">
                                         <span
                                             class="fw-bold @if($trx->trx_type == '+')text--success @else text--danger @endif">
-                                            {{ $trx->trx_type }} {{showAmount($trx->amount)}} {{ $general->cur_text }}
+                                            {{ $trx->trx_type }} {{showAmount($trx->amount)}}  {{ $general->cur_text }}
                                         </span>
+                                        <br>
+                                        <span class="fw-bold @if($trx->trx_type == '+')text--success
+                                              @else text--danger @endif">{{ $trx->trx_type }} {{ showAmount($trx->charge) }}</span>
                                     </td>
 
                                     <td class="budget">

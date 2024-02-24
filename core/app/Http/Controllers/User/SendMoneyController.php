@@ -28,7 +28,6 @@ class SendMoneyController extends Controller
             'amount' => 'required|numeric|gt:0',
             'remark' => 'nullable',
         ]);
-        // Check User First
         $checkUser = User::where('username', '=', auth()->user()->username)->first();
         if ($request->username == $checkUser->username) {
             $notify[] = ['error', 'You can not send money to yourself'];
@@ -116,7 +115,7 @@ class SendMoneyController extends Controller
         ]);
 
         $notify[] = ['success', 'Sent money to ' . $receiver->username . ' successfully'];
-        return to_route('user.send.history')->withNotify($notify);
+        return to_route('user.transactions')->withNotify($notify);
     }
 
     public function history(): View

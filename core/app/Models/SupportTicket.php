@@ -11,33 +11,29 @@ class SupportTicket extends Model
     public function fullname(): Attribute
     {
         return new Attribute(
-            get:fn () => $this->name,
+            get: fn() => $this->name,
         );
     }
 
     public function username(): Attribute
     {
         return new Attribute(
-            get:fn () => $this->email,
+            get: fn() => $this->email,
         );
     }
 
     public function statusBadge(): Attribute
     {
-        return new Attribute(function(){
+        return new Attribute(function () {
             $html = '';
-            if($this->status == Status::TICKET_OPEN){
-                $html = '<span class="badge badge--success">'.trans("Open").'</span>';
-            }
-            elseif($this->status == Status::TICKET_ANSWER){
-                $html = '<span class="badge badge--primary">'.trans("Answered").'</span>';
-            }
-
-            elseif($this->status == Status::TICKET_REPLY){
-                $html = '<span class="badge badge--warning">'.trans("Customer Reply").'</span>';
-            }
-            elseif($this->status == Status::TICKET_CLOSE){
-                $html = '<span class="badge badge--dark">'.trans("Closed").'</span>';
+            if ($this->status == Status::TICKET_OPEN) {
+                $html = '<span class="badge badge--success">' . trans("Open") . '</span>';
+            } elseif ($this->status == Status::TICKET_ANSWER) {
+                $html = '<span class="badge badge--primary">' . trans("Answered") . '</span>';
+            } elseif ($this->status == Status::TICKET_REPLY) {
+                $html = '<span class="badge badge--warning">' . trans("Customer Reply") . '</span>';
+            } elseif ($this->status == Status::TICKET_CLOSE) {
+                $html = '<span class="badge badge--dark">' . trans("Closed") . '</span>';
             }
             return $html;
         });
@@ -48,7 +44,13 @@ class SupportTicket extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function supportMessage(){
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
+    public function supportMessage()
+    {
         return $this->hasMany(SupportMessage::class);
     }
 

@@ -10,22 +10,14 @@
                    data-bs-toggle="dropdown">
                     <img src="{{ asset('assets/adminkit/img/avatars/avatar.jpg') }}"
                          class="avatar img-fluid rounded me-1"
-                         alt="Charles Hall"/>
+                         alt="Agent Charles"/>
                     <span class="text-dark">
-                        @if(auth()->guard('agent')->check())
                             {{ auth()->guard('agent')->user()->fullName }}
-                        @else
-                            {{ Auth::user()->fullName }}
-                        @endif
                     </span>
                 </a>
                 {{--  <div class="dropdown-menu dropdown-menu-end"> --}}
                 <div class="dropdown-menu dropdown-menu--sm p-0 border-0 box--shadow1 dropdown-menu-right">
-                    @if(auth()->guard('agent')->check())
-                        <a class="dropdown-item" href="{{ route('agent.logout') }}">@lang('Log out')</a>
-                    @else
-                        <a class="dropdown-item" href="{{ route('user.logout') }}">@lang('Log out')</a>
-                    @endif
+                    <a class="dropdown-item" href="{{ route('agent.logout') }}">@lang('Log out')</a>
                 </div>
             </li>
         </ul>

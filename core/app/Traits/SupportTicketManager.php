@@ -32,7 +32,6 @@ trait SupportTicketManager
     public function openSupportTicket()
     {
         $user = $this->user;
-//        dd($user);
 
         if (!$user) {
             return to_route('home');
@@ -44,7 +43,6 @@ trait SupportTicketManager
     public function storeSupportTicket(Request $request)
     {
         $user = $this->user;
-
         if (!$user) {
             return to_route('home');
         }

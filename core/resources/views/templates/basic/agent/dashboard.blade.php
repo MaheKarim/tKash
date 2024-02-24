@@ -1,5 +1,5 @@
-@extends($activeTemplate.'layouts.app')
+@extends($activeTemplate.'layouts.agent_app')
 
-@section('contents')
+@section('content')
     {{ auth()->guard('agent')->user()->balance }}
 @endsection

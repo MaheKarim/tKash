@@ -17,5 +17,15 @@ Route::middleware(['agentCheckStatus'])->group(function () {
             Route::get('/dashboard', 'dashboard')->name('dashboard');
             Route::get('transactions', 'transactions')->name('transactions');
         });
+
+        Route::controller('AgentSupportTicketController')->prefix('ticket')->name('agent.ticket.')->group(function () {
+            Route::get('/', 'supportTicket')->name('index');
+            Route::get('new', 'openSupportTicket')->name('open');
+            Route::post('create', 'storeSupportTicket')->name('store');
+            Route::get('view/{ticket}', 'viewTicket')->name('view');
+            Route::post('reply/{ticket}', 'replyTicket')->name('reply');
+            Route::post('close/{ticket}', 'closeTicket')->name('close');
+            Route::get('download/{ticket}', 'ticketDownload')->name('download');
+        });
     });
 });

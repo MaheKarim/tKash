@@ -1,8 +1,7 @@
-@extends($activeTemplate . 'layouts.app')
+@extends($activeTemplate . 'layouts.agent_app')
 
-@section('contents')
+@section('content')
     <div class="row">
-
         <div class="col-lg-12">
             <div class="show-filter mb-3 text-end">
                 <button type="button" class="btn btn-outline--primary showFilterBtn btn-sm"><i

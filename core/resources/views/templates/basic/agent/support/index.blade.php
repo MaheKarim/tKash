@@ -1,10 +1,10 @@
-@extends($activeTemplate.'layouts.app')
-@section('contents')
+@extends($activeTemplate.'layouts.agent_app')
+@section('content')
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-md-12">
                 <div class="text-end">
-                    <a href="{{route('ticket.open') }}" class="btn btn-sm btn--base mb-2"> <i
+                    <a href="{{route('agent.ticket.open') }}" class="btn btn-sm btn--base mb-2"> <i
                             class="fa fa-plus"></i> @lang('New Ticket')</a>
                 </div>
                 <div class="table-responsive">
@@ -21,7 +21,7 @@
                         <tbody>
                         @forelse($supports as $support)
                             <tr>
-                                <td><a href="{{ route('ticket.view', $support->ticket) }}" class="fw-bold">
+                                <td><a href="{{ route('agent.ticket.view', $support->ticket) }}" class="fw-bold">
                                         [@lang('Ticket')#{{ $support->ticket }}] {{ __($support->subject) }} </a></td>
                                 <td>
                                     @php echo $support->statusBadge; @endphp
@@ -38,7 +38,8 @@
                                 <td>{{ diffForHumans($support->last_reply) }} </td>
 
                                 <td>
-                                    <a href="{{ route('ticket.view', $support->ticket) }}" class="btn btn--base btn-sm">
+                                    <a href="{{ route('agent.ticket.view', $support->ticket) }}"
+                                       class="btn btn--base btn-sm">
                                         <i class="fa fa-desktop"></i>
                                     </a>
                                 </td>

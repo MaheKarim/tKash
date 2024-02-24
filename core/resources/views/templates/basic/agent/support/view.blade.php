@@ -13,13 +13,13 @@
                         @if($myTicket->status != Status::TICKET_CLOSE && $myTicket->user)
                             <button class="btn btn-danger close-button btn-sm confirmationBtn" type="button"
                                     data-question="@lang('Are you sure to close this ticket?')"
-                                    data-action="{{ route('ticket.close', $myTicket->id) }}"><i
+                                    data-action="{{ route('agent.ticket.close', $myTicket->id) }}"><i
                                     class="fa fa-lg fa-times-circle"></i>
                             </button>
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('ticket.reply', $myTicket->id) }}"
+                        <form method="post" action="{{ route('agent.ticket.reply', $myTicket->id) }}"
                               enctype="multipart/form-data">
                             @csrf
                             <div class="row justify-content-between">
@@ -66,7 +66,7 @@
                                         @if($message->attachments->count() > 0)
                                             <div class="mt-2">
                                                 @foreach($message->attachments as $k=> $image)
-                                                    <a href="{{route('ticket.download',encrypt($image->id))}}"
+                                                    <a href="{{route('agent.ticket.download',encrypt($image->id))}}"
                                                        class="me-3"><i
                                                             class="fa fa-file"></i> @lang('Attachment') {{++$k}} </a>
                                                 @endforeach
@@ -88,7 +88,7 @@
                                         @if($message->attachments->count() > 0)
                                             <div class="mt-2">
                                                 @foreach($message->attachments as $k=> $image)
-                                                    <a href="{{route('ticket.download',encrypt($image->id))}}"
+                                                    <a href="{{route('agent.ticket.download',encrypt($image->id))}}"
                                                        class="me-3"><i
                                                             class="fa fa-file"></i> @lang('Attachment') {{++$k}} </a>
                                                 @endforeach

@@ -1,5 +1,5 @@
-@extends($activeTemplate.'layouts.app')
-@section('contents')
+@extends($activeTemplate.'layouts.agent_app')
+@section('content')
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-md-12">
@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{route('ticket.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('agent.ticket.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-6">

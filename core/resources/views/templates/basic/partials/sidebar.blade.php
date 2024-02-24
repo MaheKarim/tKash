@@ -38,6 +38,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item {{ menuActive('ticket.index') }}">
+                    <a class="sidebar-link" href="{{ route('ticket.index') }}">
+                        <i class="align-middle" data-feather="globe"></i> <span
+                            class="align-middle">@lang('Create New Ticket')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-header">
                     @lang('My Transactions')
                 </li>
@@ -67,6 +74,7 @@
                             class="align-middle">@lang('Transactions')</span>
                     </a>
                 </li>
+
             @endif
         </ul>
 

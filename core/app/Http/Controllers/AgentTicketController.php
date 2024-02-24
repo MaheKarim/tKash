@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\SupportTicketManager;
 
-class TicketController extends Controller
+class AgentTicketController extends Controller
 {
     use SupportTicketManager;
 
@@ -22,7 +22,7 @@ class TicketController extends Controller
         });
 
         $this->redirectLink = 'ticket.view';
-        $this->userType = 'user';
-        $this->column = 'user_id';
+        $this->userType = 'agent';
+        $this->column = 'agent_id';
     }
 }

@@ -32,6 +32,7 @@ trait SupportTicketManager
     public function openSupportTicket()
     {
         $user = $this->user;
+//        dd($user);
 
         if (!$user) {
             return to_route('home');
@@ -48,31 +49,31 @@ trait SupportTicketManager
             return to_route('home');
         }
 
-        $ticket  = new SupportTicket();
+        $ticket = new SupportTicket();
         $message = new SupportMessage();
 
         $this->validation($request);
 
-        $column             = $this->column;
-        $user               = $this->user;
-        $ticket->$column    = $user->id;
-        $ticket->ticket     = rand(100000, 999999);
-        $ticket->name       = $user->fullname;
-        $ticket->email      = $user->email;
-        $ticket->subject    = $request->subject;
+        $column = $this->column;
+        $user = $this->user;
+        $ticket->$column = $user->id;
+        $ticket->ticket = rand(100000, 999999);
+        $ticket->name = $user->fullname;
+        $ticket->email = $user->email;
+        $ticket->subject = $request->subject;
         $ticket->last_reply = Carbon::now();
-        $ticket->status     = Status::TICKET_OPEN;
-        $ticket->priority   = $request->priority;
+        $ticket->status = Status::TICKET_OPEN;
+        $ticket->priority = $request->priority;
         $ticket->save();
 
 
-        $message->support_ticket_id   = $ticket->id;
-        $message->message             = $request->message;
+        $message->support_ticket_id = $ticket->id;
+        $message->message = $request->message;
         $message->save();
 
-        $adminNotification            = new AdminNotification();
-        $adminNotification->$column   = $user->id;
-        $adminNotification->title     = 'New support ticket has opened';
+        $adminNotification = new AdminNotification();
+        $adminNotification->$column = $user->id;
+        $adminNotification->title = 'New support ticket has opened';
         $adminNotification->click_url = urlPath('admin.ticket.view', $ticket->id);
         $adminNotification->save();
 
@@ -87,13 +88,62 @@ trait SupportTicketManager
         return to_route($this->redirectLink, $ticket->ticket)->withNotify($notify);
     }
 
+    protected function validation($request)
+    {
+        $maxSize = substr(ini_get('upload_max_filesize'), 0, -1);
+        $this->maxSize = $maxSize;
+        $this->files = $request->file('attachments');
+
+        $request->validate([
+            'attachments' => [
+                'max:4096',
+                function ($attribute, $value, $fail) {
+                    foreach ($this->files as $file) {
+                        $ext = strtolower($file->getClientOriginalExtension());
+                        if (($file->getSize() / 1000000) > $this->maxSize) {
+                            return $fail("Maximum $this->maxSize MB file size allowed!");
+                        }
+                        if (!in_array($ext, $this->allowedExtension)) {
+                            return $fail("Only png, jpg, jpeg, pdf, doc, docx files are allowed");
+                        }
+                    }
+                    if (count($this->files) > 5) {
+                        return $fail("Maximum 5 files can be uploaded");
+                    }
+                },
+            ],
+            'subject' => 'required_without:ticket_reply|max:255',
+            'priority' => 'required_without:ticket_reply|in:1,2,3',
+            'message' => 'required',
+        ]);
+    }
+
+    protected function storeSupportAttachments($messageId)
+    {
+        $path = getFilePath('ticket');
+
+        foreach ($this->files as $file) {
+            try {
+                $attachment = new SupportAttachment();
+                $attachment->support_message_id = $messageId;
+                $attachment->attachment = fileUploader($file, $path);
+                $attachment->save();
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'File could not upload'];
+                return $notify;
+            }
+        }
+
+        return 200;
+    }
+
     public function viewTicket($ticket)
     {
-        $user      = $this->user;
-        $column    = $this->column;
+        $user = $this->user;
+        $column = $this->column;
         $pageTitle = "View Ticket";
-        $userId    = 0;
-        $layout    = $this->layout;
+        $userId = 0;
+        $layout = $this->layout;
 
         $myTicket = SupportTicket::where('ticket', $ticket)->orderBy('id', 'desc')->firstOrFail();
 
@@ -110,7 +160,6 @@ trait SupportTicketManager
 
         return view($this->activeTemplate . $this->userType . '.support.view', compact('myTicket', 'messages', 'pageTitle', 'user', 'layout'));
     }
-
 
     public function replyTicket(Request $request, $id)
     {
@@ -165,55 +214,6 @@ trait SupportTicketManager
         $notify[] = ['success', 'Support ticket replied successfully!'];
 
         return back()->withNotify($notify);
-    }
-
-    protected function storeSupportAttachments($messageId)
-    {
-        $path = getFilePath('ticket');
-
-        foreach ($this->files as  $file) {
-            try {
-                $attachment = new SupportAttachment();
-                $attachment->support_message_id = $messageId;
-                $attachment->attachment = fileUploader($file, $path);
-                $attachment->save();
-            } catch (\Exception $exp) {
-                $notify[] = ['error', 'File could not upload'];
-                return $notify;
-            }
-        }
-
-        return 200;
-    }
-
-    protected function validation($request)
-    {
-        $maxSize = substr(ini_get('upload_max_filesize'), 0, -1);
-        $this->maxSize = $maxSize;
-        $this->files = $request->file('attachments');
-
-        $request->validate([
-            'attachments' => [
-                'max:4096',
-                function ($attribute, $value, $fail) {
-                    foreach ($this->files as $file) {
-                        $ext = strtolower($file->getClientOriginalExtension());
-                        if (($file->getSize() / 1000000) > $this->maxSize) {
-                            return $fail("Maximum $this->maxSize MB file size allowed!");
-                        }
-                        if (!in_array($ext, $this->allowedExtension)) {
-                            return $fail("Only png, jpg, jpeg, pdf, doc, docx files are allowed");
-                        }
-                    }
-                    if (count($this->files) > 5) {
-                        return $fail("Maximum 5 files can be uploaded");
-                    }
-                },
-            ],
-            'subject'   => 'required_without:ticket_reply|max:255',
-            'priority'  => 'required_without:ticket_reply|in:1,2,3',
-            'message'   => 'required',
-        ]);
     }
 
     public function closeTicket($id)

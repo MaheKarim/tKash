@@ -2,9 +2,6 @@
 
 @section('contents')
     <div class="card">
-        <div class="card-header">
-            <h5 class="card-title mb-0">@lang('Selects Payments Method')</h5>
-        </div>
         <form action="{{route('user.deposit.insert')}}" method="post">
             @csrf
             <input type="hidden" name="currency">

@@ -30,6 +30,7 @@ class TkashMethodController extends Controller
             'fixed_charge' => 'required|numeric|gte:0',
             'percent_charge' => 'required|numeric|between:0,100',
             'currency' => 'required',
+            'rate' => 'required|numeric|between:0,100',
             'user_daily_trx_limit' => 'required|numeric|gt:0',
             'user_monthly_trx_limit' => 'required|numeric|gt:user_daily_trx_limit',
             'agent_daily_trx_limit' => 'required|numeric|gt:0',
@@ -43,13 +44,14 @@ class TkashMethodController extends Controller
         $method->fixed_charge = $request->fixed_charge;
         $method->percent_charge = $request->percent_charge;
         $method->currency = $request->currency;
+        $method->rate = $request->rate;
         $method->user_daily_trx_limit = $request->user_daily_trx_limit;
         $method->user_monthly_trx_limit = $request->user_monthly_trx_limit;
         $method->agent_daily_trx_limit = $request->agent_daily_trx_limit;
         $method->agent_monthly_trx_limit = $request->agent_monthly_trx_limit;
         $method->save();
 
-        $notify[] = ['success', 'New method created successfully'];
+        $notify[] = ['success', $request->name . ' Method ' . ' created successfully'];
         return to_route('admin.tkash-methods.index')->withNotify($notify);
     }
 
@@ -70,6 +72,7 @@ class TkashMethodController extends Controller
             'fixed_charge' => 'required|numeric|gte:0',
             'percent_charge' => 'required|numeric|between:0,100',
             'currency' => 'required',
+            'rate' => 'required|numeric|between:0,100',
             'user_daily_trx_limit' => 'required|numeric|gt:0',
             'user_monthly_trx_limit' => 'required|numeric|gt:user_daily_trx_limit',
             'agent_daily_trx_limit' => 'required|numeric|gt:0',
@@ -83,13 +86,14 @@ class TkashMethodController extends Controller
         $method->fixed_charge = $request->fixed_charge;
         $method->percent_charge = $request->percent_charge;
         $method->currency = $request->currency;
+        $method->rate = $request->rate;
         $method->user_daily_trx_limit = $request->user_daily_trx_limit;
         $method->user_monthly_trx_limit = $request->user_monthly_trx_limit;
         $method->agent_daily_trx_limit = $request->agent_daily_trx_limit;
         $method->agent_monthly_trx_limit = $request->agent_monthly_trx_limit;
         $method->save();
 
-        $notify[] = ['success', 'Cash In method updated successfully'];
+        $notify[] = ['success', $request->name . ' Method ' . ' updated successfully'];
         return back()->withNotify($notify);
     }
 

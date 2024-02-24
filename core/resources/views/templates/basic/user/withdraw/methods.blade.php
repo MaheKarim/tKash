@@ -1,6 +1,6 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate.'layouts.app')
 
-@section('content')
+@section('contents')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -16,14 +16,16 @@
                                 <select class="form-select form--control" name="method_code" required>
                                     <option value="">@lang('Select Gateway')</option>
                                     @foreach($withdrawMethod as $data)
-                                        <option value="{{ $data->id }}" data-resource="{{$data}}">  {{__($data->name)}}</option>
+                                        <option value="{{ $data->id }}"
+                                                data-resource="{{$data}}">  {{__($data->name)}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">@lang('Amount')</label>
                                 <div class="input-group">
-                                    <input type="number" step="any" name="amount" value="{{ old('amount') }}" class="form-control form--control" required>
+                                    <input type="number" step="any" name="amount" value="{{ old('amount') }}"
+                                           class="form-control form--control" required>
                                     <span class="input-group-text">{{ $general->cur_text }}</span>
                                 </div>
                             </div>
@@ -31,14 +33,16 @@
                                 <ul class="list-group text-center">
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>@lang('Limit')</span>
-                                        <span><span class="min fw-bold">0</span> {{__($general->cur_text)}} - <span class="max fw-bold">0</span> {{__($general->cur_text)}}</span>
+                                        <span><span class="min fw-bold">0</span> {{__($general->cur_text)}} - <span
+                                                class="max fw-bold">0</span> {{__($general->cur_text)}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>@lang('Charge')</span>
                                         <span><span class="charge fw-bold">0</span> {{__($general->cur_text)}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
-                                        <span>@lang('Receivable')</span> <span><span class="receivable fw-bold"> 0</span> {{__($general->cur_text)}} </span>
+                                        <span>@lang('Receivable')</span> <span><span
+                                                class="receivable fw-bold"> 0</span> {{__($general->cur_text)}} </span>
                                     </li>
                                     <li class="list-group-item d-none justify-content-between rate-element">
 
@@ -60,15 +64,16 @@
 @endsection
 
 @push('script')
-<script type="text/javascript">
-    (function ($) {
+    <script type="text/javascript">
+        (function ($) {
             "use strict";
-            $('select[name=method_code]').change(function(){
-                if(!$('select[name=method_code]').val()){
+            $('select[name=method_code]').change(function () {
+                if (!$('select[name=method_code]').val()) {
                     $('.preview-details').addClass('d-none');
                     return false;
                 }
                 var resource = $('select[name=method_code] option:selected').data('resource');
+                console.log(resource);
                 var fixed_charge = parseFloat(resource.fixed_charge);
                 var percent_charge = parseFloat(resource.percent_charge);
                 var rate = parseFloat(resource.rate)
@@ -79,7 +84,7 @@
                 if (!amount) {
                     amount = 0;
                 }
-                if(amount <= 0){
+                if (amount <= 0) {
                     $('.preview-details').addClass('d-none');
                     return false;
                 }
@@ -94,7 +99,7 @@
                     $('.in-site-cur').removeClass('d-none');
                     $('.rate-element').addClass('d-flex');
                     $('.in-site-cur').addClass('d-flex');
-                }else{
+                } else {
                     $('.rate-element').html('')
                     $('.rate-element').addClass('d-none');
                     $('.in-site-cur').addClass('d-none');
@@ -103,16 +108,16 @@
                 }
                 var receivable = parseFloat((parseFloat(amount) - parseFloat(charge))).toFixed(2);
                 $('.receivable').text(receivable);
-                var final_amount = parseFloat(parseFloat(receivable)*rate).toFixed(toFixedDigit);
+                var final_amount = parseFloat(parseFloat(receivable) * rate).toFixed(toFixedDigit);
                 $('.final_amount').text(final_amount);
                 $('.base-currency').text(resource.currency);
                 $('.method_currency').text(resource.currency);
                 $('input[name=amount]').on('input');
             });
-            $('input[name=amount]').on('input',function(){
+            $('input[name=amount]').on('input', function () {
                 var data = $('select[name=method_code]').change();
                 $('.amount').text(parseFloat($(this).val()).toFixed(2));
             });
         })(jQuery);
-</script>
+    </script>
 @endpush

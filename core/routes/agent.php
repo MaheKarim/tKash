@@ -27,5 +27,11 @@ Route::middleware(['agentCheckStatus'])->group(function () {
             Route::post('close/{ticket}', 'closeTicket')->name('close');
             Route::get('download/{ticket}', 'ticketDownload')->name('download');
         });
+
+        // Cash In Controller
+        Route::controller('CashInController')->name('agent.cashIn.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/cashIn/store', 'store')->name('store');
+        });
     });
 });

@@ -47,7 +47,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Minimum Amount')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="min_trx_limit"
+                                                        <input type="number" class="form-control" name="min_trx_limit"
                                                                value="{{ getAmount($method->min_trx_limit)}}" required/>
                                                         <span
                                                             class="input-group-text"> {{ __($general->cur_text) }} </span>
@@ -56,7 +56,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Maximum Amount')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="max_trx_limit"
+                                                        <input type="number" class="form-control" name="max_trx_limit"
                                                                value="{{getAmount($method->max_trx_limit) }}" required/>
                                                         <span
                                                             class="input-group-text"> {{ __($general->cur_text) }} </span>
@@ -73,8 +73,8 @@
                                                 <div class="form-group">
                                                     <label>@lang('Fixed Charge')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="fixed_charge"
-                                                               value="{{ getAmount($method->fixed_charge) }}" required/>
+                                                        <input type="number" class="form-control" name="fixed_charge"
+                                                               value="{{ getAmount($method->fixed_charge) }}"/>
                                                         <span
                                                             class="input-group-text"> {{ __($general->cur_text) }} </span>
                                                     </div>
@@ -82,9 +82,8 @@
                                                 <div class="form-group">
                                                     <label>@lang('Percent Charge')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="percent_charge"
-                                                               value="{{ getAmount($method->percent_charge) }}"
-                                                               required>
+                                                        <input type="number" class="form-control" name="percent_charge"
+                                                               value="{{ getAmount($method->percent_charge) }}">
                                                         <span class="input-group-text">%</span>
                                                     </div>
                                                 </div>
@@ -99,7 +98,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Minimum Amount - Daily')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
+                                                        <input type="number" class="form-control"
                                                                name="user_daily_trx_limit"
                                                                value="{{ getAmount($method->user_daily_trx_limit)}}"
                                                                required/>
@@ -110,7 +109,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Maximum Amount - Monthly')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
+                                                        <input type="number" class="form-control"
                                                                name="user_monthly_trx_limit"
                                                                value="{{getAmount($method->user_monthly_trx_limit) }}"
                                                                required/>
@@ -129,7 +128,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Minimum Amount - Daily')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
+                                                        <input type="number" class="form-control"
                                                                name="agent_daily_trx_limit"
                                                                value="{{ getAmount($method->agent_daily_trx_limit)}}"
                                                                required/>
@@ -140,7 +139,7 @@
                                                 <div class="form-group">
                                                     <label>@lang('Maximum Amount - Monthly')</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
+                                                        <input type="number" class="form-control"
                                                                name="agent_monthly_trx_limit"
                                                                value="{{getAmount($method->agent_monthly_trx_limit) }}"
                                                                required/>

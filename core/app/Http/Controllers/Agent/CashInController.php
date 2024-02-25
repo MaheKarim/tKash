@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
@@ -9,36 +9,34 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CashOutController extends Controller
+class CashInController extends Controller
 {
-    public function cashOut()
+    public function index()
     {
-        $pageTitle = 'Cash Out';
-        $data = TkashMethod::find(2);
-        return view($this->activeTemplate . 'user.cash-out.index', compact('pageTitle', 'data'));
+        $pageTitle = 'Cash In';
+        return view($this->activeTemplate . 'agent.cash-in.index', compact('pageTitle'));
     }
 
-    public function cashOutStore(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
+            'amount' => 'required|numeric|min:1',
             'username' => 'required',
-            'amount' => 'required|numeric|gt:0',
         ]);
-
-        $checkUser = User::where('username', '=', auth()->user()->username)->first();
-        if ($request->username == $checkUser->username) {
-            $notify[] = ['error', 'You can not send money to yourself'];
+        $checkAgent = Agent::where('username', '=', auth()->guard('agent')->user()->username)->first();
+        if ($request->username == $checkAgent->username) {
+            $notify[] = ['error', 'You can not Cash In to yourself'];
             return back()->withNotify($notify);
         }
 
-        $receiver = Agent::where('username', $request->username)->first();
+        $receiver = User::where('username', $request->username)->first();
         if (!$receiver) {
             $notify[] = ['error', 'Receiver not found'];
             return back()->withNotify($notify);
         }
 
         $receiverId = $receiver->id;
-        $user = auth()->user();
+        $user = auth()->guard('agent')->user();
         $amount = $request->amount;
 
         if ($user->balance < $amount) {
@@ -46,7 +44,7 @@ class CashOutController extends Controller
             return back()->withNotify($notify);
         }
 
-        $cashOutCharge = TkashMethod::findOrFail(2);
+        $cashOutCharge = TkashMethod::findOrFail(1);
         $charge = $cashOutCharge->fixed_charge + ($request->amount * $cashOutCharge->percent_charge) / 100;
         $finalAmount = $amount - $charge;
 
@@ -58,19 +56,19 @@ class CashOutController extends Controller
 
         // Transaction Save For Sender
         $sendMoney = new Transaction();
-        $sendMoney->user_id = $user->id;
+        $sendMoney->agent_id = $user->id;
         $sendMoney->amount = $finalAmount;
         $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($user->balance);
         $sendMoney->trx_type = '-';
-        $sendMoney->details = 'Cash Out to ' . $receiver->username;
+        $sendMoney->details = 'Cash In to ' . $receiver->username;
         $sendMoney->trx = getTrx();
         $sendMoney->remark = 'cash_out';
         $sendMoney->save();
 
         // Transaction Save For Receiver
         $transaction = new Transaction();
-        $transaction->agent_id = $receiverId;
+        $transaction->user_id = $receiverId;
         $transaction->amount = $finalAmount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
@@ -81,7 +79,7 @@ class CashOutController extends Controller
         $transaction->save();
 
 
-        $notify[] = ['success', 'Cash out to ' . $receiver->username . ' successfully'];
-        return to_route('user.transactions')->withNotify($notify);
+        $notify[] = ['success', 'Cash in request send to ' . $request->username . ' successfully'];
+        return to_route('agent.transactions')->withNotify($notify);
     }
 }

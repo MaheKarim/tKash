@@ -15,18 +15,28 @@
                         class="align-middle">@lang('Dashboard')</span>
                 </a>
             </li>
-
-            <li class="sidebar-item {{ menuActive('agent.ticket.index') }}">
-                <a class="sidebar-link" href="{{ route('agent.ticket.index') }}">
-                    <i class="align-middle" data-feather="square"></i> <span
-                        class="align-middle">@lang('Support')</span>
+            <li class="sidebar-item {{ menuActive('agent.cashIn.index') }}">
+                <a class="sidebar-link" href="{{ route('agent.cashIn.index') }}">
+                    <i class="align-middle" data-feather="navigation"></i> <span
+                        class="align-middle">@lang('Cash In')</span>
                 </a>
             </li>
-
+            <li class="sidebar-header">
+                @lang('Transactions')
+            </li>
             <li class="sidebar-item {{ menuActive('agent.transactions') }}">
                 <a class="sidebar-link" href="{{ route('agent.transactions') }}">
                     <i class="align-middle" data-feather="list"></i> <span
                         class="align-middle">@lang('Transactions')</span>
+                </a>
+            </li>
+            <li class="sidebar-header">
+                @lang('Support')
+            </li>
+            <li class="sidebar-item {{ menuActive('agent.ticket.index') }}">
+                <a class="sidebar-link" href="{{ route('agent.ticket.index') }}">
+                    <i class="align-middle" data-feather="square"></i> <span
+                        class="align-middle">@lang('Support')</span>
                 </a>
             </li>
         </ul>

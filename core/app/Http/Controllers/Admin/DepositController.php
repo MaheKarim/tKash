@@ -18,6 +18,47 @@ class DepositController extends Controller
         return view('admin.deposit.log', compact('pageTitle', 'deposits'));
     }
 
+    protected function depositData($scope = null, $summery = false)
+    {
+        if ($scope) {
+            $deposits = Deposit::$scope()->with(['user', 'gateway', 'agent']);
+        } else {
+            $deposits = Deposit::with(['user', 'gateway', 'agent']);
+        }
+
+        $deposits = $deposits->searchable(['trx', 'user:username'])->dateFilter();
+
+        $request = request();
+        //vai method
+        if ($request->method) {
+            $method = Gateway::where('alias', $request->method)->firstOrFail();
+            $deposits = $deposits->where('method_code', $method->code);
+        }
+
+        if (!$summery) {
+            return $deposits->orderBy('id', 'desc')->paginate(getPaginate());
+        } else {
+            $successful = clone $deposits;
+            $pending = clone $deposits;
+            $rejected = clone $deposits;
+            $initiated = clone $deposits;
+
+            $successfulSummery = $successful->where('status', Status::PAYMENT_SUCCESS)->sum('amount');
+            $pendingSummery = $pending->where('status', Status::PAYMENT_PENDING)->sum('amount');
+            $rejectedSummery = $rejected->where('status', Status::PAYMENT_REJECT)->sum('amount');
+            $initiatedSummery = $initiated->where('status', Status::PAYMENT_INITIATE)->sum('amount');
+
+            return [
+                'data' => $deposits->orderBy('id', 'desc')->paginate(getPaginate()),
+                'summery' => [
+                    'successful' => $successfulSummery,
+                    'pending' => $pendingSummery,
+                    'rejected' => $rejectedSummery,
+                    'initiated' => $initiatedSummery,
+                ]
+            ];
+        }
+    }
 
     public function approved()
     {
@@ -57,65 +98,23 @@ class DepositController extends Controller
         $pending = $summery['pending'];
         $rejected = $summery['rejected'];
         $initiated = $summery['initiated'];
-        return view('admin.deposit.log', compact('pageTitle', 'deposits','successful','pending','rejected','initiated'));
-    }
-
-    protected function depositData($scope = null,$summery = false)
-    {
-        if ($scope) {
-            $deposits = Deposit::$scope()->with(['user', 'gateway']);
-        }else{
-            $deposits = Deposit::with(['user', 'gateway']);
-        }
-
-        $deposits = $deposits->searchable(['trx','user:username'])->dateFilter();
-
-        $request = request();
-        //vai method
-        if ($request->method) {
-            $method = Gateway::where('alias',$request->method)->firstOrFail();
-            $deposits = $deposits->where('method_code',$method->code);
-        }
-
-        if (!$summery) {
-            return $deposits->orderBy('id','desc')->paginate(getPaginate());
-        }else{
-            $successful = clone $deposits;
-            $pending = clone $deposits;
-            $rejected = clone $deposits;
-            $initiated = clone $deposits;
-
-            $successfulSummery = $successful->where('status',Status::PAYMENT_SUCCESS)->sum('amount');
-            $pendingSummery = $pending->where('status',Status::PAYMENT_PENDING)->sum('amount');
-            $rejectedSummery = $rejected->where('status',Status::PAYMENT_REJECT)->sum('amount');
-            $initiatedSummery = $initiated->where('status',Status::PAYMENT_INITIATE)->sum('amount');
-
-            return [
-                'data'=>$deposits->orderBy('id','desc')->paginate(getPaginate()),
-                'summery'=>[
-                    'successful'=>$successfulSummery,
-                    'pending'=>$pendingSummery,
-                    'rejected'=>$rejectedSummery,
-                    'initiated'=>$initiatedSummery,
-                ]
-            ];
-        }
+        return view('admin.deposit.log', compact('pageTitle', 'deposits', 'successful', 'pending', 'rejected', 'initiated'));
     }
 
     public function details($id)
     {
         $deposit = Deposit::where('id', $id)->with(['user', 'gateway'])->firstOrFail();
-        $pageTitle = $deposit->user->username.' requested ' . showAmount($deposit->amount) . ' '.gs('cur_text');
+        $pageTitle = $deposit->user->username . ' requested ' . showAmount($deposit->amount) . ' ' . gs('cur_text');
         $details = ($deposit->detail != null) ? json_encode($deposit->detail) : null;
-        return view('admin.deposit.detail', compact('pageTitle', 'deposit','details'));
+        return view('admin.deposit.detail', compact('pageTitle', 'deposit', 'details'));
     }
 
 
     public function approve($id)
     {
-        $deposit = Deposit::where('id',$id)->where('status',Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::where('id', $id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
-        PaymentController::userDataUpdate($deposit,true);
+        PaymentController::userDataUpdate($deposit, true);
 
         $notify[] = ['success', 'Deposit request approved successfully'];
 
@@ -128,7 +127,7 @@ class DepositController extends Controller
             'id' => 'required|integer',
             'message' => 'required|string|max:255'
         ]);
-        $deposit = Deposit::where('id',$request->id)->where('status',Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::where('id', $request->id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
         $deposit->admin_feedback = $request->message;
         $deposit->status = Status::PAYMENT_REJECT;
@@ -146,7 +145,7 @@ class DepositController extends Controller
         ]);
 
         $notify[] = ['success', 'Deposit request rejected successfully'];
-        return  to_route('admin.deposit.pending')->withNotify($notify);
+        return to_route('admin.deposit.pending')->withNotify($notify);
 
     }
 }

@@ -21,6 +21,13 @@
                         class="align-middle">@lang('Cash In')</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{ menuActive('agent.addMoney.deposit') }}">
+                <a class="sidebar-link" href="{{ route('agent.addMoney.deposit') }}">
+                    <i class="align-middle" data-feather="arrow-left"></i> <span
+                        class="align-middle">@lang('Add Money')</span>
+                </a>
+            </li>
             <li class="sidebar-header">
                 @lang('Transactions')
             </li>

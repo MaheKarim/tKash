@@ -27,11 +27,16 @@ Route::middleware(['agentCheckStatus'])->group(function () {
             Route::post('close/{ticket}', 'closeTicket')->name('close');
             Route::get('download/{ticket}', 'ticketDownload')->name('download');
         });
-
         // Cash In Controller
         Route::controller('CashInController')->name('agent.cashIn.')->group(function () {
-            Route::get('/', 'index')->name('index');
+            Route::get('/cashIn', 'index')->name('index');
             Route::post('/cashIn/store', 'store')->name('store');
         });
+    });
+    // AdMoney Controller
+    Route::controller('Gateway\PaymentController')->name('agent.addMoney.')->group(function () {
+        Route::get('/', 'deposit')->name('deposit');
+        Route::post('insert', 'depositInsert')->name('depositInsert');
+        Route::get('confirm', 'depositConfirm')->name('confirm');
     });
 });

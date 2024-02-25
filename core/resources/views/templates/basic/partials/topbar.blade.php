@@ -12,11 +12,7 @@
                          class="avatar img-fluid rounded me-1"
                          alt="Charles Hall"/>
                     <span class="text-dark">
-                        @if(auth()->guard('agent')->check())
-                            {{ auth()->guard('agent')->user()->fullName }}
-                        @else
                             {{ Auth::user()->fullName }}
-                        @endif
                     </span>
                 </a>
                 {{--  <div class="dropdown-menu dropdown-menu-end"> --}}

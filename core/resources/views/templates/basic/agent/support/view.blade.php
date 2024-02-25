@@ -1,12 +1,11 @@
-@extends($activeTemplate.'layouts.'.$layout)
-
-@section('contents')
+@extends($activeTemplate.'layouts.agent_app')
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card custom--card">
                     <div class="card-header card-header-bg d-flex flex-wrap justify-content-between align-items-center">
-                        <h5 class="text-white mt-0">
+                        <h5 class="text-primary mt-0">
                             @php echo $myTicket->statusBadge; @endphp
                             [@lang('Ticket')#{{ $myTicket->ticket }}] {{ $myTicket->subject }}
                         </h5>

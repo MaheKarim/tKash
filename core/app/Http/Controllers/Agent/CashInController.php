@@ -66,7 +66,11 @@ class CashInController extends Controller
             return back()->withNotify($notify);
         }
 
-        if (!agentMonthlyLimitCheck($cashOutCharge, $agent, $amount)) {
+        if (!agentDailyLimitCheck($cashOutCharge, $amount, $agent)) {
+            $notify[] = ['error', 'Your Daily transaction limit' . getAmount($cashOutCharge->agent_daily_trx_limit) . ' exceeded'];
+            return back()->withNotify($notify);
+        }
+        if (!agentMonthlyLimitCheck($cashOutCharge, $amount, $agent)) {
             $notify[] = ['error', 'Your Monthly transaction limit' . getAmount($cashOutCharge->agent_monthly_trx_limit) . ' exceeded'];
             return back()->withNotify($notify);
         }

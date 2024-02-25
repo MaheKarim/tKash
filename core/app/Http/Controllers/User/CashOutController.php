@@ -80,6 +80,20 @@ class CashOutController extends Controller
         $transaction->remark = 'received_money';
         $transaction->save();
 
+        $commissionBalance = ($request->amount * $cashOutCharge->percent_charge) / 100;
+        $receiver->balance += $commissionBalance;
+        $receiver->save();
+        // Transaction Save For Receiver
+        $commission = new Transaction();
+        $commission->agent_id = $receiverId;
+        $commission->amount = $commissionBalance;
+        $commission->charge = 0;
+        $commission->post_balance = getAmount($receiver->balance);
+        $commission->trx_type = '+';
+        $commission->details = 'Commission money from ' . $sendMoney->trx;
+        $commission->trx = $sendMoney->trx;
+        $commission->remark = 'received_money';
+        $commission->save();
 
         $notify[] = ['success', 'Cash out to ' . $receiver->username . ' successfully'];
         return to_route('user.transactions')->withNotify($notify);

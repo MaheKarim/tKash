@@ -96,9 +96,9 @@ class CashInController extends Controller
         $sendMoney->remark = 'cash_out';
         $sendMoney->save();
 
-        $agent->balance += $charge;
+        $agent->commission_balance += $charge;
         $agent->save();
-        // Transaction Save For Sender
+        // Commission Balance For Agent
         $agentCommission = new Transaction();
         $agentCommission->agent_id = $agent->id;
         $agentCommission->amount = $charge;

@@ -81,8 +81,9 @@ class CashOutController extends Controller
         $transaction->save();
 
         $commissionBalance = ($request->amount * $cashOutCharge->percent_charge) / 100;
-        $receiver->balance += $commissionBalance;
+        $receiver->commission_balance += $commissionBalance;
         $receiver->save();
+
         // Transaction Save For Receiver
         $commission = new Transaction();
         $commission->agent_id = $receiverId;

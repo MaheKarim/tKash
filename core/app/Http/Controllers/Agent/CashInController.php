@@ -36,44 +36,59 @@ class CashInController extends Controller
         }
 
         $receiverId = $receiver->id;
-        $user = auth()->guard('agent')->user();
+        $agent = auth()->guard('agent')->user();
         $amount = $request->amount;
 
-        if ($user->balance < $amount) {
+        if ($agent->balance < $amount) {
             $notify[] = ['error', 'Insufficient balance'];
             return back()->withNotify($notify);
         }
 
         $cashOutCharge = TkashMethod::findOrFail(1);
         $charge = $cashOutCharge->fixed_charge + ($request->amount * $cashOutCharge->percent_charge) / 100;
+//        dd($charge);
         $finalAmount = $amount - $charge;
 
-        $user->balance -= $amount;
-        $user->save();
+        $agent->balance -= $amount;
+        $agent->save();
 
-        $receiver->balance += $finalAmount;
+        $receiver->balance += $amount;
         $receiver->save();
 
         // Transaction Save For Sender
         $sendMoney = new Transaction();
-        $sendMoney->agent_id = $user->id;
-        $sendMoney->amount = $finalAmount;
+        $sendMoney->agent_id = $agent->id;
+        $sendMoney->amount = $amount;
         $sendMoney->charge = $charge;
-        $sendMoney->post_balance = getAmount($user->balance);
+        $sendMoney->post_balance = getAmount($agent->balance);
         $sendMoney->trx_type = '-';
         $sendMoney->details = 'Cash In to ' . $receiver->username;
         $sendMoney->trx = getTrx();
         $sendMoney->remark = 'cash_out';
         $sendMoney->save();
 
+        $agent->balance += $charge;
+        $agent->save();
+        // Transaction Save For Sender
+        $agentCommission = new Transaction();
+        $agentCommission->agent_id = $agent->id;
+        $agentCommission->amount = $charge;
+        $agentCommission->charge = 0;
+        $agentCommission->post_balance = getAmount($agent->balance);
+        $agentCommission->trx_type = '+';
+        $agentCommission->details = 'Cash In Commission For ' . $sendMoney->trx;
+        $agentCommission->trx = $sendMoney->trx;
+        $agentCommission->remark = 'cash_in';
+        $agentCommission->save();
+
         // Transaction Save For Receiver
         $transaction = new Transaction();
         $transaction->user_id = $receiverId;
-        $transaction->amount = $finalAmount;
+        $transaction->amount = $amount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
         $transaction->trx_type = '+';
-        $transaction->details = 'Received money from ' . $user->username;
+        $transaction->details = 'Received money from ' . $agent->username;
         $transaction->trx = $sendMoney->trx;
         $transaction->remark = 'received_money';
         $transaction->save();

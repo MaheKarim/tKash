@@ -480,6 +480,7 @@ function dailyLimitCheck(User $user, $amount): bool
     return false;
 }
 
+
 function monthlyLimitCheck(User $user, $amount): bool
 {
     $today = Carbon::today()->format('Y-m-d');
@@ -494,5 +495,49 @@ function monthlyLimitCheck(User $user, $amount): bool
     }
     return false;
 }
+
+function userDailyLimitCheck($methods, $amount, $user): bool
+{
+    $today = Carbon::today()->format('Y-m-d');
+    $totalSendMoney = $user->transactions()->whereDate('created_at', $today)->sum('amount');
+    $remainLimit = $methods->user_daily_trx_limit - $totalSendMoney;
+    if ($remainLimit > $amount) {
+        return true;
+    }
+    return false;
+}
+
+function userMonthlyLimitCheck($methods, $amount, $user): bool
+{
+
+    $today = Carbon::today()->format('Y-m-d');
+    $lastThirtyDay = Carbon::now()->subDays(30)->format('Y-m-d');
+
+    $totalSendMoney = $user->transactions()->whereBetween('created_at', [$lastThirtyDay, $today])->sum('amount');
+    $remainLimit = $methods->user_monthly_trx_limit - $totalSendMoney;
+
+    $agentMonthlyLimit = $methods->agent_monthly_trx_limit - $totalSendMoney;
+    if ($remainLimit && $agentMonthlyLimit > $amount) {
+        return true;
+    }
+    return false;
+}
+
+function agentMonthlyLimitCheck($methods, $amount, $user): bool
+{
+
+    $today = Carbon::today()->format('Y-m-d');
+    $lastThirtyDay = Carbon::now()->subDays(30)->format('Y-m-d');
+
+    $totalSendMoney = $user->transactions()->whereBetween('created_at', [$lastThirtyDay, $today])->sum('amount');
+
+    $remainLimit = $methods->agent_monthly_trx_limit - $totalSendMoney;
+
+    if ($remainLimit > $amount) {
+        return true;
+    }
+    return false;
+}
+
 
 

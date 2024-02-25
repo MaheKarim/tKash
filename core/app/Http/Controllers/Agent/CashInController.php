@@ -45,8 +45,33 @@ class CashInController extends Controller
         }
 
         $cashOutCharge = TkashMethod::findOrFail(1);
+
+        if ($cashOutCharge->min_trx_limit > $amount) {
+            $notify[] = ['error', 'Minimum transaction amount is ' . getAmount($cashOutCharge->min_trx_limit) . $cashOutCharge->currency];
+            return back()->withNotify($notify);
+        }
+
+        if ($cashOutCharge->max_trx_limit < $amount) {
+            $notify[] = ['error', 'Maximum transaction amount is ' . getAmount($cashOutCharge->max_trx_limit) . $cashOutCharge->currency];
+            return back()->withNotify($notify);
+        }
+
+        if (!userDailyLimitCheck($cashOutCharge, $amount, $receiver)) {
+            $notify[] = ['error', 'Daily transaction limit exceeded'];
+            return back()->withNotify($notify);
+        }
+
+        if (!userMonthlyLimitCheck($cashOutCharge, $amount, $receiver)) {
+            $notify[] = ['error', $receiver->username . ' Monthly transaction limit exceeded'];
+            return back()->withNotify($notify);
+        }
+
+        if (!agentMonthlyLimitCheck($cashOutCharge, $agent, $amount)) {
+            $notify[] = ['error', 'Your Monthly transaction limit' . getAmount($cashOutCharge->agent_monthly_trx_limit) . ' exceeded'];
+            return back()->withNotify($notify);
+        }
+
         $charge = $cashOutCharge->fixed_charge + ($request->amount * $cashOutCharge->percent_charge) / 100;
-//        dd($charge);
         $finalAmount = $amount - $charge;
 
         $agent->balance -= $amount;

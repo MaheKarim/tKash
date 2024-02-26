@@ -13,12 +13,6 @@ use Illuminate\View\View;
 
 class SendMoneyController extends Controller
 {
-    public function sendMoney(): View
-    {
-        $pageTitle = 'Send Money';
-        return view($this->activeTemplate . 'user.send_money.form', compact('pageTitle'));
-    }
-
     public function sendMoneyStore(Request $request)
     {
         $minLimit = getAmount(gs('min_send_money_limit'));
@@ -56,7 +50,7 @@ class SendMoneyController extends Controller
         $this->checkDailyLimit($amount);
         $this->checkMonthlyLimit($amount);
 
-        $trx =  getTrx();
+        $trx = getTrx();
         $sendMoney = new SendMoney();
         $sendMoney->user_id = $sender->id;
         $sendMoney->receiver_id = $receiver->id;
@@ -71,7 +65,7 @@ class SendMoneyController extends Controller
         // Transaction Save For Sender
         $sendMoney = new Transaction();
         $sendMoney->user_id = $sender->id;
-        $sendMoney->amount = $finalAmount;
+        $sendMoney->amount = $amount;
         $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($sender->balance);
         $sendMoney->trx_type = '-';
@@ -105,18 +99,9 @@ class SendMoneyController extends Controller
         return to_route('user.transactions')->withNotify($notify);
     }
 
-    public function history(): View
-    {
-        $pageTitle = 'Transactions';
-        $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
-
-        $transactions =
-            Transaction::where('user_id', auth()->id())->filter(['trx_type', 'remark'])->dateFilter()->with('user')
-            ->orderBy('id', 'desc')->paginate(getPaginate());
-
-        return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'transactions', 'remarks'));
-    }
-
+    /**
+     * @throws ValidationException
+     */
     private function checkDailyLimit($amount)
     {
         $user = auth()->user();
@@ -128,6 +113,14 @@ class SendMoneyController extends Controller
         }
     }
 
+    public function sendMoney(): View
+    {
+        $pageTitle = 'Send Money';
+        $totalToday = SendMoney::where('user_id', auth()->id())->whereDate('created_at', today())->sum('amount');
+        $availableLimit = showAmount(gs('daily_send_money_limit') - $totalToday);
+        return view($this->activeTemplate . 'user.send_money.form', compact('pageTitle', 'availableLimit'));
+    }
+
     private function checkMonthlyLimit($amount)
     {
         $user = auth()->user();
@@ -137,5 +130,17 @@ class SendMoneyController extends Controller
         if ($amount + $thisMonthTotal > gs('monthly_send_money_limit')) {
             throw ValidationException::withMessages(['error' => ['Sorry! You have exceeded the monthly limit']]);
         }
+    }
+
+    public function history(): View
+    {
+        $pageTitle = 'Transactions';
+        $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
+
+        $transactions =
+            Transaction::where('user_id', auth()->id())->filter(['trx_type', 'remark'])->dateFilter()->with('user')
+                ->orderBy('id', 'desc')->paginate(getPaginate());
+
+        return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'transactions', 'remarks'));
     }
 }

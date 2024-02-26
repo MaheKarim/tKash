@@ -341,8 +341,15 @@ function getContent($dataKeys, $singleQuery = false, $limit = null, $orderById =
 function gatewayRedirectUrl($type = false)
 {
     if ($type) {
-        return 'user.deposit.history';
+        if (auth()->guard('agent')->user()) {
+            return 'agent.transactions';
+        } else {
+            return 'user.deposit.history';
+        }
     } else {
+        if (auth()->guard('agent')->user()) {
+            return 'agent.dashboard';
+        }
         return 'user.deposit.index';
     }
 }

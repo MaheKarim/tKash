@@ -33,10 +33,16 @@ Route::middleware(['agentCheckStatus'])->group(function () {
             Route::post('/cashIn/store', 'store')->name('store');
         });
     });
-    // AdMoney Controller
+    // AddMoney Controller
     Route::controller('Gateway\PaymentController')->name('agent.addMoney.')->group(function () {
         Route::get('/', 'deposit')->name('deposit');
         Route::post('insert', 'depositInsert')->name('depositInsert');
         Route::get('confirm', 'depositConfirm')->name('confirm');
+    });
+
+    // WithDraw Controller
+    Route::controller('Agent\WithdrawMoneyController')->name('agent.withdraw.')->group(function () {
+        Route::get('/withdraw', 'index')->name('index');
+        Route::post('/withdraw/store', 'store')->name('money');
     });
 });

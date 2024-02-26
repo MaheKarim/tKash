@@ -28,6 +28,14 @@
                         class="align-middle">@lang('Add Money')</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{ menuActive('agent.withdraw.index') }}">
+                <a class="sidebar-link" href="{{ route('agent.withdraw.index') }}">
+                    <i class="align-middle" data-feather="chevrons-down"></i> <span
+                        class="align-middle">@lang('Withdraw Money')</span>
+                </a>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Transactions')
             </li>

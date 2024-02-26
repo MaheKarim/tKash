@@ -475,33 +475,6 @@ function isHtml($string)
     }
 }
 
-function dailyLimitCheck(User $user, $amount): bool
-{
-    $today = Carbon::today()->format('Y-m-d');
-    $totalSendMoney = $user->financial_movements()->where('created_at', $today)->sum('final_amount');
-    $remainLimit = $user->daily_trx_limit - $totalSendMoney;
-
-    if ($remainLimit > $amount) {
-        return true;
-    }
-    return false;
-}
-
-
-function monthlyLimitCheck(User $user, $amount): bool
-{
-    $today = Carbon::today()->format('Y-m-d');
-    $lastThirtyDay = Carbon::now()->subDays(30)->format('Y-m-d');
-
-    $totalSendMoney = $user->financial_movements()->whereBetween('created_at', [$lastThirtyDay, $today])->sum('final_amount');
-
-    $remainLimit = $user->monthly_trx_limit - $totalSendMoney;
-
-    if ($remainLimit > $amount) {
-        return true;
-    }
-    return false;
-}
 
 function userDailyLimitCheck($methods, $amount, $user): bool
 {
@@ -556,4 +529,6 @@ function agentDailyLimitCheck($methods, $amount, $user): bool
 }
 
 
-
+function authUser() {
+    return auth()->user() ?? auth()->guard('agent')->user();
+}

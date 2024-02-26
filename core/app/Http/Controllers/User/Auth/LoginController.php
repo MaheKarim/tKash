@@ -98,10 +98,6 @@ class LoginController extends Controller
         return to_route('user.login')->withNotify($notify);
     }
 
-
-
-
-
     public function authenticated(Request $request, $user)
     {
         $user->tv = $user->ts == Status::VERIFIED ? Status::UNVERIFIED : Status::VERIFIED;
@@ -131,6 +127,8 @@ class LoginController extends Controller
         $userLogin->browser = @$userAgent['browser'];
         $userLogin->os = @$userAgent['os_platform'];
         $userLogin->save();
+
+        auth()->guard('agent')->logout();
 
         return to_route('user.home');
     }

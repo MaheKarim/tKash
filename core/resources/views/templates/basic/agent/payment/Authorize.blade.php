@@ -1,8 +1,4 @@
-
-
 @extends($activeTemplate.'layouts.master')
-
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -10,7 +6,7 @@
 
                 <div class="card custom--card">
                     <div class="card-header">
-                        <h5>@lang('Stripe Hosted')</h5>
+                        <h5>@lang('Authorize Net')</h5>
                     </div>
                     <div class="card-body">
                         <div class="card-wrapper mb-3"></div>

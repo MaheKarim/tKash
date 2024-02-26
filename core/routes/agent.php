@@ -35,7 +35,7 @@ Route::middleware(['agentCheckStatus'])->group(function () {
     });
     // AddMoney Controller
     Route::controller('Gateway\PaymentController')->name('agent.addMoney.')->group(function () {
-        Route::get('/', 'deposit')->name('deposit');
+        Route::get('/', 'addMoney')->name('deposit');
         Route::post('insert', 'depositInsert')->name('depositInsert');
         Route::get('confirm', 'depositConfirm')->name('confirm');
     });

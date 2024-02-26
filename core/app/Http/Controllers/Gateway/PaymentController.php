@@ -20,50 +20,28 @@ class PaymentController extends Controller
         if ($deposit->status == Status::PAYMENT_INITIATE || $deposit->status == Status::PAYMENT_PENDING) {
             $deposit->status = Status::PAYMENT_SUCCESS;
             $deposit->save();
-            if (auth()->guard('agent')->user()) {
-                $user = Agent::find($deposit->agent_id);
-                $user->balance += $deposit->amount;
-                $user->save();
 
-                $transaction = new Transaction();
-                $transaction->agent_id = $deposit->agent_id;
-                $transaction->amount = $deposit->amount;
-                $transaction->post_balance = $user->balance;
-                $transaction->charge = $deposit->charge;
-                $transaction->trx_type = '+';
-                $transaction->details = 'Deposit Via ' . $deposit->gatewayCurrency()->name;
-                $transaction->trx = $deposit->trx;
-                $transaction->remark = 'deposit';
-                $transaction->save();
+            $user = $deposit->agent_id ? $deposit->agent : $deposit->user;
 
-                if (!$isManual) {
-                    $adminNotification = new AdminNotification();
-                    $adminNotification->agent_id = $user->id;
-                    $adminNotification->title = 'Deposit successful via ' . $deposit->gatewayCurrency()->name;
-                    $adminNotification->click_url = urlPath('admin.deposit.successful');
-                    $adminNotification->save();
-                }
-
-            } else {
-                $user = User::find($deposit->user_id);
-                $user->balance += $deposit->amount;
-                $user->save();
-            }
+            $user->balance += $deposit->amount;
+            $user->save();
 
             $transaction = new Transaction();
             $transaction->user_id = $deposit->user_id;
+            $transaction->agent_id = $deposit->agent_id;
             $transaction->amount = $deposit->amount;
             $transaction->post_balance = $user->balance;
             $transaction->charge = $deposit->charge;
             $transaction->trx_type = '+';
-            $transaction->details = 'Deposit Via ' . $deposit->gatewayCurrency()->name;
+            $transaction->details = 'Add money via ' . $deposit->gatewayCurrency()->name;
             $transaction->trx = $deposit->trx;
             $transaction->remark = 'deposit';
             $transaction->save();
 
             if (!$isManual) {
                 $adminNotification = new AdminNotification();
-                $adminNotification->user_id = $user->id;
+                $adminNotification->user_id = $deposit->user_id;
+                $adminNotification->agent_id = $deposit->agent_id;
                 $adminNotification->title = 'Deposit successful via ' . $deposit->gatewayCurrency()->name;
                 $adminNotification->click_url = urlPath('admin.deposit.successful');
                 $adminNotification->save();
@@ -79,22 +57,28 @@ class PaymentController extends Controller
                 'trx' => $deposit->trx,
                 'post_balance' => showAmount($user->balance)
             ]);
-
-
         }
+    }
+
+    private function gatewayCurrencies()
+    {
+        return GatewayCurrency::whereHas('method', function ($gate) {
+            $gate->where('status', Status::ENABLE);
+        })->with('method')->orderby('method_code')->get();
+    }
+
+    public function addMoney()
+    {
+        $pageTitle = 'Add Money';
+        $gatewayCurrency = $this->gatewayCurrencies();
+        return view($this->activeTemplate . 'agent.add_money.form', compact('gatewayCurrency', 'pageTitle'));
     }
 
     public function deposit()
     {
-        $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
-            $gate->where('status', Status::ENABLE);
-        })->with('method')->orderby('method_code')->get();
-        $pageTitle = 'Deposit Methods';
-        if (auth()->user()) {
-            return view($this->activeTemplate . 'user.payment.deposit', compact('gatewayCurrency', 'pageTitle'));
-        } else {
-            return view($this->activeTemplate . 'agent.add-money.index', compact('gatewayCurrency', 'pageTitle'));
-        }
+        $pageTitle = 'Add Money';
+        $gatewayCurrency = $this->gatewayCurrencies();
+        return view($this->activeTemplate . 'user.payment.deposit', compact('gatewayCurrency', 'pageTitle'));
     }
 
     public function depositInsert(Request $request)
@@ -105,11 +89,16 @@ class PaymentController extends Controller
             'currency' => 'required',
         ]);
 
+        $user = authUser();
 
-        $user = auth()->user() || auth()->guard('agent')->user();
+
         $gate = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', Status::ENABLE);
-        })->where('method_code', $request->gateway)->where('currency', $request->currency)->first();
+        })
+            ->where('method_code', $request->gateway)
+            ->where('currency', $request->currency)
+            ->first();
+
         if (!$gate) {
             $notify[] = ['error', 'Invalid gateway'];
             return back()->withNotify($notify);
@@ -125,11 +114,15 @@ class PaymentController extends Controller
         $finalAmount = $payable * $gate->rate;
 
         $data = new Deposit();
-        if ($user = auth()->guard('agent')->user()) {
+
+        if ($user instanceof Agent) {
             $data->agent_id = $user->id;
+            $redirectTo = 'agent.addMoney.confirm';
         } else {
             $data->user_id = $user->id;
+            $redirectTo = 'user.deposit.confirm';
         }
+
         $data->method_code = $gate->method_code;
         $data->method_currency = strtoupper($gate->currency);
         $data->amount = $request->amount;
@@ -140,12 +133,10 @@ class PaymentController extends Controller
         $data->btc_wallet = "";
         $data->trx = getTrx();
         $data->save();
+
         session()->put('Track', $data->trx);
-        if (auth()->guard('agent')->check()) {
-            return to_route('agent.addMoney.confirm');
-        } else {
-            return to_route('user.deposit.confirm');
-        }
+
+        return to_route($redirectTo);
     }
 
     public function appDepositConfirm($hash)
@@ -167,7 +158,6 @@ class PaymentController extends Controller
             session()->put('Track', $data->trx);
             return to_route('user.deposit.confirm');
         }
-
     }
 
     public function depositConfirm()
@@ -263,6 +253,4 @@ class PaymentController extends Controller
         $notify[] = ['success', 'You have deposit request has been taken'];
         return to_route('user.deposit.history')->withNotify($notify);
     }
-
-
 }

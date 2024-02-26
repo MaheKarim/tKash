@@ -25,7 +25,9 @@ class ProcessController extends Controller
         $alias = $deposit->gateway->alias;
 
         $send['track'] = $deposit->trx;
-        $send['view'] = 'user.payment.'.$alias;
+
+        $send['view'] = auth()->user() ? 'user' : 'agent'  .'.payment.'.$alias;
+
         $send['method'] = 'post';
         $send['url'] = route('ipn.'.$alias);
         return json_encode($send);

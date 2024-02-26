@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 @section('panel')
-    <div class="row mb-none-30">
-        <div class="col-lg-12 col-md-12 mb-30">
+<form action="" method="POST">
+    <div class="row gy-4">
+        <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-4 col-sm-6">
@@ -53,15 +53,161 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn--primary w-100 h-45">@lang('Submit')</button>
-                        </div>
 
-                    </form>
                 </div>
             </div>
         </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">@lang('Send Money Configuration')</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Minimum Limit Per Transaction')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="min_send_money_limit" required value="{{getAmount($general->min_send_money_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Maximum Limit Per Transaction')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="max_send_money_limit" required value="{{getAmount($general->max_send_money_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Daily Limit')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="daily_send_money_limit" required value="{{getAmount($general->daily_send_money_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Monthly Limit')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="monthly_send_money_limit" required value="{{getAmount($general->monthly_send_money_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Fixed Charge')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="send_money_fixed_charge" required value="{{getAmount($general->send_money_fixed_charge)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Percent Charge')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="send_money_percent_charge" required value="{{$general->send_money_percent_charge}}">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">@lang('Cash In Configuration')</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Minimum Limit Per Transaction')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="min_cash_in_limit" required value="{{getAmount($general->min_cash_in_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Maximum Limit Per Transaction')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="max_cash_in_limit" required value="{{getAmount($general->max_cash_in_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Daily Limit')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="daily_cash_in_limit" required value="{{getAmount($general->daily_cash_in_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Monthly Limit')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="monthly_cash_in_limit" required value="{{getAmount($general->monthly_cash_in_limit)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Fixed Commission')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="cash_in_fixed_commission" required value="{{getAmount($general->cash_in_fixed_commission)}}">
+                                    <span class="input-group-text">{{__($general->cur_text)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>@lang('Percent Commission')</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="cash_in_percent_commission" required value="{{$general->cash_in_percent_commission}}">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn--primary w-100 h-45">@lang('Submit')</button>
+
+        </div>
     </div>
+</form>
+
 @endsection
 
 @push('style')

@@ -1,12 +1,13 @@
-@extends($activeTemplate.'layouts.app')
-@section('contents')
+@extends($activeTemplate.'layouts.agent_app')
+@section('content')
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title mb-0">Send Money</h5>
+            <h5 class="card-title mb-0">Cash In</h5>
         </div>
         <div class="card-body">
-            <form action="{{route('user.send.store')}}" method="POST">
+            <form action="{{ route('agent.cashIn.store') }}" method="POST">
                 @csrf
+                
                 <label> Enter Username </label>
                 <input type="text" class="form-control mt-1" name="username" placeholder="Enter Username">
                 <label> Amount </label>
@@ -17,12 +18,3 @@
         </div>
     </div>
 @endsection
-
-@push('script')
-    <script type="text/javascript">
-        (function ($) {
-            "use strict";
-            console.log('hi');
-        })(jQuery);
-    </script>
-@endpush

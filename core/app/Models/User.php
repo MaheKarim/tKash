@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(SupportTicket::class);
     }
 
+    public function sendMoney()
+    {
+        return $this->hasMany(SendMoney::class);
+    }
+
     public function fullname(): Attribute
     {
         return new Attribute(
@@ -113,9 +118,6 @@ class User extends Authenticatable
         return $query->where('balance', '>', 0);
     }
 
-    public function financial_movements()
-    {
-        return $this->hasMany(SendMoney::class);
-    }
+
 
 }

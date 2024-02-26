@@ -22,6 +22,11 @@ class LoginController extends Controller
         $this->username = $this->findUsername();
     }
 
+    protected function guard()
+    {
+        return auth()->guard('agent');
+    }
+
     public function findUsername()
     {
         $login = request()->input('username');
@@ -82,14 +87,12 @@ class LoginController extends Controller
         return to_route('agent.login')->withNotify($notify);
     }
 
-    protected function guard()
-    {
-        return auth()->guard('agent');
-    }
 
     public function authenticated(Request $request, $user)
     {
-//        dd($user);
+
+        auth()->logout();
+
         $user->tv = $user->ts == Status::VERIFIED ? Status::UNVERIFIED : Status::VERIFIED;
         $user->save();
         $ip = getRealIP();

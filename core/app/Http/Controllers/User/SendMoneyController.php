@@ -2,119 +2,106 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Models\SendMoney;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class SendMoneyController extends Controller
 {
-
     public function sendMoney(): View
     {
         $pageTitle = 'Send Money';
-        return view($this->activeTemplate . 'user.send_money.index', compact('pageTitle'));
+        return view($this->activeTemplate . 'user.send_money.form', compact('pageTitle'));
     }
 
     public function sendMoneyStore(Request $request)
     {
+        $minLimit = getAmount(gs('min_send_money_limit'));
+        $maxLimit = getAmount(gs('max_send_money_limit'));
 
         $request->validate([
             'username' => 'required',
-            'amount' => 'required|numeric|gt:0',
-            'remark' => 'nullable',
+            'amount' => "required|numeric|min:$minLimit|max:$maxLimit",
         ]);
-        $checkUser = User::where('username', '=', auth()->user()->username)->first();
-        if ($request->username == $checkUser->username) {
+
+        $sender = auth()->user();
+
+        if ($request->username == $sender->username) {
             $notify[] = ['error', 'You can not send money to yourself'];
             return back()->withNotify($notify);
         }
-        /* 1. Check Username  */
+
         $receiver = User::where('username', $request->username)->first();
+
         if (!$receiver) {
-            $notify[] = ['error', 'Receiver not found'];
+            $notify[] = ['error', 'No user found with this username'];
             return back()->withNotify($notify);
         }
 
-        $receiverId = $receiver->id;
-        $user = auth()->user();
         $amount = $request->amount;
 
-        /* 2. Check Limit Monthly */
-        if (!dailyLimitCheck($user, $amount)) {
-            $notify[] = ['error', 'You have exceeded your daily transaction limit'];
-            return back()->withNotify($notify);
-        }
+        $charge = gs()->send_money_fixed_charge + ($request->amount * gs()->send_money_percent_charge / 100);
+        $finalAmount = $amount + $charge;
 
-        /* 3. Check Limit Monthly */
-        if (!monthlyLimitCheck($user, $amount)) {
-            $notify[] = ['error', 'You have exceeded your monthly transaction limit'];
-            return back()->withNotify($notify);
-        }
-
-        /* 4. Check Balance  */
-        if ($user->balance < $amount) {
+        if ($sender->balance < $finalAmount) {
             $notify[] = ['error', 'Insufficient balance'];
             return back()->withNotify($notify);
         }
-        /* 5. Check Final Amount  */
-        if ($amount < gs()->min_trx_amount) {
-            $notify[] = ['error', 'Your requested amount is smaller than minimum amount.'];
-            return back()->withNotify($notify);
-        }
 
-        if ($amount > gs()->max_trx_amount) {
-            $notify[] = ['error', 'Your requested amount is larger than maximum amount.'];
-            return back()->withNotify($notify);
-        }
-        // Charge
-        $charge = gs()->send_money_fixed_charge + ($request->amount * gs()->send_money_percent_charge / 100);
-        $finalAmount = $amount - $charge;
+        $this->checkDailyLimit($amount);
+        $this->checkMonthlyLimit($amount);
 
-        /* 6. Update Balance  */
-        $user->balance -= $amount;
-        $user->save();
-        $receiver->balance += $finalAmount;
-        $receiver->save();
+        $trx =  getTrx();
+        $sendMoney = new SendMoney();
+        $sendMoney->user_id = $sender->id;
+        $sendMoney->receiver_id = $receiver->id;
+        $sendMoney->amount = $amount;
+        $sendMoney->charge = $charge;
+        $sendMoney->trx = $trx;
+        $sendMoney->save();
+
+        $sender->balance -= $finalAmount;
+        $sender->save();
 
         // Transaction Save For Sender
         $sendMoney = new Transaction();
-        $sendMoney->user_id = $user->id;
+        $sendMoney->user_id = $sender->id;
         $sendMoney->amount = $finalAmount;
         $sendMoney->charge = $charge;
-        $sendMoney->post_balance = getAmount($user->balance);
+        $sendMoney->post_balance = getAmount($sender->balance);
         $sendMoney->trx_type = '-';
         $sendMoney->details = 'Send money to ' . $receiver->username;
-        $sendMoney->trx = getTrx();
+        $sendMoney->trx = $trx;
         $sendMoney->remark = 'send_money';
         $sendMoney->save();
 
-        // Transaction Save For Receiver
+        $receiver->balance += $amount;
+        $receiver->save();
+
         $transaction = new Transaction();
-        $transaction->user_id = $receiverId;
+        $transaction->user_id = $receiver->id;
         $transaction->amount = $finalAmount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
         $transaction->trx_type = '+';
-        $transaction->details = 'Received money from ' . $user->username;
-        $transaction->trx = $sendMoney->trx;
+        $transaction->details = 'Received money from ' . $sender->username;
+        $transaction->trx = $trx;
         $transaction->remark = 'received_money';
         $transaction->save();
 
-
-        /* 7. Send Email  */
-        notify($user, 'SEND_MONEY', [
+        notify($receiver, 'SEND_MONEY', [
             'amount' => showAmount($amount),
-            'final_amount' => showAmount($request->final_amount),
+            'final_amount' => showAmount($request->amount),
             'receiver' => $receiver->username,
             'trx' => $sendMoney->trx,
         ]);
 
-        $notify[] = ['success', 'Sent money to ' . $receiver->username . ' successfully'];
+        $notify[] = ['success', 'Sent money to completed successfully'];
         return to_route('user.transactions')->withNotify($notify);
     }
 
@@ -125,8 +112,30 @@ class SendMoneyController extends Controller
 
         $transactions =
             Transaction::where('user_id', auth()->id())->filter(['trx_type', 'remark'])->dateFilter()->with('user')
-                ->orderBy('id', 'desc')->paginate(getPaginate());
+            ->orderBy('id', 'desc')->paginate(getPaginate());
 
         return view($this->activeTemplate . 'user.send_money.history', compact('pageTitle', 'transactions', 'remarks'));
+    }
+
+    private function checkDailyLimit($amount)
+    {
+        $user = auth()->user();
+
+        $todaysTotal = $user->sendMoney()->whereDate('created_at', today())->sum('amount');
+
+        if ($amount + $todaysTotal > gs('daily_send_money_limit')) {
+            throw ValidationException::withMessages(['error' => ['Sorry! You have exceeded the daily limit']]);
+        }
+    }
+
+    private function checkMonthlyLimit($amount)
+    {
+        $user = auth()->user();
+        $lastThirtyDay = now()->subDays(30);
+        $thisMonthTotal = $user->sendMoney()->whereBetween('created_at', [$lastThirtyDay, today()])->sum('amount');
+
+        if ($amount + $thisMonthTotal > gs('monthly_send_money_limit')) {
+            throw ValidationException::withMessages(['error' => ['Sorry! You have exceeded the monthly limit']]);
+        }
     }
 }

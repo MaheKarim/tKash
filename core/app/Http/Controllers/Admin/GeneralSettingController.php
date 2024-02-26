@@ -28,7 +28,21 @@ class GeneralSettingController extends Controller
             'cur_sym' => 'required|string|max:40',
             'base_color' => 'nullable|regex:/^[a-f0-9]{6}$/i',
             'secondary_color' => 'nullable|regex:/^[a-f0-9]{6}$/i',
-            'timezone' => 'required|integer',
+            'timezone' => 'required|numeric',
+
+            'min_send_money_limit' => 'required|numeric',
+            'max_send_money_limit' => 'required|numeric|gte:min_send_money_limit',
+            'daily_send_money_limit' => 'required|numeric|gte:max_send_money_limit',
+            'monthly_send_money_limit' => 'required|numeric|gte:daily_send_money_limit',
+            'send_money_fixed_charge' => 'required|numeric|gte:0',
+            'send_money_percent_charge' => 'required|numeric|gte:0',
+
+            'min_cash_in_limit' => 'required|numeric',
+            'max_cash_in_limit' => 'required|numeric|gte:min_cash_in_limit',
+            'daily_cash_in_limit' => 'required|numeric|gte:max_cash_in_limit',
+            'monthly_cash_in_limit' => 'required|numeric|gte:daily_cash_in_limit',
+            'cash_in_fixed_commission' => 'required|numeric|gte:0',
+            'cash_in_percent_commission' => 'required|numeric|gte:0',
         ]);
 
         $timezones = json_decode(file_get_contents(resource_path('views/admin/partials/timezone.json')));
@@ -40,6 +54,21 @@ class GeneralSettingController extends Controller
         $general->cur_sym = $request->cur_sym;
         $general->base_color = str_replace('#','',$request->base_color);
         $general->secondary_color = str_replace('#','',$request->secondary_color);
+
+        $general->min_send_money_limit = $request->min_send_money_limit;
+        $general->max_send_money_limit = $request->max_send_money_limit;
+        $general->daily_send_money_limit = $request->daily_send_money_limit;
+        $general->monthly_send_money_limit = $request->monthly_send_money_limit;
+        $general->send_money_fixed_charge = $request->send_money_fixed_charge;
+        $general->send_money_percent_charge = $request->send_money_percent_charge;
+
+        $general->min_cash_in_limit = $request->min_cash_in_limit;
+        $general->max_cash_in_limit = $request->max_cash_in_limit;
+        $general->daily_cash_in_limit = $request->daily_cash_in_limit;
+        $general->monthly_cash_in_limit = $request->monthly_cash_in_limit;
+        $general->cash_in_fixed_commission = $request->cash_in_fixed_commission;
+        $general->cash_in_percent_commission = $request->cash_in_percent_commission;
+
         $general->save();
 
         $timezoneFile = config_path('timezone.php');

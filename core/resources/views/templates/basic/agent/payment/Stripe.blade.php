@@ -1,6 +1,6 @@
 
 
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate.'layouts.agent_app')
 
 
 @section('content')

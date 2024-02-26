@@ -1,4 +1,4 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate.'layouts.agent_app')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -17,14 +17,16 @@
                                 <div class="col-md-6">
                                     <label class="form-label">@lang('Name on Card')</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form--control" name="name" value="{{ old('name') }}" required autocomplete="off" autofocus/>
+                                        <input type="text" class="form-control form--control" name="name"
+                                               value="{{ old('name') }}" required autocomplete="off" autofocus/>
                                         <span class="input-group-text"><i class="fa fa-font"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">@lang('Card Number')</label>
                                     <div class="input-group">
-                                        <input type="tel" class="form-control form--control" name="cardNumber" autocomplete="off" value="{{ old('cardNumber') }}" required autofocus/>
+                                        <input type="tel" class="form-control form--control" name="cardNumber"
+                                               autocomplete="off" value="{{ old('cardNumber') }}" required autofocus/>
                                         <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
                                     </div>
                                 </div>
@@ -33,11 +35,13 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
                                     <label class="form-label">@lang('Expiration Date')</label>
-                                    <input type="tel" class="form-control form--control" name="cardExpiry" value="{{ old('cardExpiry') }}" autocomplete="off" required/>
+                                    <input type="tel" class="form-control form--control" name="cardExpiry"
+                                           value="{{ old('cardExpiry') }}" autocomplete="off" required/>
                                 </div>
                                 <div class="col-md-6 ">
                                     <label class="form-label">@lang('CVC Code')</label>
-                                    <input type="tel" class="form-control form--control" name="cardCVC" value="{{ old('cardCVC') }}" autocomplete="off" required/>
+                                    <input type="tel" class="form-control form--control" name="cardCVC"
+                                           value="{{ old('cardCVC') }}" autocomplete="off" required/>
                                 </div>
                             </div>
                             <br>

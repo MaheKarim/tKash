@@ -1,4 +1,4 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate.'layouts.agent_app')
 
 @section('content')
     <div class="container">
@@ -9,11 +9,14 @@
                         <h5 class="card-title">{{__($pageTitle)}}</h5>
                     </div>
                     <div class="card-body  ">
-                        <form action="{{ route('user.deposit.manual.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('user.deposit.manual.update') }}" method="POST"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="text-center mt-2">@lang('You have requested') <b class="text-success">{{ showAmount($data['amount'])  }} {{__($general->cur_text)}}</b> , @lang('Please pay')
+                                    <p class="text-center mt-2">@lang('You have requested') <b
+                                            class="text-success">{{ showAmount($data['amount'])  }} {{__($general->cur_text)}}</b>
+                                        , @lang('Please pay')
                                         <b class="text-success">{{showAmount($data['final_amount']) .' '.$data['method_currency'] }} </b> @lang('for successful payment')
                                     </p>
                                     <h4 class="mb-4">@lang('Please follow the instruction below')</h4>
@@ -22,7 +25,7 @@
 
                                 </div>
 
-                                <x-viser-form identifier="id" identifierValue="{{ $gateway->form_id }}" />
+                                <x-viser-form identifier="id" identifierValue="{{ $gateway->form_id }}"/>
 
                                 <div class="col-md-12">
                                     <div class="form-group">

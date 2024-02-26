@@ -25,8 +25,8 @@ class CashOutController extends Controller
             'amount' => 'required|numeric|gt:0',
         ]);
 
-        $checkUser = User::where('username', '=', auth()->user()->username)->first();
-        if ($request->username == $checkUser->username) {
+        $user = auth()->user();
+        if ($request->username == $user->username) {
             $notify[] = ['error', 'You can not send money to yourself'];
             return back()->withNotify($notify);
         }
@@ -37,7 +37,6 @@ class CashOutController extends Controller
             return back()->withNotify($notify);
         }
 
-        $receiverId = $receiver->id;
         $user = auth()->user();
         $amount = $request->amount;
 
@@ -70,7 +69,7 @@ class CashOutController extends Controller
 
         // Transaction Save For Receiver
         $transaction = new Transaction();
-        $transaction->agent_id = $receiverId;
+        $transaction->agent_id = $receiver->id;
         $transaction->amount = $finalAmount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
@@ -86,7 +85,7 @@ class CashOutController extends Controller
 
         // Transaction Save For Receiver
         $commission = new Transaction();
-        $commission->agent_id = $receiverId;
+        $commission->agent_id = $receiver->id;
         $commission->amount = $commissionBalance;
         $commission->charge = 0;
         $commission->post_balance = getAmount($receiver->balance);

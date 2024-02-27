@@ -77,11 +77,10 @@
 
 @yield('content')
 
-
+@include($activeTemplate . 'partials.frontend_footer')
 <!-- Footer -->
 
 <!-- ==================== Footer Start Here ==================== -->
-@include($activeTemplate. 'partials.frontend_footer')
 <!-- ==================== Footer End Here ==================== -->
 
 @include($activeTemplate. 'partials.frontend_script')

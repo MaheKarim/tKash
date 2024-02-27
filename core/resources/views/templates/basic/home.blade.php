@@ -133,6 +133,7 @@
     <!--========================== FAQ's Section Start ==========================-->
     @include($activeTemplate . 'sections.faq')
     <!--========================== FAQ's Section End ==========================-->
+    @include($activeTemplate. 'sections.footer')
 
 @endsection
 

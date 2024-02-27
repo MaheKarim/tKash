@@ -178,14 +178,6 @@
             "modal": true
         }
     },
-    "subscribe": {
-        "builder": true,
-        "name": "Subscribe Section",
-        "content": {
-            "heading": "text",
-            "subheading": "text"
-        }
-    },
     "social_icon": {
         "builder": true,
         "no_selection": true,

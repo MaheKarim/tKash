@@ -65,7 +65,7 @@ class SendMoneyController extends Controller
         // Transaction Save For Sender
         $sendMoney = new Transaction();
         $sendMoney->user_id = $sender->id;
-        $sendMoney->amount = $finalAmount;
+        $sendMoney->amount = $amount;
         $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($sender->balance);
         $sendMoney->trx_type = '-';

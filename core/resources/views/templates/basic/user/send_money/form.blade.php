@@ -31,15 +31,15 @@
                     <div class="list-group">
                         <div class="list-group-item d-flex flex-wrap justify-content-between">
                             <h6>@lang('Current Balance')</h6>
-                            <span>{{ showAmount(auth()->user()->balance) }}</span>
+                            <span>{{ showAmount(auth()->user()->balance) }} {{ $general->cur_text }}</span>
                         </div>
                         <div class="list-group-item d-flex flex-wrap justify-content-between">
                             <h6>@lang('Daily Minimum Limit')</h6>
-                            <span>{{ showAmount(gs()->daily_send_money_limit) }}</span>
+                            <span>{{ showAmount(gs()->daily_send_money_limit) }} {{ $general->cur_text }}</span>
                         </div>
                         <div class="list-group-item d-flex flex-wrap justify-content-between">
                             <h6>@lang('Daily Available Limit')</h6>
-                            <span>{{ $availableLimit }}</span>
+                            <span>{{ $availableLimit }}  {{ $general->cur_text }}</span>
                         </div>
                     </div>
                 </div>

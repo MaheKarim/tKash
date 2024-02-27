@@ -31,7 +31,7 @@ class CashOutController extends Controller
             return back()->withNotify($notify);
         }
 
-        $receiver = Agent::where('username', $request->username)->first();
+        $receiver = Agent::where('username', $request->username)->active()->first();
         if (!$receiver) {
             $notify[] = ['error', 'Receiver not found'];
             return back()->withNotify($notify);

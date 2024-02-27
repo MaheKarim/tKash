@@ -30,7 +30,7 @@ class SendMoneyController extends Controller
             return back()->withNotify($notify);
         }
 
-        $receiver = User::where('username', $request->username)->first();
+        $receiver = User::where('username', $request->username)->active()->first();
 
         if (!$receiver) {
             $notify[] = ['error', 'No user found with this username'];
@@ -65,7 +65,7 @@ class SendMoneyController extends Controller
         // Transaction Save For Sender
         $sendMoney = new Transaction();
         $sendMoney->user_id = $sender->id;
-        $sendMoney->amount = $amount;
+        $sendMoney->amount = $finalAmount;
         $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($sender->balance);
         $sendMoney->trx_type = '-';
@@ -77,9 +77,10 @@ class SendMoneyController extends Controller
         $receiver->balance += $amount;
         $receiver->save();
 
+        // Transaction Save For Sender
         $transaction = new Transaction();
         $transaction->user_id = $receiver->id;
-        $transaction->amount = $finalAmount;
+        $transaction->amount = $amount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
         $transaction->trx_type = '+';
@@ -95,7 +96,7 @@ class SendMoneyController extends Controller
             'trx' => $sendMoney->trx,
         ]);
 
-        $notify[] = ['success', 'Sent money to completed successfully'];
+        $notify[] = ['success', 'Sent money completed successfully'];
         return to_route('user.transactions')->withNotify($notify);
     }
 

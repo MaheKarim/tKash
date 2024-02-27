@@ -36,7 +36,7 @@ class CashInController extends Controller
             return back()->withNotify($notify);
         }
 
-        $receiver = User::where('username', $request->username)->first();
+        $receiver = User::where('username', $request->username)->active()->first();
         if (!$receiver) {
             $notify[] = ['error', 'Receiver not found'];
             return back()->withNotify($notify);

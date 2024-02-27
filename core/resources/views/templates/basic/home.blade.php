@@ -1,223 +1,567 @@
 @extends($activeTemplate.'layouts.frontend')
 @section('content')
-    <section>
+    <!--========================== Banner Section Start ==========================-->
+    @include($activeTemplate . 'sections.banner')
+    <!--========================== Banner Section End ==========================-->
+
+    <!--========================== Coverage Section Start ==========================-->
+    <div class="client pt-50 ">
         <div class="container">
-            <div class="document-header d-flex flex-wrap justify-content-between align-items-center mb-2">
-                <div class="logo"><a href="{{ route('home') }}"><img src="{{ siteLogo() }}" alt=""></a></div>
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a href="{{ route('home') }}" class="nav-link">@lang('Home')</a>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h5 class="section-heading__title">Trusted by <span class="text--base">95,000+</span>
+                            businesses
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="client_slider owl-carousel">
+                <img src="{{ asset('assets/appy/images/clients/client-02.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-03.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-04.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-01.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-05.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-06.png') }}" alt="">
+                <img src="{{ asset('assets/appy/images/clients/client-03.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+    <!--========================== Coverage Section End ==========================-->
+    <!--========================== About Section Start ==========================-->
+    <section class="about-section py-110 bg-img" data-background-image="assets/images/thumbs/about-bg.png')}}">
+        <div class="container">
+            <div class="row align-items-center flex-wrap-reverse">
+                <div class="col-xl-6 col-lg-5">
+                    <div class="about-thumb">
+                        <img src="{{ asset('assets/appy/images/thumbs/about.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <div class="about-content">
+                        <h2 class="about-content__title">Best Sass Software For Your Appointment Service </h2>
+                        <p class="about-content__desc">
+                            AppoinLab appoinLab software for the process of scheduling and managing appointments,
+                            bookings,
+                            and reservations for businesses and organizations. These software tools are used across
+                            various
+                            industries to automate and organize the appointment-setting process, making it more
+                            efficient
+                            for both service providers and clients. Here are some key features and benefits commonly
+                            associated with appointment software:
+                        </p>
+                        <ul class="about-content__list">
+                            <li class="about-content__list-item">
+                                <span class="icon">
+                                    <i class="icon-smile"></i>
+                                </span>
+                                <div class="content">
+                                    <h3 class="number">98%</h3>
+                                    <span class="desc">Customer Satisfaction</span>
+                                </div>
                             </li>
-
-                            @php
-                                $pages = App\Models\Page::where('tempname',$activeTemplate)->where('is_default',Status::NO)->get();
-                            @endphp
-                            @foreach($pages as $k => $data)
-                                <li class="nav-item"><a href="{{route('pages',[$data->slug])}}"
-                                                        class="nav-link">{{__($data->name)}}</a></li>
-                            @endforeach
-
-
-
-                            @guest
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('contact') }}">@lang('contact')</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('user.login') }}">@lang('login')</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('user.register') }}">@lang('register')</a>
-                                </li>
-                            @endguest
-
-                            @auth
-
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                       data-bs-toggle="dropdown" aria-haspopup="true"
-                                       aria-expanded="false"> {{ auth()->user()->fullname }} <span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                            @lang('Logout')
-                                        </a>
-                                    </div>
-                                </li>
-                            @endauth
-
-
-                            @if($general->multi_language)
-                                @php
-                                    $language = App\Models\Language::all();
-                                @endphp
-                                <select class="langSel form-control form-select">
-                                    <option value="">@lang('Select One')</option>
-                                    @foreach($language as $item)
-                                        <option value="{{$item->code}}"
-                                                @if(session('lang') == $item->code) selected @endif>{{ __($item->name) }}</option>
-                                    @endforeach
-                                </select>
-                            @endif
-
-
+                            <li class="about-content__list-item">
+                                <span class="icon">
+                                    <i class="icon-subscription-member"></i>
+                                </span>
+                                <div class="content">
+                                    <h3 class="number">15<sub>M</sub></h3>
+                                    <span class="desc">Subscription Member</span>
+                                </div>
+                            </li>
+                            <li class="about-content__list-item">
+                                <span class="icon">
+                                    <i class="icon-save-cost"></i>
+                                </span>
+                                <div class="content">
+                                    <h3 class="number">40%</h3>
+                                    <span class="desc">Save Cost</span>
+                                </div>
+                            </li>
+                            <li class="about-content__list-item">
+                                <span class="icon">
+                                    <i class="icon-subscription-member"></i>
+                                </span>
+                                <div class="content">
+                                    <h3 class="number">15<sub>M</sub></h3>
+                                    <span class="desc">Subscription Member</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
-                </nav>
+                </div>
             </div>
+        </div>
+    </section>
+    <!--========================== About Section End ==========================-->
 
-            <div class="document-wrapper">
-                <div class="row g-0">
-                    <div class="col-lg-6">
-                        <div class="document-item d-flex flex-wrap">
-                            <div class="document-item__icon">
-                                <i class="lab la-readme"></i>
-                            </div>
-                            <div class="document-item__content">
-                                <h4 class="title"><a href="#0" class="text-underline base-color">Section Manager</a>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta incidunt quod ipsa
-                                    neque consequatur aspernatur earum quos est, totam cumque!</p>
-                            </div>
+    <!--========================== Feature Section Start ==========================-->
+    <section class="feature-section pb-110 bg-img" data-background-image="assets/images/thumbs/feature-bg.png')}}">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">Our Features</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center g-3">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/1.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Accept online bookings</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/2.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Notifications vai sms/email</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/3.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Client & Admin App</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/4.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Accept Payments</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/5.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Integration & API</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/6.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Custom Features</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/7.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Customization</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="feature-item text-center">
+                        <span class="feature-item__icon">
+                            <img src="{{ asset('assets/appy/images/icon-img/8.png') }}" alt="">
+                        </span>
+                        <h6 class="feature-item__title">Products & Promotions</h6>
+                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
+                            your
+                            existing site...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--========================== Feature Section End ==========================-->
+
+    <!--========================== Video Section Start ==========================-->
+    <section class="video-section pb-110 bg-img" data-background-image="assets/images/thumbs/video-bg.png')}}">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-xl-6 col-lg-7 col-md-6">
+                    <div class="video-content">
+                        <h2 class="video-content__title">Online Booking System formal service based industries</h2>
+                        <p class="video-content__desc">
+                            AppointLab AppoinLab software for the process of scheduling and managing appointments,
+                            bookings,
+                            and reservations for businesses and organizations. These software tools are used across
+                            various
+                            industries to automate and organize the appointment-setting process, making it more
+                            efficient
+                            for both service providers and clients. Here are some key features and benefits commonly
+                            associated with appointment software:
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-5 offset-xl-1 col-lg-5 col-md-6">
+                    <div class="video-thumb">
+                        <img src="{{ asset('assets/appy/images/thumbs/video-thumb.png') }}" alt="">
+                        <a href="https://player.vimeo.com/video/665903020?h=2484efd831"
+                           class="play-btn popup_video"><i class="icon-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--========================== Video Section End ==========================-->
+
+    <!--========================== Pricing Section Start ==========================-->
+    <section class="pricing-section pb-110">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">Our Pricing Plan</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center g-3">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="pricing-item">
+                        <div class="pricing-item__heading bg-img"
+                             data-background-image="assets/appy/images/thumbs/pricing-header-bg.png">
+                            <h5 class="pricing-item__category">Basic</h5>
+                            <h3 class="pricing-item__price">$8.25<sub>/month</sub></h3>
+                        </div>
+                        <div class="pricing-item__content">
+                            <ul class="pricing-item__list">
+                                <li class="pricing-item__item">Online bookings for your clients</li>
+                                <li class="pricing-item__item">Manual bookings for you</li>
+                                <li class="pricing-item__item">Mobile responsive booking website</li>
+                                <li class="pricing-item__item">Booking website in clients time zone</li>
+                                <li class="pricing-item__item">Bookings via Facebook Page</li>
+                                <li class="pricing-item__item">intergration using iframe</li>
+                                <li class="pricing-item__item">website can be disabled</li>
+                            </ul>
+                            <a href="#" class="btn btn-outline--base">Get Started Now</a>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="document-item d-flex flex-wrap">
-                            <div class="document-item__icon">
-                                <i class="lab la-readme"></i>
-                            </div>
-                            <div class="document-item__content">
-                                <h4 class="title"><a href="#0" class="text-underline">Payment Gateway</a></h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta incidunt quod ipsa
-                                    neque consequatur aspernatur earum quos est, totam cumque!</p>
-                            </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="pricing-item">
+                        <div class="pricing-item__heading bg-img"
+                             data-background-image="assets/appy/images/thumbs/pricing-header-bg.png">
+                            <h5 class="pricing-item__category">Standard</h5>
+                            <h3 class="pricing-item__price">$24.9<sub>/month</sub></h3>
+                        </div>
+                        <div class="pricing-item__content">
+                            <ul class="pricing-item__list">
+                                <li class="pricing-item__item">Online bookings for your clients</li>
+                                <li class="pricing-item__item">Manual bookings for you</li>
+                                <li class="pricing-item__item">Mobile responsive booking website</li>
+                                <li class="pricing-item__item">Booking website in clients time zone</li>
+                                <li class="pricing-item__item">Bookings via Facebook Page</li>
+                                <li class="pricing-item__item">intergration using iframe</li>
+                                <li class="pricing-item__item">website can be disabled</li>
+                            </ul>
+                            <a href="#" class="btn btn-outline--base">Get Started Now</a>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="document-item d-flex flex-wrap">
-                            <div class="document-item__icon">
-                                <i class="lab la-readme"></i>
-                            </div>
-                            <div class="document-item__content">
-                                <h4 class="title"><a href="#0" class="text-underline">Smart Code</a></h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta incidunt quod ipsa
-                                    neque consequatur aspernatur earum quos est, totam cumque!</p>
-                            </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="pricing-item">
+                        <div class="pricing-item__heading bg-img"
+                             data-background-image="assets/appy/images/thumbs/pricing-header-bg.png">
+                            <h5 class="pricing-item__category">Premium</h5>
+                            <h3 class="pricing-item__price">$49.5<sub>/month</sub></h3>
+                        </div>
+                        <div class="pricing-item__content">
+                            <ul class="pricing-item__list">
+                                <li class="pricing-item__item">Online bookings for your clients</li>
+                                <li class="pricing-item__item">Manual bookings for you</li>
+                                <li class="pricing-item__item">Mobile responsive booking website</li>
+                                <li class="pricing-item__item">Booking website in clients time zone</li>
+                                <li class="pricing-item__item">Bookings via Facebook Page</li>
+                                <li class="pricing-item__item">intergration using iframe</li>
+                                <li class="pricing-item__item">website can be disabled</li>
+                            </ul>
+                            <a href="#" class="btn btn-outline--base">Get Started Now</a>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="document-item d-flex flex-wrap">
-                            <div class="document-item__icon">
-                                <i class="lab la-readme"></i>
-                            </div>
-                            <div class="document-item__content">
-                                <h4 class="title"><a href="#0" class="text-underline">Smart UI/UX</a></h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta incidunt quod ipsa
-                                    neque consequatur aspernatur earum quos est, totam cumque!</p>
-                            </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="pricing-item">
+                        <div class="pricing-item__heading bg-img"
+                             data-background-image="assets/appy/images/thumbs/pricing-header-bg.png">
+                            <h5 class="pricing-item__category">Premium Pro</h5>
+                            <h3 class="pricing-item__price">$85.9<sub>/month</sub></h3>
+                        </div>
+                        <div class="pricing-item__content">
+                            <ul class="pricing-item__list">
+                                <li class="pricing-item__item">Online bookings for your clients</li>
+                                <li class="pricing-item__item">Manual bookings for you</li>
+                                <li class="pricing-item__item">Mobile responsive booking website</li>
+                                <li class="pricing-item__item">Booking website in clients time zone</li>
+                                <li class="pricing-item__item">Bookings via Facebook Page</li>
+                                <li class="pricing-item__item">intergration using iframe</li>
+                                <li class="pricing-item__item">website can be disabled</li>
+                            </ul>
+                            <a href="#" class="btn btn-outline--base">Get Started Now</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <!--========================== Pricing Section End ==========================-->
 
-            <div class="document-footer d-flex flex-wrap justify-content-between align-items-center mt-4">
-                <ul class="d-flex flex-wrap share-links">
-                    <li><a href="http://viserlab.com/" target="_blank"><i class="las la-globe"></i> @lang('ViserLab')
-                        </a></li>
-                    <li><a href="https://github.com/kbzaman76/laramin" target="_blank"><i
-                                class="lab la-github"></i> @lang('Github')</a></li>
-                </ul>
-                <p>@lang('Laravel') {{ app()->version() }} (@lang('System') {{ systemDetails()['version'] }})</p>
+    <!--========================== Benefit Section Start ==========================-->
+    <section class="benefit-section pb-110">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-6 col-md-7">
+                    <div class="benefit">
+                        <h2 class="benefit__title">What is Benefits of <span class="text--base">AppointLab</span>
+                            Software
+                        </h2>
+                        <p class="benefit__desc">
+                            AppointLab AppoinLab software for the process of scheduling and managing appointments,
+                            bookings,
+                            and reservations for businesses
+                        </p>
+                        <ul class="benefit__list">
+                            <li class="benefit__item">
+                                <h6 class="title">Time Efficiency</h6>
+                                <p class="desc">
+                                    Automates appointment scheduling, reducing the need for manual coordination and
+                                    communication.
+                                </p>
+                            </li>
+                            <li class="benefit__item">
+                                <h6 class="title">Improved Customer Experience</h6>
+                                <p class="desc">
+                                    Provides a convenient and user-friendly experience for clients, enhancing customer
+                                    satisfaction.
+                                </p>
+                            </li>
+                        </ul>
+                        <a href="#" class="section-link">See More Benifits</a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-5">
+                    <div class="benefit-thumb">
+                        <span class="one">
+                            <img src="{{ asset('assets/appy/images/thumbs/benefit-01.png') }}" alt="">
+                        </span>
+                        <span class="two">
+                            <img src="{{ asset('assets/appy/images/thumbs/benefit-02.png') }}" alt="">
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+    <!--========================== Benefit Section End ==========================-->
 
-    @if(@$sections->secs != null)
-        @foreach(json_decode($sections->secs) as $sec)
-            @include($activeTemplate.'sections.'.$sec)
-        @endforeach
-    @endif
+    <!--========================== Beneficial Section Start ==========================-->
+    <section class="beneficial-section py-110 bg-img"
+             data-background-image="assets/images/thumbs/beneficial-bg.png')}}">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-9">
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">Who will be Beneficial by this software</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center g-3">
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-01.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Doctor & Healthcare Provider</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-02.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Business Consultants</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-03.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Freelancers</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-04.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Lawyers & Attorneys</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-05.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Consultants</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-06.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Professional Trainer</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-07.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Financial Advisor</h6>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-xsm-6">
+                    <div class="beneficial-item text-center">
+                        <div class="beneficial-item__thumb">
+                            <img src="{{ asset('assets/appy/images/thumbs/beneficial-08.png') }}" alt="">
+                        </div>
+                        <h6 class="beneficial-item__title">Tutors & Teachers</h6>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <a href="#" class="section-link">See More Benifits</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--========================== Beneficial Section End ==========================-->
+
+    <!--========================== Testimonials Section Start ==========================-->
+    @include($activeTemplate.'sections.testimonial')
+    <!--========================== Testimonials Section End ==========================-->
+    <!--========================== FAQ's Section Start ==========================-->
+    <section class="faq-section pb-110 bg-img" data-background-image="assets/images/thumbs/faq-bg.png')}}">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-xl-6 col-md-7">
+                    <div class="faq-content">
+                        <h2 class="faq-content__title">What`s People Want to know About Us</h2>
+                        <div class="accordion custom--accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h6 class="accordion-header" id="acdnH01">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#acdnDtArId01"
+                                            aria-expanded="false" aria-controls="acdnDtArId01">
+                                        How can You Use Our Software ?
+                                    </button>
+                                </h6>
+                                <div id="acdnDtArId01" class="accordion-collapse collapse" aria-labelledby="acdnH01"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        An appointment system, also known as an appointment scheduling system, is a
+                                        software
+                                        solution or mechanism designed to facilitate the process of scheduling and
+                                        managing
+                                        appointments, bookings, or reservations.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h6 class="accordion-header" id="acdnH02">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#acdnDtArId02" aria-expanded="true"
+                                            aria-controls="acdnDtArId02">
+                                        What is Appointment System?
+                                    </button>
+                                </h6>
+                                <div id="acdnDtArId02" class="accordion-collapse collapse show"
+                                     aria-labelledby="acdnH02" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        An appointment system, also known as an appointment scheduling system, is a
+                                        software
+                                        solution or mechanism designed to facilitate the process of scheduling and
+                                        managing
+                                        appointments, bookings, or reservations.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h6 class="accordion-header" id="acdnH03">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#acdnDtArId03"
+                                            aria-expanded="false" aria-controls="acdnDtArId03">
+                                        Our Vision?
+                                    </button>
+                                </h6>
+                                <div id="acdnDtArId03" class="accordion-collapse collapse" aria-labelledby="acdnH03"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        An appointment system, also known as an appointment scheduling system, is a
+                                        software
+                                        solution or mechanism designed to facilitate the process of scheduling and
+                                        managing
+                                        appointments, bookings, or reservations.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h6 class="accordion-header" id="acdnH04">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#acdnDtArId04"
+                                            aria-expanded="false" aria-controls="acdnDtArId04">
+                                        How can You Use Our Software ?
+                                    </button>
+                                </h6>
+                                <div id="acdnDtArId04" class="accordion-collapse collapse" aria-labelledby="acdnH04"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        An appointment system, also known as an appointment scheduling system, is a
+                                        software
+                                        solution or mechanism designed to facilitate the process of scheduling and
+                                        managing
+                                        appointments, bookings, or reservations.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 offset-xl-1 col-md-5">
+                    <div class="faq-thumb">
+                        <img src="{{ asset('assets/appy/images/thumbs/faq-thumb.png') }}" class="w-100"
+                             alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--========================== FAQ's Section End ==========================-->
 
 @endsection
 
-@push('style')
-    <style>
-        p {
-            margin-bottom: 0;
-            color: #444
-        }
-
-        .document-wrapper {
-            background-color: #fff;
-            box-shadow: 0 3px 35px rgba(0, 0, 0, .1);
-            border-radius: 7px;
-            overflow: hidden;
-
-        }
-
-        div[class*='col']:nth-child(odd) .document-item {
-            border-right: 1px solid rgba(0, 0, 0, .1)
-        }
-
-        div[class*='col-lg-12']:nth-child(odd) .document-item {
-            border-right: 0;
-        }
-
-        div[class*='col']:nth-child(1) .document-item {
-            border-top: 0;
-        }
-
-        div[class*='col']:nth-child(2) .document-item {
-            border-top: 0;
-        }
-
-        .document-item {
-            background-color: #fff;
-            padding: 45px 35px;
-            border-top: 1px solid rgba(0, 0, 0, .1);
-            height: 100%;
-        }
-
-        .document-item__icon {
-            font-size: 32px;
-            width: 35px;
-            line-height: 1px;
-        }
-
-        .document-item__content {
-            width: calc(100% - 35px);
-            padding-left: 15px;
-        }
-
-        .document-item__content .title {
-            margin-bottom: 13px;
-        }
-
-        .document-item__content .title a {
-            color: #111;
-            display: inline-block;
-        }
-
-        .document-footer ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .share-links li a {
-            color: #444
-        }
-
-        .share-links li:not(:last-child) {
-            padding-right: 25px;
-        }
-
-        .logo img {
-            max-width: 220px;
-        }
-    </style>
-@endpush

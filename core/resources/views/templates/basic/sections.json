@@ -4,6 +4,11 @@
         "no_selection":true,
         "name": "Banner Section",
         "content": {
+            "images": {
+                "banner_image" : {
+                    "size":"1028x735"
+                }
+            },
             "heading": "text",
             "subheading": "text"
         }

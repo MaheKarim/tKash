@@ -78,6 +78,15 @@
             "modal": true
         }
     },
+    "video": {
+        "builder": true,
+        "name": "Video Section",
+        "content": {
+            "heading": "text",
+            "subheading": "textarea",
+            "video_link": "url"
+        }
+    },
     "service": {
         "builder": true,
         "name": "Service Section",

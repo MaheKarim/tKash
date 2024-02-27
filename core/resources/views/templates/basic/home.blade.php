@@ -16,34 +16,7 @@
     <!--========================== Feature Section End ==========================-->
 
     <!--========================== Video Section Start ==========================-->
-    <section class="video-section pb-110 bg-img" data-background-image="assets/images/thumbs/video-bg.png')}}">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-6 col-lg-7 col-md-6">
-                    <div class="video-content">
-                        <h2 class="video-content__title">Online Booking System formal service based industries</h2>
-                        <p class="video-content__desc">
-                            AppointLab AppoinLab software for the process of scheduling and managing appointments,
-                            bookings,
-                            and reservations for businesses and organizations. These software tools are used across
-                            various
-                            industries to automate and organize the appointment-setting process, making it more
-                            efficient
-                            for both service providers and clients. Here are some key features and benefits commonly
-                            associated with appointment software:
-                        </p>
-                    </div>
-                </div>
-                <div class="col-xl-5 offset-xl-1 col-lg-5 col-md-6">
-                    <div class="video-thumb">
-                        <img src="{{ asset('assets/appy/images/thumbs/video-thumb.png') }}" alt="">
-                        <a href="https://player.vimeo.com/video/665903020?h=2484efd831"
-                           class="play-btn popup_video"><i class="icon-play"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include($activeTemplate . 'sections.video')
     <!--========================== Video Section End ==========================-->
 
     <!--========================== Pricing Section Start ==========================-->

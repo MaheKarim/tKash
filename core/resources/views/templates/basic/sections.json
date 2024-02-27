@@ -126,50 +126,6 @@
             "modal": true
         }
     },
-    "service": {
-        "builder": true,
-        "name": "Service Section",
-        "content": {
-            "select": {
-                "name": "trx_type",
-                "options": {
-                    "deposit": "Deposit",
-                    "withdraw": "Withdraw"
-                }
-            },
-            "heading": "text",
-            "subheading": "text"
-        },
-        "element": {
-            "select": {
-                "name": "trx_type",
-                "options": {
-                    "deposit": "Deposit",
-                    "withdraw": "Withdraw"
-                }
-            },
-            "service_icon": "icon",
-            "title": "text",
-            "description": "textarea",
-            "modal": false
-        }
-    },
-    "counter": {
-        "builder": true,
-        "name": "Counter Section",
-        "content": {
-            "heading": "text",
-            "subheading": "text"
-        },
-        "element": {
-            "title": "text",
-            "counter_digit": "text",
-            "sub_title": "text",
-            "counter_icon": "icon",
-            "counter_icon_2": "icon",
-            "modal": false
-        }
-    },
     "policy_pages": {
         "builder": true,
         "no_selection": true,
@@ -185,12 +141,16 @@
         "name": "FAQ Section",
         "content": {
             "heading": "text",
-            "subheading": "text"
+            "images": {
+                "faq_image": {
+                    "size": "535x535"
+                }
+            }
         },
         "element": {
             "question": "text",
-            "answer": "textarea-nic",
-            "modal": false
+            "answer": "textarea",
+            "modal": true
         }
     },
     "blog": {

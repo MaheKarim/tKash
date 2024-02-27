@@ -35,8 +35,8 @@
 <header class="header" id="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand logo" href="index.html"><img
-                    src="{{ asset('assets/appy/images/logo/logo.png') }}" alt=""></a>
+            <a class="navbar-brand logo" href="{{ url('/') }}"><img
+                    src="{{ siteLogo() }}" alt="site_logo"></a>
             <button class="navbar-toggler header-button" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -46,10 +46,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-menu ms-auto align-items-lg-center">
                     <li class="nav-item header-access-button d-block d-lg-none text-end">
-                        <a class="btn btn--base rounded account-btn" href="login.html"><i class="icon-user"></i></a>
+                        <a class="btn btn--base rounded account-btn" href="{{ url('/user/login') }}"><i
+                                class="icon-user"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link" aria-current="page" href="{{ url('/') }}">Home</a>
                     </li>
 
                     @php
@@ -61,9 +62,10 @@
                     @endforeach
 
                     <li class="nav-item header-access-button">
-                        <a class="btn btn--base rounded account-btn d-none d-lg-block" href="login.html"><i
+                        <a class="btn btn--base rounded account-btn d-none d-lg-block"
+                           href="{{ url('/user/login') }}"><i
                                 class="icon-user"></i></a>
-                        <a href="#" class="btn btn--base">Get Started Now</a>
+                        <a href="{{ url('/user/register') }}" class="btn btn--base">Get Started Now</a>
                     </li>
                 </ul>
             </div>

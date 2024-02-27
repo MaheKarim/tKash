@@ -120,51 +120,7 @@
     <!--========================== Pricing Section End ==========================-->
 
     <!--========================== Benefit Section Start ==========================-->
-    <section class="benefit-section pb-110">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-lg-6 col-md-7">
-                    <div class="benefit">
-                        <h2 class="benefit__title">What is Benefits of <span class="text--base">AppointLab</span>
-                            Software
-                        </h2>
-                        <p class="benefit__desc">
-                            AppointLab AppoinLab software for the process of scheduling and managing appointments,
-                            bookings,
-                            and reservations for businesses
-                        </p>
-                        <ul class="benefit__list">
-                            <li class="benefit__item">
-                                <h6 class="title">Time Efficiency</h6>
-                                <p class="desc">
-                                    Automates appointment scheduling, reducing the need for manual coordination and
-                                    communication.
-                                </p>
-                            </li>
-                            <li class="benefit__item">
-                                <h6 class="title">Improved Customer Experience</h6>
-                                <p class="desc">
-                                    Provides a convenient and user-friendly experience for clients, enhancing customer
-                                    satisfaction.
-                                </p>
-                            </li>
-                        </ul>
-                        <a href="#" class="section-link">See More Benifits</a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-5">
-                    <div class="benefit-thumb">
-                        <span class="one">
-                            <img src="{{ asset('assets/appy/images/thumbs/benefit-01.png') }}" alt="">
-                        </span>
-                        <span class="two">
-                            <img src="{{ asset('assets/appy/images/thumbs/benefit-02.png') }}" alt="">
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include($activeTemplate. 'sections.benefit')
     <!--========================== Benefit Section End ==========================-->
 
     <!--========================== Beneficial Section Start ==========================-->

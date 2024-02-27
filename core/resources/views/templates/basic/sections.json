@@ -87,6 +87,29 @@
             "video_link": "url"
         }
     },
+    "benefit": {
+        "builder": true,
+        "name": "Benefit Section",
+        "content": {
+            "heading_start": "text",
+            "color_heading": "text",
+            "heading_end": "text",
+            "subheading": "textarea",
+            "images": {
+                "benefit_images_1": {
+                    "size": "423x423"
+                },
+                "benefit_images_2": {
+                    "size": "423x423"
+                }
+            }
+        },
+        "element": {
+            "heading": "text",
+            "subheading": "text",
+            "modal": true
+        }
+    },
     "service": {
         "builder": true,
         "name": "Service Section",

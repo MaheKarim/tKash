@@ -24,7 +24,7 @@
 
                             <li class="about-content__list-item">
                                 <span class="icon">
-                                   {{ @$data->data_values->title }}
+                                    @php echo @$data->data_values->title @endphp
                                 </span>
                                 <div class="content">
                                     <h3 class="number">{{ __(@$data->data_values->heading) }}</h3>

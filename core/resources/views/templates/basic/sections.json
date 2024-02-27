@@ -110,6 +110,22 @@
             "modal": true
         }
     },
+    "beneficial": {
+        "builder": true,
+        "name": "Beneficial Section",
+        "content": {
+            "heading": "text"
+        },
+        "element": {
+            "heading": "text",
+            "images": {
+                "beneficial_images_1": {
+                    "size": "250x230"
+                }
+            },
+            "modal": true
+        }
+    },
     "service": {
         "builder": true,
         "name": "Service Section",

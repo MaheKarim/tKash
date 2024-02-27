@@ -7,6 +7,9 @@
             "images": {
                 "banner_image": {
                     "size": "1028x735"
+                },
+                "banner_bg": {
+                    "size": "1920x1140"
                 }
             },
             "title": "text",

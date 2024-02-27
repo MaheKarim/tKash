@@ -132,7 +132,7 @@ class SendMoneyController extends Controller
         }
     }
 
-    public function history(): View
+    public function history()
     {
         $pageTitle = 'Transactions';
         $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');

@@ -27,7 +27,7 @@ class CashInController extends Controller
         $maxLimit = getAmount(gs('max_cash_in_limit'));
         $request->validate([
             'username' => 'required',
-            'amount' => 'required|numeric|min:$minLimit|max:$maxLimit',
+            'amount' => "required|numeric|min:$minLimit|max:$maxLimit",
         ]);
 
         $sender = auth()->guard('agent')->user();
@@ -44,10 +44,9 @@ class CashInController extends Controller
 
         $amount = $request->amount;
 
-        $charge = gs()->cash_in_fixed_commission + ($amount * gs()->cash_in_percent_commission) / 100;
-        $finalAmount = $amount + $charge;
+        $commission = gs()->cash_in_fixed_commission + ($amount * gs()->cash_in_percent_commission) / 100;
 
-        if ($sender->balance < $finalAmount) {
+        if ($sender->balance < $amount) {
             $notify[] = ['error', 'Insufficient balance'];
             return back()->withNotify($notify);
         }
@@ -55,7 +54,7 @@ class CashInController extends Controller
         $this->checkDailyLimit($amount, $sender);
         $this->checkMonthlyLimit($amount, $sender);
 
-        $sender->balance -= $finalAmount;
+        $sender->balance -= $amount;
         $sender->save();
 
         $receiver->balance += $amount;
@@ -66,7 +65,7 @@ class CashInController extends Controller
         $cashIn = new Transaction();
         $cashIn->agent_id = $sender->id;
         $cashIn->amount = $amount;
-        $cashIn->charge = $charge;
+        $cashIn->charge = 0;
         $cashIn->post_balance = getAmount($sender->balance);
         $cashIn->trx_type = '-';
         $cashIn->details = 'Cash In to ' . $receiver->username;
@@ -74,12 +73,12 @@ class CashInController extends Controller
         $cashIn->remark = 'cash_out';
         $cashIn->save();
 
-        $sender->commission_balance += $charge;
+        $sender->commission_balance += $commission;
         $sender->save();
         // Commission Balance For Agent
         $agentCommission = new Transaction();
         $agentCommission->agent_id = $sender->id;
-        $agentCommission->amount = $charge;
+        $agentCommission->amount = $commission;
         $agentCommission->charge = 0;
         $agentCommission->post_balance = getAmount($sender->balance);
         $agentCommission->trx_type = '+';

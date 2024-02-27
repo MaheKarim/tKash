@@ -7,13 +7,17 @@
         <div class="card-body">
             <form action="{{ route('agent.cashIn.store') }}" method="POST">
                 @csrf
-                
-                <label> Enter Username </label>
-                <input type="text" class="form-control mt-1" name="username" placeholder="Enter Username">
-                <label> Amount </label>
-                <input type="number" class="form-control mt-1" name="amount" placeholder="Enter Amount">
-
-                <button class="btn btn-primary btn-sm mt-3" type="submit">Submit</button>
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label> Enter Username </label>
+                        <input type="text" class="form-control mt-1" name="username" placeholder="Enter Username">
+                    </div>
+                    <div class="mb-3">
+                        <label> Amount </label>
+                        <input type="number" class="form-control mt-1" name="amount" placeholder="Enter Amount">
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Submit</button>
             </form>
         </div>
     </div>

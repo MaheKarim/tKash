@@ -56,6 +56,7 @@
                                 <th>@lang('Transacted')</th>
                                 <th>@lang('Amount')</th>
                                 <th>@lang('Post Balance')</th>
+                                <th>@lang('Commission Balance')</th>
                                 <th>@lang('Details')</th>
                             </tr>
                             </thead>
@@ -87,6 +88,9 @@
 
                                     <td class="budget">
                                         {{ showAmount($trx->post_balance) }} {{ __($general->cur_text) }}
+                                    </td>
+                                    <td class="budget">
+                                        {{ showAmount(auth()->guard('agent')->user()->commission_balance) }} {{ __($general->cur_text) }}
                                     </td>
 
                                     <td>{{ __($trx->details) }}</td>

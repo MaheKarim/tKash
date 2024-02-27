@@ -8,112 +8,11 @@
     @include($activeTemplate . 'sections.coverage')
     <!--========================== Coverage Section End ==========================-->
     <!--========================== About Section Start ==========================-->
-    @include($activeTemplate.  'sections.about')
-
+    @include($activeTemplate . 'sections.about')
     <!--========================== About Section End ==========================-->
 
     <!--========================== Feature Section Start ==========================-->
-    <section class="feature-section pb-110 bg-img" data-background-image="assets/images/thumbs/feature-bg.png')}}">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading">
-                        <h2 class="section-heading__title">Our Features</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center g-3">
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/1.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Accept online bookings</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/2.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Notifications vai sms/email</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/3.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Client & Admin App</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/4.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Accept Payments</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/5.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Integration & API</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/6.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Custom Features</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/7.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Customization</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="feature-item text-center">
-                        <span class="feature-item__icon">
-                            <img src="{{ asset('assets/appy/images/icon-img/8.png') }}" alt="">
-                        </span>
-                        <h6 class="feature-item__title">Products & Promotions</h6>
-                        <p class="feature-item__desc">Your own mobile-optimised booking website or integration with
-                            your
-                            existing site...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include($activeTemplate . 'sections.feature')
     <!--========================== Feature Section End ==========================-->
 
     <!--========================== Video Section Start ==========================-->

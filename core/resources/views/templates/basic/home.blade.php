@@ -8,70 +8,8 @@
     @include($activeTemplate . 'sections.coverage')
     <!--========================== Coverage Section End ==========================-->
     <!--========================== About Section Start ==========================-->
-    <section class="about-section py-110 bg-img" data-background-image="assets/images/thumbs/about-bg.png')}}">
-        <div class="container">
-            <div class="row align-items-center flex-wrap-reverse">
-                <div class="col-xl-6 col-lg-5">
-                    <div class="about-thumb">
-                        <img src="{{ asset('assets/appy/images/thumbs/about.png') }}" alt="">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <div class="about-content">
-                        <h2 class="about-content__title">Best Sass Software For Your Appointment Service </h2>
-                        <p class="about-content__desc">
-                            AppoinLab appoinLab software for the process of scheduling and managing appointments,
-                            bookings,
-                            and reservations for businesses and organizations. These software tools are used across
-                            various
-                            industries to automate and organize the appointment-setting process, making it more
-                            efficient
-                            for both service providers and clients. Here are some key features and benefits commonly
-                            associated with appointment software:
-                        </p>
-                        <ul class="about-content__list">
-                            <li class="about-content__list-item">
-                                <span class="icon">
-                                    <i class="icon-smile"></i>
-                                </span>
-                                <div class="content">
-                                    <h3 class="number">98%</h3>
-                                    <span class="desc">Customer Satisfaction</span>
-                                </div>
-                            </li>
-                            <li class="about-content__list-item">
-                                <span class="icon">
-                                    <i class="icon-subscription-member"></i>
-                                </span>
-                                <div class="content">
-                                    <h3 class="number">15<sub>M</sub></h3>
-                                    <span class="desc">Subscription Member</span>
-                                </div>
-                            </li>
-                            <li class="about-content__list-item">
-                                <span class="icon">
-                                    <i class="icon-save-cost"></i>
-                                </span>
-                                <div class="content">
-                                    <h3 class="number">40%</h3>
-                                    <span class="desc">Save Cost</span>
-                                </div>
-                            </li>
-                            <li class="about-content__list-item">
-                                <span class="icon">
-                                    <i class="icon-subscription-member"></i>
-                                </span>
-                                <div class="content">
-                                    <h3 class="number">15<sub>M</sub></h3>
-                                    <span class="desc">Subscription Member</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include($activeTemplate.  'sections.about')
+
     <!--========================== About Section End ==========================-->
 
     <!--========================== Feature Section Start ==========================-->

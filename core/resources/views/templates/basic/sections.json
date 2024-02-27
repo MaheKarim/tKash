@@ -31,32 +31,28 @@
             "modal": true
         }
     },
-    "feature": {
-        "builder": true,
-        "name": "Feature Section",
-        "content": {
-            "heading": "text",
-            "subheading": "text"
-        }
-    },
     "about": {
         "builder": true,
         "name": "About Us",
         "content": {
+            "heading": "text",
+            "description": "textarea",
             "images": {
                 "background_image": {
-                    "size": "500x500",
+                    "size": "1920x1010",
                     "thumb": "100x100"
                 },
                 "about_image": {
-                    "size": "500x500",
+                    "size": "650x650",
                     "thumb": "100x100"
                 }
-            },
+            }
+        },
+        "element": {
+            "title": "icon",
             "heading": "text",
             "subheading": "text",
-            "description": "textarea",
-            "about_icon": "icon"
+            "modal": true
         }
     },
     "about_dark": {

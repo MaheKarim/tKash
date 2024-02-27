@@ -15,7 +15,8 @@
                     <span class="banner-shape two"><img src="{{ asset('assets/appy/images/shapes/3.png') }}" alt=""></span>
                     <span class="banner-shape three"><img src="{{ asset('assets/appy/images/shapes/4.png') }}" alt=""></span>
                     <h1 class="banner-content__title">
-                        <span class="text--base">{{ @$banner->data_values->heading }}</span>
+                        <span class="text--base">{{ @$banner->data_values->title }}</span>
+                        {{ @$banner->data_values->heading }}
                     </h1>
                     <p class="banner-content__desc">
                         {{ @$banner->data_values->subheading }}

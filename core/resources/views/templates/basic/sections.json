@@ -1,16 +1,34 @@
 {
     "banner": {
         "builder": true,
-        "no_selection":true,
+        "no_selection": true,
         "name": "Banner Section",
         "content": {
             "images": {
-                "banner_image" : {
-                    "size":"1028x735"
+                "banner_image": {
+                    "size": "1028x735"
                 }
             },
+            "title": "text",
             "heading": "text",
             "subheading": "text"
+        }
+    },
+    "coverage": {
+        "builder": true,
+        "name": "Coverage Section",
+        "content": {
+            "heading": "text",
+            "color_content": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "coverage_images": {
+                    "size": "170x35"
+                }
+            },
+            "modal": true
         }
     },
     "feature": {
@@ -19,26 +37,20 @@
         "content": {
             "heading": "text",
             "subheading": "text"
-        },
-        "element": {
-            "title": "text",
-            "description": "textarea",
-            "feature_icon": "icon",
-            "modal": true
         }
     },
     "about": {
         "builder": true,
         "name": "About Us",
         "content": {
-            "images":{
-                "background_image":{
-                    "size":"500x500",
-                    "thumb":"100x100"
+            "images": {
+                "background_image": {
+                    "size": "500x500",
+                    "thumb": "100x100"
                 },
-                "about_image":{
-                    "size":"500x500",
-                    "thumb":"100x100"
+                "about_image": {
+                    "size": "500x500",
+                    "thumb": "100x100"
                 }
             },
             "heading": "text",
@@ -51,29 +63,28 @@
         "builder": false,
         "name": "About Us Dark",
         "content": {
-
         }
     },
     "service": {
         "builder": true,
         "name": "Service Section",
         "content": {
-            "select":{
-                "name":"trx_type",
-                "options":{
-                  "deposit":"Deposit",
-                  "withdraw":"Withdraw"
+            "select": {
+                "name": "trx_type",
+                "options": {
+                    "deposit": "Deposit",
+                    "withdraw": "Withdraw"
                 }
             },
             "heading": "text",
             "subheading": "text"
         },
         "element": {
-            "select":{
-                "name":"trx_type",
-                "options":{
-                  "deposit":"Deposit",
-                  "withdraw":"Withdraw"
+            "select": {
+                "name": "trx_type",
+                "options": {
+                    "deposit": "Deposit",
+                    "withdraw": "Withdraw"
                 }
             },
             "service_icon": "icon",
@@ -100,7 +111,7 @@
     },
     "policy_pages": {
         "builder": true,
-        "no_selection":true,
+        "no_selection": true,
         "name": "Policy Pages",
         "element": {
             "title": "text",
@@ -129,14 +140,14 @@
             "subheading": "text"
         },
         "element": {
-            "images":{
-                "blog_image_1":{
-                    "size":"728x465",
-                    "thumb":"120x80"
+            "images": {
+                "blog_image_1": {
+                    "size": "728x465",
+                    "thumb": "120x80"
                 },
-                "blog_image_2":{
-                    "size":"728x465",
-                    "thumb":"120x80"
+                "blog_image_2": {
+                    "size": "728x465",
+                    "thumb": "120x80"
                 }
             },
             "title": "text",

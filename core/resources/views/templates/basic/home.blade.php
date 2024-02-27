@@ -5,28 +5,7 @@
     <!--========================== Banner Section End ==========================-->
 
     <!--========================== Coverage Section Start ==========================-->
-    <div class="client pt-50 ">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="section-heading">
-                        <h5 class="section-heading__title">Trusted by <span class="text--base">95,000+</span>
-                            businesses
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="client_slider owl-carousel">
-                <img src="{{ asset('assets/appy/images/clients/client-02.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-03.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-04.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-01.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-05.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-06.png') }}" alt="">
-                <img src="{{ asset('assets/appy/images/clients/client-03.png') }}" alt="">
-            </div>
-        </div>
-    </div>
+    @include($activeTemplate . 'sections.coverage')
     <!--========================== Coverage Section End ==========================-->
     <!--========================== About Section Start ==========================-->
     <section class="about-section py-110 bg-img" data-background-image="assets/images/thumbs/about-bg.png')}}">

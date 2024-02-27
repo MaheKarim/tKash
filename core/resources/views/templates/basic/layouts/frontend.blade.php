@@ -60,25 +60,6 @@
                                                 class="nav-link">{{__($data->name)}}</a></li>
                     @endforeach
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="about.html">About</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="#">Features</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="#">Pricing</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="#">Benefit</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="#">Beneficial</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" aria-current="page" href="#">Faq </a>--}}
-{{--                    </li>--}}
-
                     <li class="nav-item header-access-button">
                         <a class="btn btn--base rounded account-btn d-none d-lg-block" href="login.html"><i
                                 class="icon-user"></i></a>

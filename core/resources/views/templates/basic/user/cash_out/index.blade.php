@@ -108,7 +108,7 @@
                     $('.rate-element').removeClass('d-flex');
                     $('.in-site-cur').removeClass('d-flex');
                 }
-                var receivable = parseFloat((parseFloat(amount) - parseFloat(charge))).toFixed(2);
+                var receivable = parseFloat((parseFloat(amount) + parseFloat(charge))).toFixed(2);
                 $('.payable').text(receivable);
                 var final_amount = parseFloat(parseFloat(receivable) * rate).toFixed(toFixedDigit);
                 $('.final_amount').text(final_amount);

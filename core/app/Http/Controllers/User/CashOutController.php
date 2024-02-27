@@ -15,7 +15,7 @@ class CashOutController extends Controller
     {
         $pageTitle = 'Cash Out';
         $data = TkashMethod::find(2);
-        return view($this->activeTemplate . 'user.cash-out.index', compact('pageTitle', 'data'));
+        return view($this->activeTemplate . 'user.cash_out.index', compact('pageTitle', 'data'));
     }
 
     public function cashOutStore(Request $request)
@@ -45,20 +45,19 @@ class CashOutController extends Controller
             return back()->withNotify($notify);
         }
 
-        $cashOutCharge = TkashMethod::findOrFail(2);
-        $charge = $cashOutCharge->fixed_charge + ($request->amount * $cashOutCharge->percent_charge) / 100;
-        $finalAmount = $amount - $charge;
+        $charge = gs()->cash_out_fixed_commission + ($amount * gs()->cash_out_percent_commission) / 100;
+        $finalAmount = $amount + $charge;
 
-        $user->balance -= $amount;
+        $user->balance -= $finalAmount;
         $user->save();
 
-        $receiver->balance += $finalAmount;
+        $receiver->balance += $amount;
         $receiver->save();
 
         // Transaction Save For Sender
         $sendMoney = new Transaction();
         $sendMoney->user_id = $user->id;
-        $sendMoney->amount = $finalAmount;
+        $sendMoney->amount = $amount;
         $sendMoney->charge = $charge;
         $sendMoney->post_balance = getAmount($user->balance);
         $sendMoney->trx_type = '-';
@@ -70,7 +69,7 @@ class CashOutController extends Controller
         // Transaction Save For Receiver
         $transaction = new Transaction();
         $transaction->agent_id = $receiver->id;
-        $transaction->amount = $finalAmount;
+        $transaction->amount = $amount;
         $transaction->charge = 0;
         $transaction->post_balance = getAmount($receiver->balance);
         $transaction->trx_type = '+';
@@ -79,7 +78,8 @@ class CashOutController extends Controller
         $transaction->remark = 'received_money';
         $transaction->save();
 
-        $commissionBalance = ($request->amount * $cashOutCharge->percent_charge) / 100;
+        // Question Ache
+        $commissionBalance = ($request->amount * gs()->cash_out_percent_commission) / 100;
         $receiver->commission_balance += $commissionBalance;
         $receiver->save();
 
